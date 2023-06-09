@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "QuitrMovies"
+rootProject.name = "Snac"
 include("app")

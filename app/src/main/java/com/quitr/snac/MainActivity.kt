@@ -1,4 +1,4 @@
-package com.quitr.quitrmovies
+package com.quitr.snac
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,13 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.quitr.quitrmovies.ui.theme.QuitrMoviesTheme
+import com.quitr.snac.ui.theme.SnacTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        Win
         super.onCreate(savedInstanceState)
         setContent {
-            QuitrMoviesTheme {
+            SnacTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -40,7 +41,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    QuitrMoviesTheme {
+    SnacTheme {
         Greeting("Android")
     }
 }

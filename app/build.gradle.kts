@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.quitr.quitrmovies"
+    namespace = "com.quitr.snac"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.quitr.quitrmovies"
+        applicationId = "com.quitr.snac"
         minSdk = 24
         targetSdk = 33
         versionCode = 1

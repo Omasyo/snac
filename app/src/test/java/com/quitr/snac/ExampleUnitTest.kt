@@ -1,4 +1,4 @@
-package com.quitr.quitrmovies
+package com.quitr.snac
 
 import org.junit.Test
 
