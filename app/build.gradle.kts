@@ -59,7 +59,6 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("com.google.accompanist:accompanist-navigation-animation:0.30.1")
-    implementation("com.google.accompanist:accompanist-placeholder-material3:0.30.1")
     implementation(project(mapOf("path" to ":core:data")))
     implementation(project(mapOf("path" to ":core:ui")))
     testImplementation("junit:junit:4.13.2")
