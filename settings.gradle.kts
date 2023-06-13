@@ -14,3 +14,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Snac"
 include("app")
+include(":core:data")
+include(":core:ui")
+include(":feature")

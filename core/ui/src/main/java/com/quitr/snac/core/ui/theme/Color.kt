@@ -1,4 +1,4 @@
-package com.quitr.snac.ui.theme
+package com.quitr.snac.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

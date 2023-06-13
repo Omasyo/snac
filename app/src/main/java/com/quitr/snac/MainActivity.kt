@@ -11,7 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
-import com.quitr.snac.ui.theme.SnacTheme
+import com.quitr.snac.core.ui.theme.SnacTheme
+
+//import com.quitr.snac.core.SnacTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
