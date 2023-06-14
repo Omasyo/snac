@@ -42,7 +42,7 @@ fun ShowCard(
         onClick = onClick,
         modifier,
     ) {
-        Box(Modifier.weight(18f)) {
+        Box(Modifier.weight(1f)) {
 
             AsyncImage(
                 contentDescription = stringResource(R.string.poster_description),
@@ -73,8 +73,8 @@ fun ShowCard(
         Text(
             title,
             Modifier
-                .weight(7f)
                 .padding(8f.dp),
+            maxLines = 2,
             style = MaterialTheme.typography.titleSmall,
             overflow = TextOverflow.Ellipsis
         )
@@ -83,7 +83,7 @@ fun ShowCard(
 
 @Preview(device = "spec:width=120dp,height=200dp,dpi=440")
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES,
-    device = "spec:width=120dp,height=200dp,dpi=440"
+    device = "spec:width=120dp,height=200dp,dpi=440", fontScale = 1.0f
 )
 @Composable
 fun ShowCardPreview() {

@@ -52,23 +52,23 @@ fun PersonCard(
             placeholder = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
             error = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
             contentScale = ContentScale.Crop,
-            modifier = Modifier.weight(16f)
+            modifier = Modifier.weight(1f)
         )
         Column(
             Modifier
-                .weight(9f)
                 .padding(8f.dp),
             verticalArrangement = Arrangement.Center
         ) {
             Text(
                 name,
                 style = MaterialTheme.typography.titleSmall,
-
+maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
                 role,
                 style = MaterialTheme.typography.labelSmall,
+                maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         }
@@ -77,7 +77,7 @@ fun PersonCard(
 
 @Preview(device = "spec:width=120dp,height=200dp,dpi=440")
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES,
-    device = "spec:width=120dp,height=200dp,dpi=440"
+    device = "spec:width=120dp,height=200dp,dpi=440", fontScale = 1.3f
 )
 @Composable
 fun PersonCardPreview() {
