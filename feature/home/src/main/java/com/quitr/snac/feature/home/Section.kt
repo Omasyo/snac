@@ -1,5 +1,6 @@
 package com.quitr.snac.feature.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,37 +22,42 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.data.Show
 import com.quitr.snac.core.data.ShowType
 import com.quitr.snac.core.ui.ShowCard
 import com.quitr.snac.core.ui.theme.SnacTheme
+import java.util.Locale
 
 @Composable
 internal fun Section(
     modifier: Modifier = Modifier,
     name: String,
     type: ShowType,
-    shows: List<Show>
+    shows: List<Show>,
+    onExpand: () -> Unit
 ) {
     Column(modifier) {
         Row(
-            Modifier.padding(horizontal = 16f.dp),
+            Modifier
+                .clickable(onClick = onExpand)
+                .padding(horizontal = 16f.dp, vertical = 8f.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(name)
+            Text(name, style = MaterialTheme.typography.titleMedium)
             Spacer(Modifier.width(4f.dp))
             TypeContainer(type)
             Spacer(Modifier.weight(1f))
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(Icons.Default.ArrowForward, contentDescription = null)
-            }
+            Icon(Icons.Default.ArrowForward, contentDescription = null)
+
         }
-        Spacer(Modifier.height(8f.dp))
+//        Spacer(Modifier.height(8f.dp))
         LazyRow(
             contentPadding = PaddingValues(horizontal = 16f.dp),
-                horizontalArrangement = Arrangement.spacedBy(8f.dp)
+            horizontalArrangement = Arrangement.spacedBy(8f.dp)
         ) {
             items(shows) { show ->
                 ShowCard(
@@ -73,7 +79,12 @@ private fun TypeContainer(type: ShowType) {
         color = MaterialTheme.colorScheme.surfaceVariant,
         shape = MaterialTheme.shapes.extraSmall
     ) {
-        Text(type.name, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(
+            type.name.uppercase(),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.labelSmall,
+            modifier = Modifier.padding(horizontal = 4f.dp, vertical = 2f.dp)
+        )
     }
 }
 
@@ -81,7 +92,7 @@ private fun TypeContainer(type: ShowType) {
 @Composable
 private fun SectionPreview() {
     SnacTheme {
-        Section(name = "Section", type = ShowType.Movie, shows = shows)
+        Section(name = "Section", type = ShowType.Movie, shows = shows, onExpand = {})
     }
 }
 
