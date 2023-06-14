@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -29,16 +30,18 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.quitr.snac.core.ui.theme.SnacTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PersonCard(
+    modifier: Modifier = Modifier,
     name: String,
     role: String,
-    photoUrl: String
+    photoUrl: String,
+    onClick: () -> Unit
 ) {
     OutlinedCard(
-        Modifier
-            .width(120f.dp)
-            .height(200f.dp)
+        onClick =  onClick,
+        modifier
     ) {
         AsyncImage(
             contentDescription = stringResource(R.string.poster_description),
@@ -49,11 +52,11 @@ fun PersonCard(
             placeholder = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
             error = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
             contentScale = ContentScale.Crop,
-            modifier = Modifier.height(128f.dp)
+            modifier = Modifier.weight(16f)
         )
         Column(
             Modifier
-                .height(72f.dp)
+                .weight(9f)
                 .padding(8f.dp),
             verticalArrangement = Arrangement.Center
         ) {
@@ -72,15 +75,19 @@ fun PersonCard(
     }
 }
 
-@Preview
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(device = "spec:width=120dp,height=200dp,dpi=440")
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES,
+    device = "spec:width=120dp,height=200dp,dpi=440"
+)
 @Composable
 fun PersonCardPreview() {
     SnacTheme {
         PersonCard(
             name = "Christopher Mintz-Plasse",
             photoUrl = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
-            role = "Chriss D'Amico / Red Mist"
-        )
+            role = "Chriss D'Amico / Red Mist",
+        ) {
+
+        }
     }
 }

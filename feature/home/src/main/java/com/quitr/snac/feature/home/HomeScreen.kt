@@ -1,13 +1,20 @@
 package com.quitr.snac.feature.home
 
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.quitr.snac.core.data.Show
 import com.quitr.snac.core.ui.theme.SnacTheme
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
+    Surface(modifier) {
+        LazyColumn {
 
+        }
+    }
 }
 
 @Preview
@@ -16,4 +23,12 @@ fun HomeScreenPreview() {
     SnacTheme {
         HomeScreen()
     }
+}
+
+private val shows = List(30) {
+    Show(
+        "Son of Sango: The Return From The Evil Forest",
+        "9.2",
+        "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg"
+    )
 }

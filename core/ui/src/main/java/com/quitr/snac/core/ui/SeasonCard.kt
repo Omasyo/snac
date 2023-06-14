@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -31,16 +32,22 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.quitr.snac.core.ui.theme.SnacTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SeasonCard(
+    modifier: Modifier = Modifier,
     season: Int,
     releaseYear: Int,
     episodeCount: Int,
     description: String,
     posterUrl: String,
+    onClick: () -> Unit
 ) {
-        OutlinedCard {
-            Row(Modifier.height(176.dp)) {
+        OutlinedCard(
+            onClick = onClick,
+            modifier
+        ) {
+            Row {
                 Box(
                     Modifier
                         .aspectRatio(2f / 3f)
@@ -89,7 +96,7 @@ fun SeasonCard(
 
 }
 
-@Preview
+@Preview(device = "spec:parent=pixel_5,orientation=landscape")
 @Composable
 fun SeasonCardPreview() {
 
@@ -100,7 +107,9 @@ fun SeasonCardPreview() {
             episodeCount = 7,
             description = Description,
             posterUrl = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg"
-        )
+        ) {
+
+        }
     }
 }
 

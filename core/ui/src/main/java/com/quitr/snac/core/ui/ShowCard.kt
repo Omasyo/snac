@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -27,18 +29,20 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.quitr.snac.core.ui.theme.SnacTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ShowCard(
+    modifier: Modifier = Modifier,
     title: String,
     posterUrl: String,
-    rating: String
+    rating: String,
+    onClick: () -> Unit,
 ) {
     OutlinedCard(
-        Modifier
-            .width(120f.dp)
-            .height(200f.dp)
+        onClick = onClick,
+        modifier,
     ) {
-        Box(Modifier.height(144f.dp)) {
+        Box(Modifier.weight(18f)) {
 
             AsyncImage(
                 contentDescription = stringResource(R.string.poster_description),
@@ -48,7 +52,7 @@ fun ShowCard(
                     .build(),
                 placeholder = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
                 error = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
-contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
             )
             Box(
@@ -69,7 +73,7 @@ contentScale = ContentScale.Crop,
         Text(
             title,
             Modifier
-                .height(56f.dp)
+                .weight(7f)
                 .padding(8f.dp),
             style = MaterialTheme.typography.titleSmall,
             overflow = TextOverflow.Ellipsis
@@ -77,8 +81,10 @@ contentScale = ContentScale.Crop,
     }
 }
 
-@Preview
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(device = "spec:width=120dp,height=200dp,dpi=440")
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES,
+    device = "spec:width=120dp,height=200dp,dpi=440"
+)
 @Composable
 fun ShowCardPreview() {
     SnacTheme {
@@ -86,6 +92,8 @@ fun ShowCardPreview() {
             title = "Son of Sango: The Return From The Evil Forest",
             posterUrl = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
             rating = "9.2"
-        )
+        ) {
+
+        }
     }
 }
