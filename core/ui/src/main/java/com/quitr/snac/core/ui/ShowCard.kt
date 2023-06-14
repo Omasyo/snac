@@ -42,8 +42,8 @@ fun ShowCard(
         onClick = onClick,
         modifier,
     ) {
-        Box(Modifier.weight(1f)) {
 
+        Box(Modifier.weight(1f)) {
             AsyncImage(
                 contentDescription = stringResource(R.string.poster_description),
                 model = ImageRequest.Builder(LocalContext.current)
@@ -70,6 +70,7 @@ fun ShowCard(
                 )
             }
         }
+        //TODO: add min height?
         Text(
             title,
             Modifier

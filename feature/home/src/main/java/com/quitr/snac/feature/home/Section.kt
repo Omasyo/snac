@@ -98,6 +98,7 @@ private fun SectionPreview() {
 
 private val shows = List(30) {
     Show(
+        1,
         "Son of Sango: The Return From The Evil Forest",
         "9.2",
         "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg"
