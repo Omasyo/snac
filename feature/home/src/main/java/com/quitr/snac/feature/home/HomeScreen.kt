@@ -2,6 +2,7 @@ package com.quitr.snac.feature.home
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -13,9 +14,19 @@ import com.quitr.snac.core.data.ShowType
 import com.quitr.snac.core.ui.theme.SnacTheme
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeRoute(
+    modifier: Modifier = Modifier
+) {
+    HomeScreen(modifier)
+}
+
+@Composable
+internal fun HomeScreen(modifier: Modifier = Modifier) {
     Surface(modifier) {
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(8f.dp)) {
+        LazyColumn(
+            contentPadding = PaddingValues(vertical = 16f.dp),
+            verticalArrangement = Arrangement.spacedBy(8f.dp)
+        ) {
             items(10) {
                 Section(name = "Section", type = ShowType.Movie, shows = shows, onExpand = {})
             }
@@ -32,7 +43,7 @@ fun HomeScreenPreview() {
     }
 }
 
-private val shows = List(4) {
+private val shows = List(15) {
     Show(
         0,
         "Son of Sango: The Return From The Evil Forest",

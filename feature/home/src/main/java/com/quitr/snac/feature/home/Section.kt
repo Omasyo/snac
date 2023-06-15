@@ -54,7 +54,10 @@ internal fun Section(
             contentPadding = PaddingValues(horizontal = 16f.dp),
             horizontalArrangement = Arrangement.spacedBy(8f.dp)
         ) {
-            items(shows) { show ->
+            items(
+                shows,
+//                key = { show -> show.id}, TODO use show id
+            ) { show ->
                 ShowCard(
                     Modifier.size(120f.dp, 200f.dp),
                     title = show.title,
