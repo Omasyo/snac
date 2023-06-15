@@ -22,20 +22,42 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.quitr.snac.core.data.SectionType
 import com.quitr.snac.core.data.Show
 import com.quitr.snac.core.data.ShowType
 import com.quitr.snac.core.ui.ShowCard
 import com.quitr.snac.core.ui.theme.SnacTheme
 
+@OptIn(ExperimentalStdlibApi::class)
+@Composable
+fun SectionRoute(
+    modifier: Modifier = Modifier,
+    sectionType: SectionType,
+    onMovieCardTap: (id: Int) -> Unit,
+    onTvCardTap: (id: Int) -> Unit,
+    onBackPressed: () -> Unit
+) {
+    SectionScreen(
+        title = sectionType.name,
+        shows = shows,
+        onMovieCardTap = onMovieCardTap,
+        onTvCardTap = onTvCardTap,
+        onBackPressed = onBackPressed
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SectionScreen(
+    modifier: Modifier = Modifier,
     title: String,
     shows: List<Show>,
-    onShowCardTap: (Int) -> Unit,
+    onMovieCardTap: (id: Int) -> Unit,
+    onTvCardTap: (id: Int) -> Unit,
     onBackPressed: () -> Unit,
 ) {
     Scaffold(
+        modifier,
         topBar = {
             TopAppBar(
                 navigationIcon = {
@@ -61,7 +83,12 @@ fun SectionScreen(
                     title = show.title,
                     posterUrl = show.posterUrl,
                     rating = show.rating,
-                    onClick = { onShowCardTap(show.id) }
+                    onClick = {
+                        when(show.showType) {
+                            ShowType.Movie -> onMovieCardTap(show.id)
+                            ShowType.Tv -> onTvCardTap(show.id)
+                        }
+                    }
                 )
             }
         }
@@ -75,10 +102,12 @@ fun SectionScreen(
 fun SectionScreenPreview() {
     SnacTheme {
         SectionScreen(
+            Modifier,
             "Section",
             shows,
             {},
             {},
+            {}
         )
     }
 }

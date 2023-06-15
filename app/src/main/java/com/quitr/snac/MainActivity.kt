@@ -3,6 +3,7 @@ package com.quitr.snac
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Home
@@ -19,6 +20,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.quitr.snac.core.ui.theme.SnacTheme
 import com.quitr.snac.navigation.SnacNavHost
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,17 +30,23 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         setContent {
             SnacTheme {
+                val navController = rememberAnimatedNavController()
                 Scaffold(
                     bottomBar = {
                         var selected by remember {
                             mutableStateOf(0)
                         }
                         NavigationBar() {
+
+                            val navBackStackEntry by navController.currentBackStackEntryAsState()
+                            val currentDestination = navBackStackEntry?.destination
+
                             repeat(3) {
                                 NavigationBarItem(
                                     selected = it == selected,
@@ -48,7 +57,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 ) { innerPadding ->
-                    SnacNavHost(Modifier.padding(innerPadding))
+                    SnacNavHost(Modifier.padding(innerPadding), navController)
                 }
             }
         }

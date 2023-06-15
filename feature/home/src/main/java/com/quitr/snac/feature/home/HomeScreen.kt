@@ -44,7 +44,7 @@ internal fun HomeScreen(
             items(10) {
                 Section(
                     name = "Section", type = ShowType.Movie, shows = shows,
-                    onExpand = { onSectionClicked(SectionType.Movie.NowPlaying) },
+                    onExpand = { onSectionClicked(SectionType.MovieNowPlaying) },
                     onMovieCardClicked = onMovieCardClicked,
                     onTvCardClicked = onTvCardClicked
                 )
