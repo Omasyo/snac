@@ -23,7 +23,11 @@ fun SnacNavHost(
         modifier = modifier
     ) {
         composable(SnacRoutes.home) {
-            HomeRoute()
+            HomeRoute(
+                onSectionClicked = { },
+                onTvCardClicked = { },
+                onMovieCardClicked = { },
+            )
         }
     }
 }

@@ -33,7 +33,9 @@ internal fun Section(
     name: String,
     type: ShowType,
     shows: List<Show>,
-    onExpand: () -> Unit
+    onExpand: () -> Unit,
+    onMovieCardClicked: (id: Int) -> Unit,
+    onTvCardClicked: (id: Int) -> Unit,
 ) {
     Column(modifier) {
         Row(
@@ -62,10 +64,14 @@ internal fun Section(
                     Modifier.size(120f.dp, 200f.dp),
                     title = show.title,
                     posterUrl = show.posterUrl,
-                    rating = show.rating
-                ) {
-
-                }
+                    rating = show.rating,
+                    onClick = {
+                        when (show.showType) {
+                            ShowType.Movie -> onMovieCardClicked(show.id)
+                            ShowType.Tv -> onTvCardClicked(show.id)
+                        }
+                    }
+                )
             }
         }
     }
@@ -90,7 +96,13 @@ private fun TypeContainer(type: ShowType) {
 @Composable
 private fun SectionPreview() {
     SnacTheme {
-        Section(name = "Section", type = ShowType.Movie, shows = shows, onExpand = {})
+        Section(
+            name = "Section",
+            type = ShowType.Movie,
+            shows = shows,
+            onExpand = {},
+            onTvCardClicked = {},
+            onMovieCardClicked = {})
     }
 }
 
@@ -99,6 +111,7 @@ private val shows = List(30) {
         1,
         "Son of Sango: The Return From The Evil Forest",
         "9.2",
-        "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg"
+        "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
+        ShowType.Movie
     )
 }
