@@ -6,6 +6,11 @@ object SnacRoutes {
     const val root = "root"
     const val home = "home"
 
-    const val section = "section/{sectionType}"
+    const val sectionArg = "sectionType"
+    const val section = "section/{$sectionArg}"
     fun section(sectionType: SectionType) = "section/$sectionType"
+
+    const val movieArg = "movieId"
+    const val movie = "movie/{$movieArg}"
+    fun movie(id: Int) = "movie/$id"
 }

@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
-import com.quitr.snac.feature.home.HomeRoute
+import com.quitr.snac.feature.discover.DiscoverRoute
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -53,7 +53,7 @@ fun RootRoute(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(SnacRoutes.home) {
-                HomeRoute(
+                DiscoverRoute(
                     onSectionClicked = { sectionType ->
                         rootNavController.navigate(SnacRoutes.section(sectionType))
                     },

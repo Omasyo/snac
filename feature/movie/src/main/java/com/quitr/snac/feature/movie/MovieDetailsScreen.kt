@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -48,9 +49,18 @@ import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.ui.theme.SnacTheme
 import kotlin.random.Random
 
+@Composable
+fun MovieRoute(
+    modifier: Modifier = Modifier
+) {
+    MovieDetailsScreen(modifier = modifier)
+}
+
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun MovieDetailsScreen() {
+fun MovieDetailsScreen(
+    modifier: Modifier = Modifier,
+) {
     val title = "Fantastic Beasts and How to Esacape Them"
     val lazyColumnState = rememberLazyListState()
 
@@ -61,6 +71,7 @@ fun MovieDetailsScreen() {
     }
 
     Scaffold(
+        modifier,
         topBar = {
             TopAppBar(
 
@@ -140,12 +151,14 @@ fun MovieDetailsScreen() {
                 val backGroundColor = MaterialTheme.colorScheme.surface
                 Box(
                     Modifier
-                        .height(64f.dp)
-                        .fillMaxWidth()
-//                        .background(if(isCollapsed) backGroundColor else Color.Transparent)
                         .drawBehind {
                             drawRect(if (isCollapsed) backGroundColor else Color.Transparent)
                         }
+                        .statusBarsPadding()
+                        .height(64f.dp)
+                        .fillMaxWidth()
+//                        .background(if(isCollapsed) backGroundColor else Color.Transparent)
+
                 )
             }
             items(20) {

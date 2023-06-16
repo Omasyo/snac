@@ -1,0 +1,92 @@
+package com.quitr.snac.feature.discover
+
+import android.content.res.Configuration
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.quitr.snac.core.data.SectionType
+import com.quitr.snac.core.data.Show
+import com.quitr.snac.core.data.ShowType
+import com.quitr.snac.core.ui.theme.SnacTheme
+import com.quitr.snac.feature.home.R
+
+@Composable
+fun DiscoverRoute(
+    modifier: Modifier = Modifier,
+    onSectionClicked: (SectionType) -> Unit,
+    onMovieCardClicked: (id: Int) -> Unit,
+    onTvCardClicked: (id: Int) -> Unit,
+) {
+    DiscoverScreen(
+        modifier,
+        onSectionClicked,
+        onMovieCardClicked,
+        onTvCardClicked
+    )
+}
+
+@Composable
+internal fun DiscoverScreen(
+    modifier: Modifier = Modifier,
+    onSectionClicked: (SectionType) -> Unit,
+    onMovieCardClicked: (id: Int) -> Unit,
+    onTvCardClicked: (id: Int) -> Unit,
+) {
+    Surface(modifier) {
+        LazyColumn(
+            contentPadding = PaddingValues(vertical = 16f.dp),
+            verticalArrangement = Arrangement.spacedBy(16f.dp)
+        ) {
+            items(SectionType.values()) { sectionType ->
+                Section(
+                    name = sectionType.title,
+                    type = sectionType.showType,
+                    shows = shows,
+                    onExpand = { onSectionClicked(sectionType) },
+                    onMovieCardClicked = onMovieCardClicked,
+                    onTvCardClicked = onTvCardClicked
+                )
+            }
+        }
+    }
+}
+
+internal val SectionType.title
+    @Composable get() =
+        when (this) {
+            SectionType.MovieTrending, SectionType.TvTrending -> stringResource(R.string.trending)
+            SectionType.MovieNowPlaying, SectionType.TvNowPlaying -> stringResource(R.string.now_playing)
+            SectionType.MovieUpcoming, SectionType.TvUpcoming -> stringResource(R.string.upcoming)
+            SectionType.MoviePopular, SectionType.TvPopular -> stringResource(R.string.popular)
+            SectionType.MovieTopRated, SectionType.TvTopRated -> stringResource(R.string.top_rated)
+        }
+
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun HomeScreenPreview() {
+    SnacTheme {
+        DiscoverScreen(
+            onSectionClicked = {},
+            onMovieCardClicked = {},
+            onTvCardClicked = {}
+        )
+    }
+}
+
+private val shows = List(15) {
+    Show(
+        0,
+        "Son of Sango: The Return From The Evil Forest",
+        "9.2",
+        "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
+        ShowType.Movie,
+    )
+}

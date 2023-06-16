@@ -16,5 +16,6 @@ rootProject.name = "Snac"
 include("app")
 include(":core:data")
 include(":core:ui")
-include(":feature:home")
+include(":feature:discover")
 include(":feature:movie")
+include(":core:common")
