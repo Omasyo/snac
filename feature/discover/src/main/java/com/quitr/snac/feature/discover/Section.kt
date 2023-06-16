@@ -27,6 +27,7 @@ import com.quitr.snac.core.common.R
 import com.quitr.snac.core.data.Show
 import com.quitr.snac.core.data.ShowType
 import com.quitr.snac.core.ui.ShowCard
+import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
 
 @Composable
@@ -50,7 +51,7 @@ internal fun Section(
             Spacer(Modifier.width(4f.dp))
             TypeContainer(type)
             Spacer(Modifier.weight(1f))
-            Icon(Icons.Default.ArrowForward, contentDescription = null)
+            Icon(SnacIcons.ArrowForward, contentDescription = null)
 
         }
         LazyRow(

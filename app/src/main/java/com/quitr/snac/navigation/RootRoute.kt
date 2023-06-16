@@ -2,8 +2,6 @@ package com.quitr.snac.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -17,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
+import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.feature.discover.DiscoverRoute
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -37,11 +36,11 @@ fun RootRoute(
 //                val navBackStackEntry by navBarController.currentBackStackEntryAsState()
 //                val currentDestination = navBackStackEntry?.destination
 
-                repeat(3) {
+                repeat(2) {
                     NavigationBarItem(
                         selected = it == selected,
                         onClick = { selected = it },
-                        icon = { Icon(Icons.Outlined.Home, null) }
+                        icon = { Icon(SnacIcons.HomeFilled, null) }
                     )
                 }
             }
@@ -58,7 +57,7 @@ fun RootRoute(
                         rootNavController.navigate(SnacRoutes.section(sectionType))
                     },
                     onTvCardClicked = { },
-                    onMovieCardClicked = { },
+                    onMovieCardClicked = {id ->  rootNavController.navigate(SnacRoutes.movie(id))},
                 )
             }
         }

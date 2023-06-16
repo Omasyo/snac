@@ -40,7 +40,7 @@ fun SnacNavHost(
             val sectionType = backStackEntry.arguments?.get(SnacRoutes.sectionArg) as SectionType
             SectionRoute(
                 sectionType = sectionType,
-                onMovieCardTap = { navController.navigate(SnacRoutes.movie(it)) },
+                onMovieCardTap = { id -> navController.navigate(SnacRoutes.movie(id)) },
                 onTvCardTap = {},
                 onBackPressed = { navController.popBackStack() })
         }
