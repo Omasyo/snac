@@ -2,9 +2,9 @@ package com.quitr.snac.feature.discover
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -40,11 +40,12 @@ internal fun DiscoverScreen(
     onTvCardClicked: (id: Int) -> Unit,
 ) {
     Surface(modifier) {
-        LazyColumn(
-            contentPadding = PaddingValues(vertical = 16f.dp),
+        Column(
+            Modifier.verticalScroll(rememberScrollState()),
+//            contentPadding = PaddingValues(vertical = 16f.dp),
             verticalArrangement = Arrangement.spacedBy(16f.dp)
         ) {
-            items(SectionType.values()) { sectionType ->
+            SectionType.values().forEach { sectionType ->
                 Section(
                     name = sectionType.title,
                     type = sectionType.showType,
