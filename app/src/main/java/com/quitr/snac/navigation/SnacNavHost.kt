@@ -10,28 +10,24 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.quitr.snac.core.data.SectionType
-import com.quitr.snac.feature.home.HomeRoute
 import com.quitr.snac.feature.home.SectionRoute
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun SnacNavHost(
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberAnimatedNavController(),
+    rootNavController: NavHostController = rememberAnimatedNavController(),
+    navBarController: NavHostController = rememberAnimatedNavController(),
 ) {
+    val innerNav = rememberAnimatedNavController()
     AnimatedNavHost(
-        navController = navController,
-        startDestination = SnacRoutes.home,
+        navController = rootNavController,
+        startDestination = SnacRoutes.root,
         modifier = modifier
     ) {
-        composable(SnacRoutes.home) {
-            HomeRoute(
-                onSectionClicked = { sectionType ->
-                    navController.navigate(SnacRoutes.section(sectionType))
-                },
-                onTvCardClicked = { },
-                onMovieCardClicked = { },
-            )
+        composable(SnacRoutes.root) {
+            RootRoute(rootNavController = rootNavController, navBarController = navBarController)
+
         }
         composable(
             SnacRoutes.section,
@@ -45,7 +41,7 @@ fun SnacNavHost(
                 sectionType = sectionType,
                 onMovieCardTap = {},
                 onTvCardTap = {},
-                onBackPressed = { navController.popBackStack() })
+                onBackPressed = { rootNavController.popBackStack() })
         }
     }
 }

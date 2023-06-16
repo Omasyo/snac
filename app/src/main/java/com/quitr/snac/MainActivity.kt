@@ -4,23 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.quitr.snac.core.ui.theme.SnacTheme
 import com.quitr.snac.navigation.SnacNavHost
@@ -37,28 +25,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             SnacTheme {
                 val navController = rememberAnimatedNavController()
-                Scaffold(
-                    bottomBar = {
-                        var selected by remember {
-                            mutableStateOf(0)
-                        }
-                        NavigationBar() {
+                val navBarController = rememberAnimatedNavController()
+                SnacNavHost(rootNavController = navController, navBarController = navBarController)
 
-                            val navBackStackEntry by navController.currentBackStackEntryAsState()
-                            val currentDestination = navBackStackEntry?.destination
-
-                            repeat(3) {
-                                NavigationBarItem(
-                                    selected = it == selected,
-                                    onClick = { selected = it },
-                                    icon = { Icon(Icons.Outlined.Home, null) }
-                                )
-                            }
-                        }
-                    }
-                ) { innerPadding ->
-                    SnacNavHost(Modifier.padding(innerPadding), navController)
-                }
             }
         }
     }
