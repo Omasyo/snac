@@ -2,9 +2,9 @@ package com.quitr.snac.feature.discover
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -40,12 +40,12 @@ internal fun DiscoverScreen(
     onTvCardClicked: (id: Int) -> Unit,
 ) {
     Surface(modifier) {
-        Column(
-            Modifier.verticalScroll(rememberScrollState()),
-//            contentPadding = PaddingValues(vertical = 16f.dp),
+        LazyColumn(
+//            Modifier.verticalScroll(rememberScrollState()),
+            contentPadding = PaddingValues(vertical = 16f.dp),
             verticalArrangement = Arrangement.spacedBy(16f.dp)
         ) {
-            SectionType.values().forEach { sectionType ->
+            items(SectionType.values(), { it.name }) { sectionType ->
                 Section(
                     name = sectionType.title,
                     type = sectionType.showType,
@@ -54,6 +54,7 @@ internal fun DiscoverScreen(
                     onMovieCardClicked = onMovieCardClicked,
                     onTvCardClicked = onTvCardClicked
                 )
+
             }
         }
     }
@@ -82,12 +83,18 @@ private fun HomeScreenPreview() {
     }
 }
 
-private val shows = List(15) {
+private val shows = List(30) {
     Show(
-        0,
+        it,
         "Son of Sango: The Return From The Evil Forest",
         "9.2",
         "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
         ShowType.Movie,
     )
-}
+} + Show(
+    31,
+    "Son of Sango",
+    "9.2",
+    "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
+    ShowType.Movie
+)

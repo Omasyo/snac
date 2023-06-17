@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Snac</string>
+    <string name="discover">Discover</string>
+    <string name="library">Library</string>
 </resources>

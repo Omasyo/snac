@@ -5,10 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.quitr.snac.core.data.SectionType
 import com.quitr.snac.feature.discover.SectionRoute
 import com.quitr.snac.feature.movie.MovieRoute
@@ -17,11 +17,10 @@ import com.quitr.snac.feature.movie.MovieRoute
 @Composable
 fun SnacNavHost(
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberAnimatedNavController(),
-    navBarController: NavHostController = rememberAnimatedNavController(),
+    navController: NavHostController = rememberNavController(),
+    navBarController: NavHostController = rememberNavController(),
 ) {
-    val innerNav = rememberAnimatedNavController()
-    AnimatedNavHost(
+    NavHost(
         navController = navController,
         startDestination = SnacRoutes.root,
         modifier = modifier

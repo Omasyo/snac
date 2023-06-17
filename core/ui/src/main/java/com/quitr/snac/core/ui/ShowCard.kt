@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.quitr.snac.core.ui.theme.SnacTheme
+import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,7 +43,6 @@ fun ShowCard(
         onClick = onClick,
         modifier,
     ) {
-
         Box(Modifier.weight(1f)) {
             AsyncImage(
                 contentDescription = stringResource(R.string.poster_description),

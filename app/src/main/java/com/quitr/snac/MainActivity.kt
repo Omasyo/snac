@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.core.view.WindowCompat
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import androidx.navigation.compose.rememberNavController
 import com.quitr.snac.core.ui.theme.SnacTheme
 import com.quitr.snac.navigation.SnacNavHost
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,8 +20,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SnacTheme {
-                val navController = rememberAnimatedNavController()
-                val navBarController = rememberAnimatedNavController()
+                val navController = rememberNavController()
+                val navBarController = rememberNavController()
                 SnacNavHost(navController = navController, navBarController = navBarController)
 
             }

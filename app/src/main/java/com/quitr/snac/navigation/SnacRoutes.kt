@@ -4,7 +4,9 @@ import com.quitr.snac.core.data.SectionType
 
 object SnacRoutes {
     const val root = "root"
-    const val home = "home"
+
+    const val discover = "discover"
+    const val library = "library"
 
     const val sectionArg = "sectionType"
     const val section = "section/{$sectionArg}"
