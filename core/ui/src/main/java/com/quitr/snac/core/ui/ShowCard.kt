@@ -40,6 +40,7 @@ fun ShowCard(
     onClick: () -> Unit,
 ) {
     OutlinedCard(
+
         onClick = onClick,
         modifier,
     ) {
