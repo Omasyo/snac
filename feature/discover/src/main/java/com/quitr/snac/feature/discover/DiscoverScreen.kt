@@ -15,7 +15,6 @@ import com.quitr.snac.core.data.SectionType
 import com.quitr.snac.core.data.Show
 import com.quitr.snac.core.data.ShowType
 import com.quitr.snac.core.ui.theme.SnacTheme
-import com.quitr.snac.feature.home.R
 
 @Composable
 fun DiscoverRoute(

@@ -52,7 +52,7 @@ android {
 
 dependencies {
 
-    implementation(project(mapOf("path" to ":core:data")))
+    implementation(project(mapOf("path" to ":core:model")))
     implementation(project(mapOf("path" to ":core:ui")))
     implementation(project(mapOf("path" to ":feature:discover")))
     implementation(project(mapOf("path" to ":feature:movie")))
