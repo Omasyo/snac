@@ -22,5 +22,13 @@ gradlePlugin {
             id = "snac.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+        register("androidCompose") {
+            id = "snac.android.compose"
+            implementationClass = "AndroidComposeConventionPlugin"
+        }
+        register("jvmLibrary") {
+            id = "snac.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
     }
 }
