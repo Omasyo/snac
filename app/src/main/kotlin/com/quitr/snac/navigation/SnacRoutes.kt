@@ -1,6 +1,6 @@
 package com.quitr.snac.navigation
 
-import com.quitr.snac.core.data.SectionType
+import com.quitr.snac.core.model.SectionType
 
 object SnacRoutes {
     const val root = "root"

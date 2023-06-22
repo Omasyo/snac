@@ -22,10 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.quitr.snac.core.data.SectionType
-import com.quitr.snac.core.data.SectionType.*
-import com.quitr.snac.core.data.Show
-import com.quitr.snac.core.data.ShowType
+import com.quitr.snac.core.model.SectionType
+import com.quitr.snac.core.model.SectionType.*
+import com.quitr.snac.core.model.Show
+import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.ui.ShowCard
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme

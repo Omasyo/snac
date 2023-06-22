@@ -1,4 +1,4 @@
-package com.quitr.snac.core.data
+package com.quitr.snac.core.model
 
 import java.util.Date
 

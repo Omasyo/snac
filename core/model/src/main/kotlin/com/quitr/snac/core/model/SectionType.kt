@@ -1,7 +1,7 @@
-package com.quitr.snac.core.data
+package com.quitr.snac.core.model
 
-import com.quitr.snac.core.data.ShowType.Movie
-import com.quitr.snac.core.data.ShowType.Tv
+import com.quitr.snac.core.model.ShowType.Movie
+import com.quitr.snac.core.model.ShowType.Tv
 
 enum class SectionType(val showType: ShowType) {
     MovieTrending(Movie),
@@ -9,8 +9,8 @@ enum class SectionType(val showType: ShowType) {
     MovieUpcoming(Movie),
     MoviePopular(Movie),
     MovieTopRated(Movie),
-    TvTrending(Tv),
-    TvNowPlaying(Tv),
+    TvAiringToday(Tv),
+    TvOnTheAir(Tv),
     TvUpcoming(Tv),
     TvPopular(Tv),
     TvTopRated(Tv),

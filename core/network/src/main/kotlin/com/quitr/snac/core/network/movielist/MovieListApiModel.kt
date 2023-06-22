@@ -1,6 +1,5 @@
 package com.quitr.snac.core.network.movielist
 
-import com.quitr.snac.core.network.Dates
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
