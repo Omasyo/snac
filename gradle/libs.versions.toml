@@ -2,16 +2,18 @@
 accompanist = "0.30.1"
 androidGradlePlugin = "8.0.2"
 androidxActivity = "1.7.2"
-andriodxCore = "1.9.0"
+andriodxCore = "1.10.1"
 androidxEspresso = "3.5.1"
 andriodxLifecycle = "2.6.1"
 androidxJunitExt = "1.1.5"
 autonomouseappsDependencyAnalysis = "1.20.0"
 coil = "2.4.0"
-composeBom = "2023.05.01"
+composeBom = "2023.06.00"
 hilt = "2.46.1"
 junit = "4.13.2"
 kotlin = "1.8.21"
+kotlinxSerialization = "1.5.0"
+ktor = "2.3.1"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -19,6 +21,7 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 autonomousapps-dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "autonomouseappsDependencyAnalysis" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 [libraries]
@@ -37,11 +40,17 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunitExt" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "andriodxLifecycle" }
-coil-compose = {group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
-junit = {group = "junit", name = "junit", version.ref = "junit"}
+junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlin-bom = { group = "org.jetbrains.kotlin", name = "kotlin-bom", version.ref = "kotlin" }
+kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+ktor-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref = "ktor" }
+ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
+ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }

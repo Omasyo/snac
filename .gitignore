@@ -13,4 +13,3 @@
 .externalNativeBuild
 .cxx
 local.properties
-core/network/src/main/java/com/quitr/snac/core/network/AccessToken.kt
