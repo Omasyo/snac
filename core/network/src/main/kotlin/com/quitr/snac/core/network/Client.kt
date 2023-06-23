@@ -48,10 +48,16 @@ data class Temp(
 )
 
 suspend fun main() {
-    val temp: TvListApiModel =Client.get("3/tv/popular") {
-        parameters {
-            append("page", "1")
+    try {
+        val response = Client.get("3/tv/popular") {
+            parameters {
+                append("page", "1")
+            }
         }
-    } .body()
-    println(temp)
+        println(response)
+        val temp: TvListApiModel = response.body()
+        println(temp)
+    } catch (e: Exception) {
+        println(e)
+    }
 }

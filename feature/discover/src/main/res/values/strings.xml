@@ -5,4 +5,6 @@
     <string name="upcoming">Upcoming</string>
     <string name="popular">Popular</string>
     <string name="top_rated">Top Rated</string>
+    <string name="airing_today">Airing Today</string>
+    <string name="on_the_air">On The Air</string>
 </resources>

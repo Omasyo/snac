@@ -8,11 +8,9 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.quitr.snac.core.ui.theme.SnacTheme
 import com.quitr.snac.navigation.SnacNavHost
-import dagger.hilt.android.AndroidEntryPoint
 
-//import com.quitr.snac.core.SnacTheme
+//import androidx.lifecycle.viewmodel.compose.viewModel
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {

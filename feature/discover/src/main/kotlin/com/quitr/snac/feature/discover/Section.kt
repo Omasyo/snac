@@ -1,6 +1,11 @@
 package com.quitr.snac.feature.discover
 
-import androidx.compose.foundation.background
+import androidx.compose.animation.core.Easing
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,7 +13,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -27,13 +31,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.placeholder.PlaceholderDefaults
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.fade
+import com.google.accompanist.placeholder.material.fade
+import com.google.accompanist.placeholder.material.shimmer
+import com.google.accompanist.placeholder.placeholder
 import com.quitr.snac.core.common.R
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.ui.ShowCard
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
-import kotlin.random.Random
 
 @Composable
 internal fun Section(
@@ -62,6 +71,9 @@ internal fun Section(
 
         }
         LazyRow(
+            Modifier
+                .height(200f.dp)
+                .fillMaxWidth(),
             contentPadding = PaddingValues(horizontal = 16f.dp),
             horizontalArrangement = Arrangement.spacedBy(8f.dp)
         ) {
@@ -83,6 +95,32 @@ internal fun Section(
                 )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+internal fun SectionPlaceholder(modifier: Modifier = Modifier) {
+    PlaceholderHighlight.shimmer()
+    Column(modifier.padding(16f.dp)) {
+        val sharedModifier = Modifier
+            .fillMaxWidth()
+            .placeholder(
+                true, color = MaterialTheme.colorScheme.inverseOnSurface,
+                highlight = PlaceholderHighlight.fade(
+                    MaterialTheme.colorScheme.surfaceVariant,
+                )
+            )
+
+        Box(
+            sharedModifier
+                .height(36f.dp)
+        )
+        Spacer(Modifier.height(16f.dp))
+        Box(
+            sharedModifier
+                .height(176f.dp)
+        )
     }
 }
 

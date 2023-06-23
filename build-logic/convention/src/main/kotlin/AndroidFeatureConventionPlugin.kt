@@ -17,10 +17,14 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 apply("snac.android.compose")
             }
 
+            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies{
                 "implementation"(project(":core:ui"))
                 "implementation"(project(":core:model"))
                 "implementation"(project(":core:common"))
+                "implementation"(project(":core:data"))
+
+                "implementation"(libs.findLibrary("androidx.lifecycle.viewmodel.compose").get())
             }
         }
     }

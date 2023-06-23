@@ -9,9 +9,9 @@ enum class SectionType(val showType: ShowType) {
     MovieUpcoming(Movie),
     MoviePopular(Movie),
     MovieTopRated(Movie),
+    TvTrending(Tv),
     TvAiringToday(Tv),
     TvOnTheAir(Tv),
-    TvUpcoming(Tv),
     TvPopular(Tv),
     TvTopRated(Tv),
 }

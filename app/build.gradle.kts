@@ -57,7 +57,7 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(platform(libs.kotlin.bom))
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
