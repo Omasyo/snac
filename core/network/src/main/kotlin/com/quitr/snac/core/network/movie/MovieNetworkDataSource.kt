@@ -1,6 +1,7 @@
-package com.quitr.snac.core.network
+package com.quitr.snac.core.network.movie
 
-import com.quitr.snac.core.network.movielist.MovieListApiModel
+import com.quitr.snac.core.network.Client
+import com.quitr.snac.core.network.movie.list.MovieListApiModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

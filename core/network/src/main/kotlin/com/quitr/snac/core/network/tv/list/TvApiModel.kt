@@ -1,4 +1,4 @@
-package com.quitr.snac.core.network
+package com.quitr.snac.core.network.tv.list
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

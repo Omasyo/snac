@@ -3,11 +3,10 @@ package com.quitr.snac.core.data
 import android.util.Log
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
-import com.quitr.snac.core.network.DefaultTvNetworkDataSource
-import com.quitr.snac.core.network.TvApiModel
-import com.quitr.snac.core.network.TvNetworkDataSource
-import com.quitr.snac.core.network.getTvNetworkResource
-import com.quitr.snac.core.network.movielist.MovieApiModel
+import com.quitr.snac.core.network.Api
+import com.quitr.snac.core.network.tv.list.TvApiModel
+import com.quitr.snac.core.network.tv.TvNetworkDataSource
+import com.quitr.snac.core.network.tv.getTvNetworkResource
 
 
 private const val TAG = "TvRepository"
@@ -112,4 +111,4 @@ private class DefaultTvRepository(
 }
 
 private fun TvApiModel.toShow() =
-    Show(id, name, voteAverage.toString(), temp + posterPath, ShowType.Movie)
+    Show(id, name, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Movie)

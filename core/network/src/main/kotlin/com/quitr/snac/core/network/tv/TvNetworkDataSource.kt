@@ -1,11 +1,11 @@
-package com.quitr.snac.core.network
+package com.quitr.snac.core.network.tv
 
-import com.quitr.snac.core.network.movielist.MovieListApiModel
+import com.quitr.snac.core.network.Client
+import com.quitr.snac.core.network.tv.list.TvListApiModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.http.parameters
-import java.util.TimeZone
 
 fun getTvNetworkResource(): TvNetworkDataSource =
     DefaultTvNetworkDataSource(Client)

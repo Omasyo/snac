@@ -1,13 +1,12 @@
 package com.quitr.snac.core.data
 
 import android.util.Log
-import com.quitr.snac.core.model.Movie
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
-import com.quitr.snac.core.network.MovieNetworkDataSource
-import com.quitr.snac.core.network.getMovieNetworkDataSource
-import com.quitr.snac.core.network.movielist.MovieApiModel
-import kotlin.Error
+import com.quitr.snac.core.network.Api
+import com.quitr.snac.core.network.movie.MovieNetworkDataSource
+import com.quitr.snac.core.network.movie.getMovieNetworkDataSource
+import com.quitr.snac.core.network.movie.list.MovieApiModel
 
 
 private const val TAG = "MovieRepository"
@@ -49,8 +48,6 @@ interface MovieRepository {
         region: String = ""
     ): Response<List<Show>>
 }
-
-val temp = "https://image.tmdb.org/t/p/w342" //TODO
 
 private class DefaultMovieRepository(
     private val networkDataSource: MovieNetworkDataSource,
@@ -118,4 +115,4 @@ private class DefaultMovieRepository(
 }
 
 private fun MovieApiModel.toShow() =
-    Show(id, title, voteAverage.toString(), temp + posterPath, ShowType.Movie)
+    Show(id, title, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Movie)
