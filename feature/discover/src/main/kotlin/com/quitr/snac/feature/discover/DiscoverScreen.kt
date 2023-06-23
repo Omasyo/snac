@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -18,6 +19,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.placeholder.material.placeholder
+import com.quitr.snac.core.data.getMovieRepository
+import com.quitr.snac.core.data.getTvRepository
 import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
@@ -29,7 +32,11 @@ fun DiscoverRoute(
     onSectionClicked: (SectionType) -> Unit,
     onMovieCardClicked: (id: Int) -> Unit,
     onTvCardClicked: (id: Int) -> Unit,
-    viewModel: DiscoverScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: DiscoverScreenViewModel = viewModel(
+        factory = DiscoverScreenViewModel.Factory(
+            getMovieRepository(), getTvRepository()
+        )
+    )
 ) {
     DiscoverScreen(
         modifier,
@@ -55,22 +62,22 @@ internal fun DiscoverScreen(
             verticalArrangement = Arrangement.spacedBy(16f.dp)
         ) {
             items(SectionType.values(), { it.name }) { sectionType ->
-//                AnimatedContent(targetState = sectionUiStates[sectionType] ?: SectionUiState.Error) { uiState ->
-                    when (val uiState = sectionUiStates[sectionType] ?: SectionUiState.Error) {
-                        SectionUiState.Error -> SectionPlaceholder()//TODO()
-                        SectionUiState.Loading -> SectionPlaceholder()
-                        is SectionUiState.Success -> {
-                            Section(
-                                name = sectionType.title,
-                                type = sectionType.showType,
-                                shows = uiState.shows,
-                                onExpand = { onSectionClicked(sectionType) },
-                                onMovieCardClicked = onMovieCardClicked,
-                                onTvCardClicked = onTvCardClicked
-                            )
-                        }
+                AnimatedContent(targetState = sectionUiStates[sectionType] ?: SectionUiState.Error) { uiState ->
+                when (uiState) {
+                    SectionUiState.Error -> SectionPlaceholder()//TODO()
+                    SectionUiState.Loading -> SectionPlaceholder()
+                    is SectionUiState.Success -> {
+                        Section(
+                            name = sectionType.title,
+                            type = sectionType.showType,
+                            shows = uiState.shows,
+                            onExpand = { onSectionClicked(sectionType) },
+                            onMovieCardClicked = onMovieCardClicked,
+                            onTvCardClicked = onTvCardClicked
+                        )
                     }
-//                }
+                }
+                }
             }
         }
     }

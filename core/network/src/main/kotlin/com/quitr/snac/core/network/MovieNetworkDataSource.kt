@@ -13,6 +13,7 @@ interface MovieNetworkDataSource {
 //    suspend fun getDetails(id: Int, language: String)
 
     suspend fun getTrending(page: Int, timeWindow: String, language: String): MovieListApiModel
+
     suspend fun getNowPlaying(page: Int, language: String, region: String): MovieListApiModel
 
     suspend fun getPopular(page: Int, language: String, region: String): MovieListApiModel
@@ -24,7 +25,11 @@ interface MovieNetworkDataSource {
 
 private class DefaultMovieNetworkDataSource(private val client: HttpClient) :
     MovieNetworkDataSource {
-    override suspend fun getTrending(page: Int, timeWindow: String, language: String): MovieListApiModel =
+    override suspend fun getTrending(
+        page: Int,
+        timeWindow: String,
+        language: String
+    ): MovieListApiModel =
         client.get("/3/trending/movie/$timeWindow") {
             parameters {
                 append("page", page.toString())

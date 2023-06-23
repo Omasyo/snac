@@ -1,21 +1,22 @@
 package com.quitr.snac.feature.discover
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.quitr.snac.core.data.MovieRepository
-import com.quitr.snac.core.data.Response
-import com.quitr.snac.core.data.getMovieRepository
+import com.quitr.snac.core.data.TvRepository
 import com.quitr.snac.core.data.getOrElse
 import com.quitr.snac.core.model.SectionType
-import com.quitr.snac.core.model.Show
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class DiscoverScreenViewModel(
+    movieRepository: MovieRepository,
+    tvRepository: TvRepository
 ) : ViewModel() {
-
-    private val movieRepository: MovieRepository = getMovieRepository()
 
     private val _movieTrendingState = MutableStateFlow<SectionUiState>(SectionUiState.Loading)
     val movieTrendingState: StateFlow<SectionUiState> = _movieTrendingState
@@ -50,79 +51,97 @@ class DiscoverScreenViewModel(
     init {
         viewModelScope.launch {
             for (type in SectionType.values()) {
-                getAndUpdateState(type, movieRepository)
+                getAndUpdateState(type, movieRepository, tvRepository)
             }
         }
     }
 
-    private suspend fun getAndUpdateState(type: SectionType, repository: MovieRepository) =
-        when (type) {
-            SectionType.MovieTrending -> {
-                _movieTrendingState.value =
-                    repository.getTrending(1).getOrElse(SectionUiState.Error) {
-                        SectionUiState.Success(it)
-                    }
-            }
-
-            SectionType.MovieNowPlaying -> {
-                _movieNowPlayingState.value =
-                    repository.getNowPlaying(1)
-                        .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
-            }
-
-            SectionType.MovieUpcoming -> {
-                _movieUpcomingState.value =
-                    repository.getUpcoming(1)
-                        .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
-            }
-
-            SectionType.MoviePopular -> {
-                _moviePopularState.value =
-                    repository.getPopular(1)
-                        .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
-            }
-
-            SectionType.MovieTopRated -> {
-                _movieTopRatedState.value =
-                    repository.getTopRated(1)
-                        .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
-            }
-
-            SectionType.TvAiringToday -> {
-                _tvAiringTodayState.value =
-                    repository.getNowPlaying(1)
-                        .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
-            }
-
-            SectionType.TvOnTheAir -> {
-                _tvOnTheAirState.value =
-                    repository.getNowPlaying(1)
-                        .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
-            }
-
-            SectionType.TvTrending -> {
-                _tvTrendingState.value =
-                    repository.getNowPlaying(1)
-                        .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
-            }
-
-            SectionType.TvPopular -> {
-                _tvPopularState.value =
-                    repository.getNowPlaying(1)
-                        .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
-            }
-
-            SectionType.TvTopRated -> {
-                _tvTopRatedState.value =
-                    repository.getNowPlaying(1)
-                        .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
-            }
+    private suspend fun getAndUpdateState(
+        type: SectionType,
+        movieRepository: MovieRepository,
+        tvRepository: TvRepository
+    ) = when (type) {
+        SectionType.MovieTrending -> {
+            _movieTrendingState.value =
+                movieRepository.getTrending(1).getOrElse(SectionUiState.Error) {
+                    SectionUiState.Success(it)
+                }
         }
+
+        SectionType.MovieNowPlaying -> {
+            _movieNowPlayingState.value =
+                movieRepository.getNowPlaying(1)
+                    .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
+        }
+
+        SectionType.MovieUpcoming -> {
+            _movieUpcomingState.value =
+                movieRepository.getUpcoming(1)
+                    .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
+        }
+
+        SectionType.MoviePopular -> {
+            _moviePopularState.value =
+                movieRepository.getPopular(1)
+                    .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
+        }
+
+        SectionType.MovieTopRated -> {
+            _movieTopRatedState.value =
+                movieRepository.getTopRated(1)
+                    .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
+        }
+
+        SectionType.TvAiringToday -> {
+            _tvAiringTodayState.value =
+                tvRepository.getAiringToday(1)
+                    .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
+        }
+
+        SectionType.TvOnTheAir -> {
+            _tvOnTheAirState.value =
+                tvRepository.getOnTheAir(1)
+                    .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
+        }
+
+        SectionType.TvTrending -> {
+            _tvTrendingState.value =
+                tvRepository.getTrending(1)
+                    .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
+        }
+
+        SectionType.TvPopular -> {
+            _tvPopularState.value =
+                tvRepository.getPopular(1)
+                    .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
+        }
+
+        SectionType.TvTopRated -> {
+            _tvTopRatedState.value =
+                tvRepository.getTopRated(1)
+                    .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
+        }
+    }
+
+    companion object {
+        fun Factory(movieRepository: MovieRepository, tvRepository: TvRepository) =
+            viewModelFactory {
+                initializer {
+                    DiscoverScreenViewModel(movieRepository, tvRepository)
+                }
+            }
+    }
 }
 
-private fun sectionUiState(
-    type: SectionType,
-    movieRepository: MovieRepository,
-) {
-
+class DiscoverScreenViewModelFactory(
+    private val movieRepository: MovieRepository,
+    private val tvRepository: TvRepository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        @Suppress("UNCHECKED_CAST")
+        if (modelClass.isAssignableFrom(DiscoverScreenViewModel::class.java)) {
+            return DiscoverScreenViewModel(movieRepository, tvRepository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
 }

@@ -10,7 +10,7 @@ import com.quitr.snac.core.network.movielist.MovieApiModel
 import kotlin.Error
 
 
-const val TAG = "MovieRepository"
+private const val TAG = "MovieRepository"
 fun getMovieRepository(
 //    private val localDataSource: MovieLocalDataSource
 ): MovieRepository = DefaultMovieRepository(getMovieNetworkDataSource())
@@ -76,7 +76,7 @@ private class DefaultMovieRepository(
         val results = networkDataSource.getNowPlaying(page, language, region).results
         Success(results.map { movie -> movie.toShow() })
     } catch (exception: Exception) {
-        Log.d(TAG, "getTrending: $exception")
+        Log.d(TAG, "getNowPlaying: $exception")
         Error
     }
 
@@ -88,7 +88,7 @@ private class DefaultMovieRepository(
         val results = networkDataSource.getPopular(page, language, region).results
         Success(results.map { movie -> movie.toShow() })
     } catch (exception: Exception) {
-        Log.d(TAG, "getTrending: $exception")
+        Log.d(TAG, "getPopular: $exception")
         Error
     }
 
@@ -100,7 +100,7 @@ private class DefaultMovieRepository(
         val results = networkDataSource.getTopRated(page, language, region).results
         Success(results.map { movie -> movie.toShow() })
     } catch (exception: Exception) {
-        Log.d(TAG, "getTrending: $exception")
+        Log.d(TAG, "getTopRated: $exception")
         Error
     }
 
@@ -112,7 +112,7 @@ private class DefaultMovieRepository(
         val results = networkDataSource.getUpcoming(page, language, region).results
         Success(results.map { movie -> movie.toShow() })
     } catch (exception: Exception) {
-        Log.d(TAG, "getTrending: $exception")
+        Log.d(TAG, "getUpcoming: $exception")
         Error
     }
 }

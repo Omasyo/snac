@@ -7,7 +7,13 @@ import io.ktor.client.request.get
 import io.ktor.http.parameters
 import java.util.TimeZone
 
+fun getTvNetworkResource(): TvNetworkDataSource =
+    DefaultTvNetworkDataSource(Client)
+
 interface TvNetworkDataSource {
+
+    suspend fun getTrending(page: Int, timeWindow: String, language: String): TvListApiModel
+
     suspend fun getAiringToday(page: Int, language: String, timezone: String): TvListApiModel
 
     suspend fun getOnTheAir(page: Int, language: String, timezone: String): TvListApiModel
@@ -18,13 +24,24 @@ interface TvNetworkDataSource {
 }
 
 class DefaultTvNetworkDataSource(private val client: HttpClient) : TvNetworkDataSource {
+    override suspend fun getTrending(
+        page: Int,
+        timeWindow: String,
+        language: String
+    ): TvListApiModel = client.get("/3/trending/tv/$timeWindow") {
+        parameters {
+            append("page", page.toString())
+            append("language", language)
+        }
+    }.body()
+
     override suspend fun getAiringToday(page: Int, language: String, timezone: String) =
         getTvList("airing_today", page, language, timezone)
 
     override suspend fun getOnTheAir(page: Int, language: String, timezone: String) =
         getTvList("on_the_air", page, language, timezone)
 
-    override suspend fun getPopular(page: Int, language: String, timezone: String)=
+    override suspend fun getPopular(page: Int, language: String, timezone: String) =
         getTvList("popular", page, language, timezone)
 
     override suspend fun getTopRated(page: Int, language: String, timezone: String) =
