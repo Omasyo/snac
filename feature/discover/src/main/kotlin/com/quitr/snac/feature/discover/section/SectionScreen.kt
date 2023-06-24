@@ -89,6 +89,7 @@ private fun SectionScreen(
         })
     }) { innerPadding ->
 
+        println("State is ${pagingItems.loadState.refresh}")
         when (pagingItems.loadState.refresh) {
             is LoadState.Error -> TODO()
             LoadState.Loading -> {

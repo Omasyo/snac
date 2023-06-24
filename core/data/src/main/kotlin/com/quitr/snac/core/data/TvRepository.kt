@@ -7,7 +7,6 @@ import androidx.paging.PagingData
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api
-import com.quitr.snac.core.network.movie.getMovieNetworkDataSource
 import com.quitr.snac.core.network.tv.list.TvApiModel
 import com.quitr.snac.core.network.tv.TvNetworkDataSource
 import com.quitr.snac.core.network.tv.getTvNetworkResource
@@ -94,7 +93,8 @@ private class DefaultTvRepository(
     override fun getTrendingStream(
         language: String,
         timeWindow: TimeWindow
-    ): Flow<PagingData<Show>> = getStream(networkDataSource::getAiringToday)
+    ): Flow<PagingData<Show>> =
+        getStream { page -> networkDataSource.getTrending(page, timeWindow.text, language) }
 
 
     override suspend fun getAiringToday(
@@ -110,7 +110,7 @@ private class DefaultTvRepository(
     }
 
     override fun getAiringTodayStream(language: String, region: String): Flow<PagingData<Show>> =
-        getStream(networkDataSource::getAiringToday)
+        getStream { page -> networkDataSource.getAiringToday(page, language, region) }
 
     override suspend fun getOnTheAir(
         page: Int,
@@ -125,7 +125,7 @@ private class DefaultTvRepository(
     }
 
     override fun getOnTheAirStream(language: String, region: String): Flow<PagingData<Show>> =
-        getStream(networkDataSource::getOnTheAir)
+        getStream { page -> networkDataSource.getOnTheAir(page, language, region) }
 
     override suspend fun getPopular(
         page: Int,
@@ -140,7 +140,7 @@ private class DefaultTvRepository(
     }
 
     override fun getPopularStream(language: String, region: String): Flow<PagingData<Show>> =
-        getStream(networkDataSource::getPopular)
+        getStream { page -> networkDataSource.getPopular(page, language, region) }
 
     override suspend fun getTopRated(
         page: Int,
@@ -155,18 +155,18 @@ private class DefaultTvRepository(
     }
 
     override fun getTopRatedStream(language: String, region: String): Flow<PagingData<Show>> =
-        getStream(networkDataSource::getTopRated)
+        getStream { page -> networkDataSource.getTopRated(page, language, region) }
 
-    private fun getStream(func: suspend (Int, String, String) -> TvListApiModel): Flow<PagingData<Show>> {
+    private fun getStream(provider: suspend (page: Int) -> TvListApiModel): Flow<PagingData<Show>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 20,
-                enablePlaceholders = false
-            ),
-            pagingSourceFactory = { ShowPagingSource(func) }
-        ).flow
+                pageSize = 20, enablePlaceholders = false
+            )
+        ) {
+            ShowPagingSource(provider)
+        }.flow
     }
 }
 
 internal fun TvApiModel.toShow() =
-    Show(id, name, voteAverage.toString(), Api.BasePosterPath + remove + posterPath, ShowType.Movie)
+    Show(id, name, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Movie)
