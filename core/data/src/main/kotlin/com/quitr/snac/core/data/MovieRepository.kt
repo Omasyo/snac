@@ -1,12 +1,18 @@
 package com.quitr.snac.core.data
 
 import android.util.Log
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api
 import com.quitr.snac.core.network.movie.MovieNetworkDataSource
 import com.quitr.snac.core.network.movie.getMovieNetworkDataSource
 import com.quitr.snac.core.network.movie.list.MovieApiModel
+import com.quitr.snac.core.network.movie.list.MovieListApiModel
+import com.quitr.snac.core.network.tv.list.TvListApiModel
+import kotlinx.coroutines.flow.Flow
 
 
 private const val TAG = "MovieRepository"
@@ -24,11 +30,21 @@ interface MovieRepository {
         timeWindow: TimeWindow = TimeWindow.Day
     ): Response<List<Show>>
 
+    fun getTrendingStream(
+language: String = "",
+        timeWindow: TimeWindow = TimeWindow.Day
+    ): Flow<PagingData<Show>>
+
     suspend fun getNowPlaying(
         page: Int,
         language: String = "",
         region: String = ""
     ): Response<List<Show>>
+
+    fun getNowPlayingStream(
+language: String = "",
+        region: String = ""
+    ): Flow<PagingData<Show>>
 
     suspend fun getPopular(
         page: Int,
@@ -36,17 +52,32 @@ interface MovieRepository {
         region: String = ""
     ): Response<List<Show>>
 
+    fun getPopularStream(
+language: String = "",
+        region: String = ""
+    ): Flow<PagingData<Show>>
+
     suspend fun getTopRated(
         page: Int,
         language: String = "",
         region: String = ""
     ): Response<List<Show>>
 
+    fun getTopRatedStream(
+language: String = "",
+        region: String = ""
+    ): Flow<PagingData<Show>>
+
     suspend fun getUpcoming(
         page: Int,
         language: String = "",
         region: String = ""
     ): Response<List<Show>>
+
+    fun getUpcomingStream(
+language: String = "",
+        region: String = ""
+    ): Flow<PagingData<Show>>
 }
 
 private class DefaultMovieRepository(
@@ -65,6 +96,9 @@ private class DefaultMovieRepository(
         Error
     }
 
+    override fun getTrendingStream(language: String, timeWindow: TimeWindow): Flow<PagingData<Show>> =
+    getStream(networkDataSource::getNowPlaying)
+
     override suspend fun getNowPlaying(
         page: Int,
         language: String,
@@ -76,6 +110,9 @@ private class DefaultMovieRepository(
         Log.d(TAG, "getNowPlaying: $exception")
         Error
     }
+
+    override fun getNowPlayingStream(language: String, region: String): Flow<PagingData<Show>> =
+    getStream(networkDataSource::getNowPlaying)
 
     override suspend fun getPopular(
         page: Int,
@@ -89,6 +126,9 @@ private class DefaultMovieRepository(
         Error
     }
 
+    override fun getPopularStream(language: String, region: String): Flow<PagingData<Show>>  =
+        getStream(networkDataSource::getPopular)
+
     override suspend fun getTopRated(
         page: Int,
         language: String,
@@ -101,6 +141,9 @@ private class DefaultMovieRepository(
         Error
     }
 
+    override fun getTopRatedStream(language: String, region: String): Flow<PagingData<Show>> =
+        getStream(networkDataSource::getTopRated)
+
     override suspend fun getUpcoming(
         page: Int,
         language: String,
@@ -112,7 +155,20 @@ private class DefaultMovieRepository(
         Log.d(TAG, "getUpcoming: $exception")
         Error
     }
+
+    override fun getUpcomingStream(language: String, region: String): Flow<PagingData<Show>> =
+        getStream(networkDataSource::getUpcoming)
+
+    private fun getStream(func: suspend (Int, String, String) -> MovieListApiModel): Flow<PagingData<Show>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { ShowPagingSource(func) }
+        ).flow
+    }
 }
 
-private fun MovieApiModel.toShow() =
+internal fun MovieApiModel.toShow() =
     Show(id, title, voteAverage.toString(), Api.BasePosterPath + remove + posterPath, ShowType.Movie)
