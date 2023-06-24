@@ -7,9 +7,15 @@ import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
+import io.ktor.client.plugins.cache.HttpCache
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.get
+import io.ktor.client.request.parameter
+import io.ktor.client.request.url
+import io.ktor.client.statement.request
+import io.ktor.http.authority
+import io.ktor.http.fullPath
 import io.ktor.http.parameters
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.SerialName
@@ -28,8 +34,10 @@ val Client by lazy {
         install(ContentNegotiation) {
             json(Json {
                 ignoreUnknownKeys = true
+                coerceInputValues = true
             })
         }
+        install(HttpCache)
         defaultRequest {
             host = "api.themoviedb.org"
         }
@@ -48,13 +56,16 @@ data class Temp(
 
 suspend fun main() {
     try {
-        val response = Client.get("3/tv/popular") {
+        val response = Client.get("/3/movie/now_playing") {
+            parameter("page", "2")
             parameters {
-                append("page", "1")
+                append("page", "2")
+//                append("language", language)
+//                append("region", region)
             }
         }
-        println(response)
-        val temp: TvListApiModel = response.body()
+        println(response.request.url.authority)
+        val temp: String = response.body()
         println(temp)
     } catch (e: Exception) {
         println(e)

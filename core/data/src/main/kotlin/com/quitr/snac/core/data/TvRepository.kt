@@ -111,4 +111,4 @@ private class DefaultTvRepository(
 }
 
 private fun TvApiModel.toShow() =
-    Show(id, name, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Movie)
+    Show(id, name, voteAverage.toString(), Api.BasePosterPath + remove + posterPath, ShowType.Movie)

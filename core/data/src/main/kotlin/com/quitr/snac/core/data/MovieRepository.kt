@@ -115,4 +115,4 @@ private class DefaultMovieRepository(
 }
 
 private fun MovieApiModel.toShow() =
-    Show(id, title, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Movie)
+    Show(id, title, voteAverage.toString(), Api.BasePosterPath + remove + posterPath, ShowType.Movie)

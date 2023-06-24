@@ -15,7 +15,7 @@ data class TvApiModel(
     @SerialName("original_name") val originalName: String,
     val overview: String,
     val popularity: Double,
-    @SerialName("poster_path") val posterPath: String,
+    @SerialName("poster_path") val posterPath: String?,
     @SerialName("vote_average") val voteAverage: Double,
     @SerialName("vote_count") val voteCount: Int
 )

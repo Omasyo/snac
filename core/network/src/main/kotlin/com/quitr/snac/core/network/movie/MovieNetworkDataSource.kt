@@ -5,6 +5,7 @@ import com.quitr.snac.core.network.movie.list.MovieListApiModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
+import io.ktor.client.request.parameter
 import io.ktor.http.parameters
 
 fun getMovieNetworkDataSource(): MovieNetworkDataSource =
@@ -32,10 +33,8 @@ private class DefaultMovieNetworkDataSource(private val client: HttpClient) :
         language: String
     ): MovieListApiModel =
         client.get("/3/trending/movie/$timeWindow") {
-            parameters {
-                append("page", page.toString())
-                append("language", language)
-            }
+            parameter("page", page.toString())
+            parameter("language", language)
         }.body()
 
     override suspend fun getNowPlaying(
@@ -70,10 +69,7 @@ private class DefaultMovieNetworkDataSource(private val client: HttpClient) :
         region: String
     ): MovieListApiModel =
         client.get("/3/movie/$path") {
-            parameters {
-                append("page", page.toString())
-                append("language", language)
-                append("region", region)
-            }
+            parameter("page", page.toString())
+            parameter("language", language)
         }.body()
 }

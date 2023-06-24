@@ -5,6 +5,7 @@ import com.quitr.snac.core.network.tv.list.TvListApiModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
+import io.ktor.client.request.parameter
 import io.ktor.http.parameters
 
 fun getTvNetworkResource(): TvNetworkDataSource =
@@ -29,10 +30,8 @@ class DefaultTvNetworkDataSource(private val client: HttpClient) : TvNetworkData
         timeWindow: String,
         language: String
     ): TvListApiModel = client.get("/3/trending/tv/$timeWindow") {
-        parameters {
-            append("page", page.toString())
-            append("language", language)
-        }
+        parameter("page", page.toString())
+        parameter("language", language)
     }.body()
 
     override suspend fun getAiringToday(page: Int, language: String, timezone: String) =
@@ -54,10 +53,7 @@ class DefaultTvNetworkDataSource(private val client: HttpClient) : TvNetworkData
         timezone: String
     ): TvListApiModel =
         client.get("/3/tv/$path") {
-            parameters {
-                append("page", page.toString())
-                append("language", language)
-                append("timezone", timezone)
-            }
+            parameter("page", page.toString())
+            parameter("language", language)
         }.body()
 }
