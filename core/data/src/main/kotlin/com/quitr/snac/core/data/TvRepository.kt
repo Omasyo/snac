@@ -1,12 +1,17 @@
 package com.quitr.snac.core.data
 
 import android.util.Log
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api
 import com.quitr.snac.core.network.tv.list.TvApiModel
 import com.quitr.snac.core.network.tv.TvNetworkDataSource
 import com.quitr.snac.core.network.tv.getTvNetworkResource
+import com.quitr.snac.core.network.tv.list.TvListApiModel
+import kotlinx.coroutines.flow.Flow
 
 
 private const val TAG = "TvRepository"
@@ -20,11 +25,21 @@ interface TvRepository {
         timeWindow: TimeWindow = TimeWindow.Day
     ): Response<List<Show>>
 
+    fun getTrendingStream(
+        language: String = "",
+        timeWindow: TimeWindow = TimeWindow.Day
+    ): Flow<PagingData<Show>>
+
     suspend fun getAiringToday(
         page: Int,
         language: String = "",
         region: String = ""
     ): Response<List<Show>>
+
+    fun getAiringTodayStream(
+        language: String = "",
+        region: String = ""
+    ): Flow<PagingData<Show>>
 
     suspend fun getOnTheAir(
         page: Int,
@@ -32,17 +47,32 @@ interface TvRepository {
         region: String = ""
     ): Response<List<Show>>
 
+    fun getOnTheAirStream(
+        language: String = "",
+        region: String = ""
+    ): Flow<PagingData<Show>>
+
     suspend fun getPopular(
         page: Int,
         language: String = "",
         region: String = ""
     ): Response<List<Show>>
 
+    fun getPopularStream(
+        language: String = "",
+        region: String = ""
+    ): Flow<PagingData<Show>>
+
     suspend fun getTopRated(
         page: Int,
         language: String = "",
         region: String = ""
     ): Response<List<Show>>
+
+    fun getTopRatedStream(
+        language: String = "",
+        region: String = ""
+    ): Flow<PagingData<Show>>
 }
 
 private class DefaultTvRepository(
@@ -60,6 +90,13 @@ private class DefaultTvRepository(
         Error
     }
 
+    override fun getTrendingStream(
+        language: String,
+        timeWindow: TimeWindow
+    ): Flow<PagingData<Show>> =
+        getStream { page -> networkDataSource.getTrending(page, timeWindow.text, language) }
+
+
     override suspend fun getAiringToday(
         page: Int,
         language: String,
@@ -71,6 +108,9 @@ private class DefaultTvRepository(
         Log.d(TAG, "getAiringToday: $exception")
         Error
     }
+
+    override fun getAiringTodayStream(language: String, region: String): Flow<PagingData<Show>> =
+        getStream { page -> networkDataSource.getAiringToday(page, language, region) }
 
     override suspend fun getOnTheAir(
         page: Int,
@@ -84,6 +124,9 @@ private class DefaultTvRepository(
         Error
     }
 
+    override fun getOnTheAirStream(language: String, region: String): Flow<PagingData<Show>> =
+        getStream { page -> networkDataSource.getOnTheAir(page, language, region) }
+
     override suspend fun getPopular(
         page: Int,
         language: String,
@@ -95,6 +138,9 @@ private class DefaultTvRepository(
         Log.d(TAG, "getPopular: $exception")
         Error
     }
+
+    override fun getPopularStream(language: String, region: String): Flow<PagingData<Show>> =
+        getStream { page -> networkDataSource.getPopular(page, language, region) }
 
     override suspend fun getTopRated(
         page: Int,
@@ -108,7 +154,19 @@ private class DefaultTvRepository(
         Error
     }
 
+    override fun getTopRatedStream(language: String, region: String): Flow<PagingData<Show>> =
+        getStream { page -> networkDataSource.getTopRated(page, language, region) }
+
+    private fun getStream(provider: suspend (page: Int) -> TvListApiModel): Flow<PagingData<Show>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20, enablePlaceholders = false
+            )
+        ) {
+            ShowPagingSource(provider)
+        }.flow
+    }
 }
 
-private fun TvApiModel.toShow() =
-    Show(id, name, voteAverage.toString(), Api.BasePosterPath + remove + posterPath, ShowType.Movie)
+internal fun TvApiModel.toShow() =
+    Show(id, name, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Movie)

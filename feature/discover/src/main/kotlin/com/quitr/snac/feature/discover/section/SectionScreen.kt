@@ -9,11 +9,11 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -23,17 +23,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.fade
 import com.google.accompanist.placeholder.placeholder
@@ -60,15 +59,13 @@ fun SectionRoute(
         )
     )
 ) {
-    val uiState by viewModel.sectionScreenUiState.collectAsState()
     SectionScreen(
         modifier,
         title = sectionType.title,
-        uiState = uiState,
         onMovieCardTap = onMovieCardTap,
         onTvCardTap = onTvCardTap,
         onBackPressed = onBackPressed,
-        onLoadMore = viewModel::addNextPage
+        pagingItems = viewModel.shows.collectAsLazyPagingItems()
     )
 }
 
@@ -77,11 +74,10 @@ fun SectionRoute(
 private fun SectionScreen(
     modifier: Modifier = Modifier,
     title: String,
-    uiState: SectionScreenUiState,
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,
     onBackPressed: () -> Unit,
-    onLoadMore: () -> Unit,
+    pagingItems: LazyPagingItems<Show>,
 ) {
     Scaffold(modifier, topBar = {
         TopAppBar(navigationIcon = {
@@ -92,9 +88,11 @@ private fun SectionScreen(
             Text(title)
         })
     }) { innerPadding ->
-        when (uiState) {
-            SectionScreenUiState.Error -> TODO()
-            SectionScreenUiState.Loading -> {
+
+        println("State is ${pagingItems.loadState.refresh}")
+        when (pagingItems.loadState.refresh) {
+            is LoadState.Error -> TODO()
+            LoadState.Loading -> {
                 SectionScreenPlaceholder(
                     Modifier
                         .padding(innerPadding)
@@ -102,24 +100,15 @@ private fun SectionScreen(
                 )
             }
 
-            is SectionScreenUiState.Success -> {
-                val lazyGridState = rememberLazyGridState()
-
-                val shouldLoadMore by remember(uiState, lazyGridState) {
-                    derivedStateOf {
-                        (lazyGridState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
-                            ?: 0) >= uiState.shows.lastIndex - 10
-                    }
-                }
-
+            is LoadState.NotLoading -> {
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(96f.dp),
-                    state = lazyGridState,
                     contentPadding = innerPadding + PaddingValues(16f.dp),
                     horizontalArrangement = Arrangement.spacedBy(8f.dp),
                     verticalArrangement = Arrangement.spacedBy(16f.dp),
                 ) {
-                    items(uiState.shows, { show -> show.id }) { show ->
+                    items(pagingItems.itemCount, pagingItems.itemKey { show -> show.id }) {
+                        val show = pagingItems[it]!! //?: Show(1, "", "", "", ShowType.Movie)
                         ShowCard(Modifier.aspectRatio(3f / 5f),
                             title = show.title,
                             posterUrl = show.posterUrl,
@@ -131,17 +120,17 @@ private fun SectionScreen(
                                 }
                             })
                     }
-                    
-                    if (uiState.isLoading) {
+                    if (pagingItems.loadState.append == LoadState.Loading) {
                         item {
                             Box(Modifier.aspectRatio(3f / 5f)) {
-                                CircularProgressIndicator(Modifier.align(Alignment.Center))
+                                CircularProgressIndicator(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .wrapContentWidth(Alignment.CenterHorizontally)
+                                )
                             }
                         }
                     }
-                }
-                if (shouldLoadMore) {
-                    onLoadMore()
                 }
             }
         }
@@ -173,14 +162,14 @@ private fun SectionScreenPlaceholder(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(fontScale = 1.0f)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun SectionScreenPreview() {
-    SnacTheme {
-        SectionScreen(Modifier, "Section", SectionScreenUiState.Loading, {}, {}, {}, {})
-    }
-}
+//@Preview(fontScale = 1.0f)
+//@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+//@Composable
+//private fun SectionScreenPreview() {
+//    SnacTheme {
+//        SectionScreen(Modifier, "Section", {}, {}, {}, {})
+//    }
+//}
 
 private operator fun PaddingValues.plus(other: PaddingValues) = PaddingValues(
 
