@@ -1,7 +1,6 @@
-package com.quitr.snac.feature.discover
+package com.quitr.snac.feature.discover.section
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -17,7 +16,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -25,7 +23,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -33,7 +30,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -44,13 +40,12 @@ import com.google.accompanist.placeholder.placeholder
 import com.quitr.snac.core.data.getMovieRepository
 import com.quitr.snac.core.data.getTvRepository
 import com.quitr.snac.core.model.SectionType
-import com.quitr.snac.core.model.SectionType.*
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.ui.ShowCard
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
-import kotlinx.coroutines.launch
+import com.quitr.snac.feature.discover.discover.title
 
 @Composable
 fun SectionRoute(
@@ -66,7 +61,6 @@ fun SectionRoute(
     )
 ) {
     val uiState by viewModel.sectionScreenUiState.collectAsState()
-    val scope = rememberCoroutineScope()
     SectionScreen(
         modifier,
         title = sectionType.title,
@@ -98,34 +92,14 @@ private fun SectionScreen(
             Text(title)
         })
     }) { innerPadding ->
-
-
         when (uiState) {
             SectionScreenUiState.Error -> TODO()
             SectionScreenUiState.Loading -> {
-                FlowRow(
+                SectionScreenPlaceholder(
                     Modifier
                         .padding(innerPadding)
-                        .padding(horizontal = 12f.dp, vertical = 16f.dp),
-//                    verticalArrangement = Arrangement.spacedBy(16f.dp),
-                    maxItemsInEachRow = 3
-                ) {
-                    repeat(12) {
-                        Box(
-                            Modifier
-                                .weight(1f)
-                                .aspectRatio(3f / 5f)
-                                .padding(horizontal = 4f.dp, vertical = 8f.dp)
-                                .placeholder(
-                                    true,
-                                    color = MaterialTheme.colorScheme.inverseOnSurface,
-                                    highlight = PlaceholderHighlight.fade(
-                                        MaterialTheme.colorScheme.surfaceVariant,
-                                    )
-                                )
-                        )
-                    }
-                }
+                        .padding(horizontal = 12f.dp, vertical = 16f.dp)
+                )
             }
 
             is SectionScreenUiState.Success -> {
@@ -157,6 +131,7 @@ private fun SectionScreen(
                                 }
                             })
                     }
+                    
                     if (uiState.isLoading) {
                         item {
                             Box(Modifier.aspectRatio(3f / 5f)) {
@@ -173,6 +148,30 @@ private fun SectionScreen(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun SectionScreenPlaceholder(modifier: Modifier = Modifier) {
+    FlowRow(
+        modifier,
+        maxItemsInEachRow = 3
+    ) {
+        repeat(12) {
+            Box(
+                Modifier
+                    .weight(1f)
+                    .aspectRatio(3f / 5f)
+                    .padding(horizontal = 4f.dp, vertical = 8f.dp)
+                    .placeholder(
+                        true,
+                        color = MaterialTheme.colorScheme.inverseOnSurface,
+                        highlight = PlaceholderHighlight.fade(
+                            MaterialTheme.colorScheme.surfaceVariant,
+                        )
+                    )
+            )
+        }
+    }
+}
 
 @Preview(fontScale = 1.0f)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)

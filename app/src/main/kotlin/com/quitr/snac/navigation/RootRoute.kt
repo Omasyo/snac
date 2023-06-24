@@ -22,7 +22,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.quitr.snac.feature.discover.DiscoverRoute
+import com.quitr.snac.feature.discover.discover.DiscoverRoute
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable

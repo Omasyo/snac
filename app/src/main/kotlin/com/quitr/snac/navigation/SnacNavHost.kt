@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.quitr.snac.core.model.SectionType
-import com.quitr.snac.feature.discover.SectionRoute
+import com.quitr.snac.feature.discover.section.SectionRoute
 import com.quitr.snac.feature.movie.MovieRoute
 
 @OptIn(ExperimentalAnimationApi::class)

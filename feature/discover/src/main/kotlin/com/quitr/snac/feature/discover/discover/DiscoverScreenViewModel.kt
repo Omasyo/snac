@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.discover
+package com.quitr.snac.feature.discover.discover
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -130,18 +130,5 @@ class DiscoverScreenViewModel(
                     DiscoverScreenViewModel(movieRepository, tvRepository)
                 }
             }
-    }
-}
-
-class DiscoverScreenViewModelFactory(
-    private val movieRepository: MovieRepository,
-    private val tvRepository: TvRepository
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        @Suppress("UNCHECKED_CAST")
-        if (modelClass.isAssignableFrom(DiscoverScreenViewModel::class.java)) {
-            return DiscoverScreenViewModel(movieRepository, tvRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

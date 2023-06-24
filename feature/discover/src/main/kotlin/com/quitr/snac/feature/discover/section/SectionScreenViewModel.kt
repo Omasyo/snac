@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.discover
+package com.quitr.snac.feature.discover.section
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
