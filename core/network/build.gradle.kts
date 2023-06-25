@@ -2,8 +2,12 @@ import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
-    id("snac.jvm.library")
+    id("snac.android.library")
     alias(libs.plugins.kotlin.plugin.serialization)
+}
+
+android {
+    namespace = "com.quitr.snac.core.network"
 }
 
 dependencies {
