@@ -15,6 +15,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             pluginManager.apply{
                 apply("snac.android.library")
                 apply("snac.android.compose")
+                apply("snac.android.hilt")
             }
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")

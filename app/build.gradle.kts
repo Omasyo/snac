@@ -49,7 +49,6 @@ android {
 }
 
 dependencies {
-
     implementation(project(mapOf("path" to ":core:model")))
     implementation(project(mapOf("path" to ":core:ui")))
     implementation(project(mapOf("path" to ":feature:discover")))
