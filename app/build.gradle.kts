@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("snac.android.hilt")
 }
 
 android {
@@ -49,10 +50,10 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:model")))
-    implementation(project(mapOf("path" to ":core:ui")))
-    implementation(project(mapOf("path" to ":feature:discover")))
-    implementation(project(mapOf("path" to ":feature:movie")))
+    implementation(project(":core:model"))
+    implementation(project(":core:ui"))
+    implementation(project(":feature:discover"))
+    implementation(project(":feature:movie"))
 
     implementation(libs.androidx.core.ktx)
     implementation(platform(libs.kotlin.bom))

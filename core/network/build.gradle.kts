@@ -3,6 +3,7 @@ import java.util.Properties
 
 plugins {
     id("snac.android.library")
+    id("snac.android.hilt")
     alias(libs.plugins.kotlin.plugin.serialization)
 }
 

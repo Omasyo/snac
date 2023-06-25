@@ -7,8 +7,8 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:model")))
-    implementation(project(mapOf("path" to ":core:network")))
+    implementation(project(":core:model"))
+    implementation(project(":core:network"))
 
     implementation(libs.androidx.paging.compose)
 }

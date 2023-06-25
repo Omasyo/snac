@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:model")))
+    implementation(project(":core:model"))
 
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.coil.compose)
