@@ -7,27 +7,35 @@ import androidx.paging.PagingData
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api
+import com.quitr.snac.core.network.movie.list.MovieListApiModel
 import com.quitr.snac.core.network.tv.TvNetworkDataSource
 import com.quitr.snac.core.network.tv.list.TvApiModel
 import com.quitr.snac.core.network.tv.list.TvListApiModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Named
 
 private const val TAG = "DefaultTvRepository"
 
 internal class DefaultTvRepository @Inject constructor(
-    private val networkDataSource: TvNetworkDataSource
+    private val networkDataSource: TvNetworkDataSource,
+    @Named("IO") private val dispatcher: CoroutineDispatcher,
 ) : TvRepository {
     override suspend fun getTrending(
         page: Int,
         language: String,
         timeWindow: TimeWindow,
-    ): Response<List<Show>> = try {
-        val results = networkDataSource.getTrending(page, timeWindow.text, language).results
-        Success(results.map { tv -> tv.toShow() })
-    } catch (exception: Exception) {
-        Log.d(TAG, "getTrending: $exception")
-        Error
+    ): Response<List<Show>> = withContext(dispatcher) {
+        try {
+            val results = networkDataSource.getTrending(page, timeWindow.text, language).results
+            Success(results.map { tv -> tv.toShow() })
+        } catch (exception: Exception) {
+            Log.d(TAG, "getTrending: $exception")
+            Error
+        }
     }
 
     override fun getTrendingStream(
@@ -41,13 +49,7 @@ internal class DefaultTvRepository @Inject constructor(
         page: Int,
         language: String,
         region: String
-    ): Response<List<Show>> = try {
-        val results = networkDataSource.getAiringToday(page, language, region).results
-        Success(results.map { tv -> tv.toShow() })
-    } catch (exception: Exception) {
-        Log.d(TAG, "getAiringToday: $exception")
-        Error
-    }
+    ): Response<List<Show>> = getList(page, language, region, networkDataSource::getAiringToday)
 
     override fun getAiringTodayStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getAiringToday(page, language, region) }
@@ -56,13 +58,7 @@ internal class DefaultTvRepository @Inject constructor(
         page: Int,
         language: String,
         region: String
-    ): Response<List<Show>> = try {
-        val results = networkDataSource.getOnTheAir(page, language, region).results
-        Success(results.map { tv -> tv.toShow() })
-    } catch (exception: Exception) {
-        Log.d(TAG, "getOnTheAir: $exception")
-        Error
-    }
+    ): Response<List<Show>> = getList(page, language, region, networkDataSource::getOnTheAir)
 
     override fun getOnTheAirStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getOnTheAir(page, language, region) }
@@ -71,13 +67,7 @@ internal class DefaultTvRepository @Inject constructor(
         page: Int,
         language: String,
         region: String
-    ): Response<List<Show>> = try {
-        val results = networkDataSource.getPopular(page, language, region).results
-        Success(results.map { tv -> tv.toShow() })
-    } catch (exception: Exception) {
-        Log.d(TAG, "getPopular: $exception")
-        Error
-    }
+    ): Response<List<Show>> = getList(page, language, region, networkDataSource::getPopular)
 
     override fun getPopularStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getPopular(page, language, region) }
@@ -86,16 +76,25 @@ internal class DefaultTvRepository @Inject constructor(
         page: Int,
         language: String,
         region: String
-    ): Response<List<Show>> = try {
-        val results = networkDataSource.getTopRated(page, language, region).results
-        Success(results.map { tv -> tv.toShow() })
-    } catch (exception: Exception) {
-        Log.d(TAG, "getTopRated: $exception")
-        Error
-    }
+    ): Response<List<Show>> = getList(page, language, region, networkDataSource::getTopRated)
 
     override fun getTopRatedStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getTopRated(page, language, region) }
+
+    private suspend fun getList(
+        page: Int,
+        language: String,
+        region: String,
+        func: suspend (page: Int, language: String, region: String) -> TvListApiModel
+    ) = withContext(dispatcher) {
+        try {
+            val results = func(page, language, region).results
+            Success(results.map { movie -> movie.toShow() })
+        } catch (exception: Exception) {
+            Log.d(TAG, "getList: $exception")
+            Error
+        }
+    }
 
     private fun getStream(provider: suspend (page: Int) -> TvListApiModel): Flow<PagingData<Show>> {
         return Pager(
@@ -104,7 +103,7 @@ internal class DefaultTvRepository @Inject constructor(
             )
         ) {
             ShowPagingSource(provider)
-        }.flow
+        }.flow.flowOn(dispatcher)
     }
 }
 

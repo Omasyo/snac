@@ -1,11 +1,13 @@
 package com.quitr.snac.feature.discover.section
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.quitr.snac.core.data.MovieRepository
 import com.quitr.snac.core.data.TvRepository
 import com.quitr.snac.core.data.getOrElse
@@ -20,13 +22,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SectionScreenViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val movieRepository: MovieRepository,
     private val tvRepository: TvRepository
 ) : ViewModel() {
 
-    private val sectionType: SectionType = SectionType.TvTrending
+    private val sectionType: SectionType = savedStateHandle.get<SectionType>("sectionType")!! as SectionType
 
-    val shows get()  = when (sectionType) {
+    val shows  = when (sectionType) {
         SectionType.MovieTrending -> { movieRepository.getTrendingStream() }
         SectionType.MovieNowPlaying -> { movieRepository.getNowPlayingStream() }
         SectionType.MovieUpcoming -> { movieRepository.getUpcomingStream() }
@@ -37,18 +40,5 @@ class SectionScreenViewModel @Inject constructor(
         SectionType.TvTrending -> { tvRepository.getTrendingStream() }
         SectionType.TvPopular -> { tvRepository.getPopularStream() }
         SectionType.TvTopRated -> { tvRepository.getTopRatedStream() }
-    }
-
-    companion object {
-        fun Factory(
-            sectionType: SectionType,
-            movieRepository: MovieRepository,
-            tvRepository: TvRepository
-        ) =
-            viewModelFactory {
-                initializer {
-                    SectionScreenViewModel( movieRepository, tvRepository)
-                }
-            }
     }
 }

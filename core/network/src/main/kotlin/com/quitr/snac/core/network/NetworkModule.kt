@@ -20,10 +20,12 @@ private object NetworkModule {
     fun provideHttpClient() = createClient()
 
     @Provides
+    @Singleton
     fun provideMovieNetworkDataSource(client: HttpClient): MovieNetworkDataSource =
         DefaultMovieNetworkDataSource(client)
 
     @Provides
+    @Singleton
     fun provideNetworkDataSource(client: HttpClient): TvNetworkDataSource =
         DefaultTvNetworkDataSource(client)
 }
