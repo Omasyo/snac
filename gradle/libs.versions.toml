@@ -4,6 +4,7 @@ androidGradlePlugin = "8.0.2"
 androidxActivity = "1.7.2"
 andriodxCore = "1.10.1"
 androidxEspresso = "3.5.1"
+androidxHilt = "1.0.0"
 andriodxLifecycle = "2.6.1"
 androidxJunitExt = "1.1.5"
 androidxRoom = "2.5.2"
@@ -24,9 +25,9 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 autonomousapps-dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "autonomouseappsDependencyAnalysis" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-kapt = {id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin"}
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 [libraries]
@@ -42,7 +43,8 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-paging-compose = {group = "androidx.paging", name = "paging-compose", version.ref = "androidxPaging"}
+androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHilt" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "androidxPaging" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "andriodxCore" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidxRoom" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }

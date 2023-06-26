@@ -50,7 +50,6 @@ fun SnacNavHost(
                 type = NavType.IntType
             })
         ) { backStackEntry ->
-
             val sectionType = backStackEntry.arguments!!.getInt(SnacRoutes.sectionArg)
             MovieRoute()
         }

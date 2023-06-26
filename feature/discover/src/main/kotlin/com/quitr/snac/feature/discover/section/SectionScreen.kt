@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -36,8 +37,6 @@ import androidx.paging.compose.itemKey
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.fade
 import com.google.accompanist.placeholder.placeholder
-import com.quitr.snac.core.data.getMovieRepository
-import com.quitr.snac.core.data.getTvRepository
 import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
@@ -53,11 +52,7 @@ fun SectionRoute(
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,
     onBackPressed: () -> Unit,
-    viewModel: SectionScreenViewModel = viewModel(
-        factory = SectionScreenViewModel.Factory(
-            sectionType, getMovieRepository(), getTvRepository()
-        )
-    )
+    viewModel: SectionScreenViewModel = hiltViewModel()
 ) {
     SectionScreen(
         modifier,

@@ -9,11 +9,14 @@ import com.quitr.snac.core.data.MovieRepository
 import com.quitr.snac.core.data.TvRepository
 import com.quitr.snac.core.data.getOrElse
 import com.quitr.snac.core.model.SectionType
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DiscoverScreenViewModel(
+@HiltViewModel
+class DiscoverScreenViewModel @Inject constructor(
     movieRepository: MovieRepository,
     tvRepository: TvRepository
 ) : ViewModel() {

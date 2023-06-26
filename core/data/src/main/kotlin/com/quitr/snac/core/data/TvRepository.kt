@@ -9,14 +9,14 @@ import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api
 import com.quitr.snac.core.network.tv.list.TvApiModel
 import com.quitr.snac.core.network.tv.TvNetworkDataSource
-import com.quitr.snac.core.network.tv.getTvNetworkResource
 import com.quitr.snac.core.network.tv.list.TvListApiModel
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 
 private const val TAG = "TvRepository"
 
-fun getTvRepository(): TvRepository = DefaultTvRepository(getTvNetworkResource())
+//fun getTvRepository(): TvRepository = DefaultTvRepository(getTvNetworkResource())
 
 interface TvRepository {
     suspend fun getTrending(
@@ -75,7 +75,7 @@ interface TvRepository {
     ): Flow<PagingData<Show>>
 }
 
-private class DefaultTvRepository(
+ class DefaultTvRepository @Inject constructor(
     private val networkDataSource: TvNetworkDataSource
 ) : TvRepository {
     override suspend fun getTrending(

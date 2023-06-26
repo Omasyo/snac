@@ -34,9 +34,6 @@ fun RootRoute(
     Scaffold(
         modifier,
         bottomBar = {
-            var selected by remember {
-                mutableStateOf(0)
-            }
             NavigationBar() {
 
                 val navBackStackEntry by navBarController.currentBackStackEntryAsState()

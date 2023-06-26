@@ -8,19 +8,15 @@ import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api
 import com.quitr.snac.core.network.movie.MovieNetworkDataSource
-import com.quitr.snac.core.network.movie.getMovieNetworkDataSource
 import com.quitr.snac.core.network.movie.list.MovieApiModel
 import com.quitr.snac.core.network.movie.list.MovieListApiModel
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 
 private const val TAG = "MovieRepository"
-fun getMovieRepository(
-//    private val localDataSource: MovieLocalDataSource
-): MovieRepository = DefaultMovieRepository(getMovieNetworkDataSource())
 
 interface MovieRepository {
-
     suspend fun getTrending(
         page: Int, language: String = "", timeWindow: TimeWindow = TimeWindow.Day
     ): Response<List<Show>>
@@ -62,7 +58,8 @@ interface MovieRepository {
     ): Flow<PagingData<Show>>
 }
 
-private class DefaultMovieRepository(
+
+ class DefaultMovieRepository @Inject constructor(
     private val networkDataSource: MovieNetworkDataSource,
 //    private val localDataSource: MovieLocalDataSource
 ) : MovieRepository {
