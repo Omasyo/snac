@@ -17,7 +17,7 @@ class ShowPagingSource<T>(
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): PagingSource.LoadResult<Int, Show> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Show> {
         return try {
             val page = params.key ?: 1
             val response = when(val listApiModel = provider(page)) {
@@ -25,13 +25,13 @@ class ShowPagingSource<T>(
                 is MovieListApiModel -> listApiModel.results.map { it.toShow() }
                 else -> throw Exception("Invalid Type. Should be TvListApiModel or MovieListApiModel")
             }
-            PagingSource.LoadResult.Page(
+            LoadResult.Page(
                 data = response,
                 prevKey = if (page == 1) null else page.minus(1),
                 nextKey = if (response.isEmpty()) null else page.plus(1),
             )
         } catch (e: Exception) {
-            PagingSource.LoadResult.Error(e)
+            LoadResult.Error(e)
         }
     }
 }
