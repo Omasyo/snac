@@ -29,8 +29,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
@@ -44,6 +44,7 @@ import com.quitr.snac.core.ui.ShowCard
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
 import com.quitr.snac.feature.discover.discover.title
+import kotlinx.coroutines.flow.flow
 
 @Composable
 fun SectionRoute(
@@ -64,7 +65,7 @@ fun SectionRoute(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SectionScreen(
     modifier: Modifier = Modifier,
@@ -103,7 +104,7 @@ private fun SectionScreen(
                     verticalArrangement = Arrangement.spacedBy(16f.dp),
                 ) {
                     items(pagingItems.itemCount, pagingItems.itemKey { show -> show.id }) {
-                        val show = pagingItems[it]!! //?: Show(1, "", "", "", ShowType.Movie)
+                        val show = pagingItems[it]!!
                         ShowCard(Modifier.aspectRatio(3f / 5f),
                             title = show.title,
                             posterUrl = show.posterUrl,
@@ -136,8 +137,7 @@ private fun SectionScreen(
 @Composable
 private fun SectionScreenPlaceholder(modifier: Modifier = Modifier) {
     FlowRow(
-        modifier,
-        maxItemsInEachRow = 3
+        modifier, maxItemsInEachRow = 3
     ) {
         repeat(12) {
             Box(
@@ -157,14 +157,18 @@ private fun SectionScreenPlaceholder(modifier: Modifier = Modifier) {
     }
 }
 
-//@Preview(fontScale = 1.0f)
-//@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-//@Composable
-//private fun SectionScreenPreview() {
-//    SnacTheme {
-//        SectionScreen(Modifier, "Section", {}, {}, {}, {})
-//    }
-//}
+@Preview(fontScale = 1.0f)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun SectionScreenPreview() {
+    SnacTheme {
+        SectionScreen(Modifier, "Section", {}, {}, {},
+            flow {
+                emit(PagingData.from(shows))
+            }.collectAsLazyPagingItems()
+        )
+    }
+}
 
 private operator fun PaddingValues.plus(other: PaddingValues) = PaddingValues(
 

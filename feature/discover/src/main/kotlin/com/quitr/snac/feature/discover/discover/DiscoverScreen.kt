@@ -17,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
@@ -37,7 +36,8 @@ fun DiscoverRoute(
         mapSectionTypeToUiState(viewModel),
         onSectionClicked,
         onMovieCardClicked,
-        onTvCardClicked
+        onTvCardClicked,
+        viewModel::retrySectionFetch
     )
 }
 
@@ -49,6 +49,7 @@ private fun DiscoverScreen(
     onSectionClicked: (SectionType) -> Unit,
     onMovieCardClicked: (id: Int) -> Unit,
     onTvCardClicked: (id: Int) -> Unit,
+    onRetry: (SectionType) -> Unit,
 ) {
     Surface(modifier) {
         LazyColumn(
@@ -56,21 +57,27 @@ private fun DiscoverScreen(
             verticalArrangement = Arrangement.spacedBy(16f.dp)
         ) {
             items(SectionType.values(), { it.name }) { sectionType ->
-                AnimatedContent(targetState = sectionUiStates[sectionType] ?: SectionUiState.Error) { uiState ->
-                when (uiState) {
-                    SectionUiState.Error -> SectionPlaceholder()//TODO()
-                    SectionUiState.Loading -> SectionPlaceholder()
-                    is SectionUiState.Success -> {
-                        Section(
+                AnimatedContent(
+                    targetState = sectionUiStates[sectionType] ?: SectionUiState.Error
+                ) { uiState ->
+                    when (uiState) {
+                        SectionUiState.Error -> SectionError(
                             name = sectionType.title,
                             type = sectionType.showType,
-                            shows = uiState.shows,
-                            onExpand = { onSectionClicked(sectionType) },
-                            onMovieCardClicked = onMovieCardClicked,
-                            onTvCardClicked = onTvCardClicked
-                        )
+                            onRetry = { onRetry(sectionType) })
+
+                        SectionUiState.Loading -> SectionPlaceholder()
+                        is SectionUiState.Success -> {
+                            Section(
+                                name = sectionType.title,
+                                type = sectionType.showType,
+                                shows = uiState.shows,
+                                onExpand = { onSectionClicked(sectionType) },
+                                onMovieCardClicked = onMovieCardClicked,
+                                onTvCardClicked = onTvCardClicked
+                            )
+                        }
                     }
-                }
                 }
             }
         }
@@ -111,21 +118,21 @@ private fun mapSectionTypeToUiState(viewModel: DiscoverScreenViewModel): Map<Sec
     return map
 }
 
-@Preview
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun HomeScreenPreview() {
-    SnacTheme {
-        DiscoverScreen(
-            sectionUiStates = SectionType.values().associateWith {
-                SectionUiState.Loading
-            },
-            onSectionClicked = {},
-            onMovieCardClicked = {},
-            onTvCardClicked = {},
-        )
-    }
-}
+//@Preview
+//@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+//@Composable
+//private fun HomeScreenPreview() {
+//    SnacTheme {
+//        DiscoverScreen(
+//            sectionUiStates = SectionType.values().associateWith {
+//                SectionUiState.Error
+//            },
+//            onSectionClicked = {},
+//            onMovieCardClicked = {},
+//            onTvCardClicked = {},
+//        )
+//    }
+//}
 
 private val shows = List(30) {
     Show(

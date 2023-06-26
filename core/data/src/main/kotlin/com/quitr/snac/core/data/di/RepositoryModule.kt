@@ -1,5 +1,9 @@
-package com.quitr.snac.core.data
+package com.quitr.snac.core.data.di
 
+import com.quitr.snac.core.data.movie.DefaultMovieRepository
+import com.quitr.snac.core.data.movie.MovieRepository
+import com.quitr.snac.core.data.tv.DefaultTvRepository
+import com.quitr.snac.core.data.tv.TvRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -1,7 +1,9 @@
-package com.quitr.snac.core.data
+package com.quitr.snac.core.data.show
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.quitr.snac.core.data.movie.toShow
+import com.quitr.snac.core.data.tv.toShow
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.network.movie.list.MovieListApiModel
 import com.quitr.snac.core.network.tv.list.TvListApiModel

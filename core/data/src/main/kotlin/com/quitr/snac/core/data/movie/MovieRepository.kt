@@ -1,6 +1,8 @@
-package com.quitr.snac.core.data
+package com.quitr.snac.core.data.movie
 
 import androidx.paging.PagingData
+import com.quitr.snac.core.data.Response
+import com.quitr.snac.core.data.TimeWindow
 import com.quitr.snac.core.model.Show
 import kotlinx.coroutines.flow.Flow
 

@@ -1,12 +1,9 @@
 package com.quitr.snac.feature.discover.discover
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.quitr.snac.core.data.MovieRepository
-import com.quitr.snac.core.data.TvRepository
+import com.quitr.snac.core.data.movie.MovieRepository
+import com.quitr.snac.core.data.tv.TvRepository
 import com.quitr.snac.core.data.getOrElse
 import com.quitr.snac.core.model.SectionType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DiscoverScreenViewModel @Inject constructor(
-    movieRepository: MovieRepository,
-    tvRepository: TvRepository
+    private val movieRepository: MovieRepository,
+    private val tvRepository: TvRepository
 ) : ViewModel() {
 
     private val _movieTrendingState = MutableStateFlow<SectionUiState>(SectionUiState.Loading)
@@ -51,20 +48,22 @@ class DiscoverScreenViewModel @Inject constructor(
     private val _tvTopRatedState = MutableStateFlow<SectionUiState>(SectionUiState.Loading)
     val tvTopRatedState: StateFlow<SectionUiState> = _tvTopRatedState
 
+    fun retrySectionFetch(sectionType: SectionType) =
+        viewModelScope.launch { getAndUpdateState(sectionType) }
+
     init {
         viewModelScope.launch {
             for (type in SectionType.values()) {
-                getAndUpdateState(type, movieRepository, tvRepository)
+                getAndUpdateState(type)
             }
         }
     }
 
     private suspend fun getAndUpdateState(
-        type: SectionType,
-        movieRepository: MovieRepository,
-        tvRepository: TvRepository
+        type: SectionType
     ) = when (type) {
         SectionType.MovieTrending -> {
+            _movieTrendingState.value = SectionUiState.Loading
             _movieTrendingState.value =
                 movieRepository.getTrending(1).getOrElse(SectionUiState.Error) {
                     SectionUiState.Success(it)
@@ -72,66 +71,66 @@ class DiscoverScreenViewModel @Inject constructor(
         }
 
         SectionType.MovieNowPlaying -> {
+            _movieNowPlayingState.value = SectionUiState.Loading
             _movieNowPlayingState.value =
                 movieRepository.getNowPlaying(1)
                     .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
         }
 
         SectionType.MovieUpcoming -> {
+            _movieUpcomingState.value = SectionUiState.Loading
             _movieUpcomingState.value =
                 movieRepository.getUpcoming(1)
                     .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
         }
 
         SectionType.MoviePopular -> {
+            _moviePopularState.value = SectionUiState.Loading
             _moviePopularState.value =
                 movieRepository.getPopular(1)
                     .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
         }
 
         SectionType.MovieTopRated -> {
+            _movieTopRatedState.value = SectionUiState.Loading
             _movieTopRatedState.value =
                 movieRepository.getTopRated(1)
                     .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
         }
 
         SectionType.TvAiringToday -> {
+            _tvAiringTodayState.value = SectionUiState.Loading
             _tvAiringTodayState.value =
                 tvRepository.getAiringToday(1)
                     .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
         }
 
         SectionType.TvOnTheAir -> {
+            _tvOnTheAirState.value = SectionUiState.Loading
             _tvOnTheAirState.value =
                 tvRepository.getOnTheAir(1)
                     .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
         }
 
         SectionType.TvTrending -> {
+            _tvTrendingState.value = SectionUiState.Loading
             _tvTrendingState.value =
                 tvRepository.getTrending(1)
                     .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
         }
 
         SectionType.TvPopular -> {
+            _tvPopularState.value = SectionUiState.Loading
             _tvPopularState.value =
                 tvRepository.getPopular(1)
                     .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
         }
 
         SectionType.TvTopRated -> {
+            _tvTopRatedState.value = SectionUiState.Loading
             _tvTopRatedState.value =
                 tvRepository.getTopRated(1)
                     .getOrElse(SectionUiState.Error) { SectionUiState.Success(it) }
         }
-    }
-
-    companion object {
-        fun Factory(movieRepository: MovieRepository, tvRepository: TvRepository) =
-            viewModelFactory {
-                initializer {
-                    DiscoverScreenViewModel(movieRepository, tvRepository)
-                }
-            }
     }
 }

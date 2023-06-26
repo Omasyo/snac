@@ -1,19 +1,10 @@
-package com.quitr.snac.core.data
+package com.quitr.snac.core.data.tv
 
-import android.util.Log
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.quitr.snac.core.data.Response
+import com.quitr.snac.core.data.TimeWindow
 import com.quitr.snac.core.model.Show
-import com.quitr.snac.core.model.ShowType
-import com.quitr.snac.core.network.Api
-import com.quitr.snac.core.network.tv.list.TvApiModel
-import com.quitr.snac.core.network.tv.TvNetworkDataSource
-import com.quitr.snac.core.network.tv.list.TvListApiModel
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
-
-
 
 
 interface TvRepository {
