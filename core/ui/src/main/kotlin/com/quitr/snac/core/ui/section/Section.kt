@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.discover.discover
+package com.quitr.snac.core.ui.section
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,7 +37,7 @@ import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
 
 @Composable
-internal fun Section(
+fun Section(
     modifier: Modifier = Modifier,
     name: String,
     type: ShowType,
@@ -91,7 +92,7 @@ internal fun Section(
 
 @Preview
 @Composable
-internal fun SectionPlaceholder(modifier: Modifier = Modifier) {
+fun SectionPlaceholder(modifier: Modifier = Modifier) {
     PlaceholderHighlight.shimmer()
     Column(modifier.padding(16f.dp)) {
         val sharedModifier = Modifier
@@ -112,6 +113,39 @@ internal fun SectionPlaceholder(modifier: Modifier = Modifier) {
             sharedModifier
                 .height(176f.dp)
         )
+    }
+}
+
+@Composable
+fun SectionError(
+    modifier: Modifier = Modifier,
+    name: String,
+    type: ShowType,
+    onRetry: () -> Unit
+) {
+    Column(modifier) {
+        Row(
+            Modifier
+                .padding(horizontal = 16f.dp, vertical = 12f.dp)
+                .fillMaxWidth()
+                .height(40f.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(name, style = MaterialTheme.typography.titleLarge)
+            Spacer(Modifier.width(4f.dp))
+            TypeContainer(type)
+            Spacer(Modifier.weight(1f))
+            Icon(SnacIcons.ArrowForward, contentDescription = null)
+        }
+        Box(
+            Modifier
+                .height(200f.dp)
+                .fillMaxWidth(),
+        ) {
+            OutlinedButton(onClick = onRetry, modifier = Modifier.align(Alignment.Center)) {
+                Text(text = "Retry")
+            }
+        }
     }
 }
 

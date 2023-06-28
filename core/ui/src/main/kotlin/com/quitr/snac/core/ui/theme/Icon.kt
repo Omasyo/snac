@@ -3,10 +3,15 @@ package com.quitr.snac.core.ui.theme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CollectionsBookmark
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.PeopleAlt
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.CollectionsBookmark
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import com.quitr.snac.core.ui.R
 
 object SnacIcons {
     val HomeOutlined = Icons.Outlined.Home
@@ -15,4 +20,15 @@ object SnacIcons {
     val LibraryFilled = Icons.Filled.CollectionsBookmark
     val ArrowForward = Icons.Outlined.ArrowForward
     val ArrowBack = Icons.Outlined.ArrowBack
+    val People = Icons.Filled.PeopleAlt
+
+    val Star: Painter
+        @Composable get() {
+            if (star == null) {
+                star = painterResource(R.drawable.star)
+            }
+            return star!!
+        }
 }
+
+private var star: Painter? = null

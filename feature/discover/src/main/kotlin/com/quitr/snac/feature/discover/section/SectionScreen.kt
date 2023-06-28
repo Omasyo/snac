@@ -28,16 +28,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.fade
 import com.google.accompanist.placeholder.placeholder
-import com.quitr.snac.core.data.getMovieRepository
-import com.quitr.snac.core.data.getTvRepository
 import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
@@ -45,6 +44,7 @@ import com.quitr.snac.core.ui.ShowCard
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
 import com.quitr.snac.feature.discover.discover.title
+import kotlinx.coroutines.flow.flow
 
 @Composable
 fun SectionRoute(
@@ -53,11 +53,7 @@ fun SectionRoute(
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,
     onBackPressed: () -> Unit,
-    viewModel: SectionScreenViewModel = viewModel(
-        factory = SectionScreenViewModel.Factory(
-            sectionType, getMovieRepository(), getTvRepository()
-        )
-    )
+    viewModel: SectionScreenViewModel = hiltViewModel()
 ) {
     SectionScreen(
         modifier,
@@ -69,7 +65,7 @@ fun SectionRoute(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SectionScreen(
     modifier: Modifier = Modifier,
@@ -108,7 +104,7 @@ private fun SectionScreen(
                     verticalArrangement = Arrangement.spacedBy(16f.dp),
                 ) {
                     items(pagingItems.itemCount, pagingItems.itemKey { show -> show.id }) {
-                        val show = pagingItems[it]!! //?: Show(1, "", "", "", ShowType.Movie)
+                        val show = pagingItems[it]!!
                         ShowCard(Modifier.aspectRatio(3f / 5f),
                             title = show.title,
                             posterUrl = show.posterUrl,
@@ -140,9 +136,10 @@ private fun SectionScreen(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun SectionScreenPlaceholder(modifier: Modifier = Modifier) {
+
+    //TODO use arrangement: https://issuetracker.google.com/issues/268365538
     FlowRow(
-        modifier,
-        maxItemsInEachRow = 3
+        modifier, maxItemsInEachRow = 3
     ) {
         repeat(12) {
             Box(
@@ -162,14 +159,18 @@ private fun SectionScreenPlaceholder(modifier: Modifier = Modifier) {
     }
 }
 
-//@Preview(fontScale = 1.0f)
-//@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-//@Composable
-//private fun SectionScreenPreview() {
-//    SnacTheme {
-//        SectionScreen(Modifier, "Section", {}, {}, {}, {})
-//    }
-//}
+@Preview(fontScale = 1.0f)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun SectionScreenPreview() {
+    SnacTheme {
+        SectionScreen(Modifier, "Section", {}, {}, {},
+            flow {
+                emit(PagingData.from(shows))
+            }.collectAsLazyPagingItems()
+        )
+    }
+}
 
 private operator fun PaddingValues.plus(other: PaddingValues) = PaddingValues(
 

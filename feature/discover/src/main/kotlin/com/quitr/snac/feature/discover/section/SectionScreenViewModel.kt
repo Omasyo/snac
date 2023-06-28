@@ -1,28 +1,23 @@
 package com.quitr.snac.feature.discover.section
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.quitr.snac.core.data.MovieRepository
-import com.quitr.snac.core.data.TvRepository
-import com.quitr.snac.core.data.getOrElse
+import com.quitr.snac.core.data.movie.MovieRepository
+import com.quitr.snac.core.data.tv.TvRepository
 import com.quitr.snac.core.model.SectionType
-import com.quitr.snac.core.model.Show
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SectionScreenViewModel(
-    private val sectionType: SectionType,
-    private val movieRepository: MovieRepository,
-    private val tvRepository: TvRepository
+@HiltViewModel
+class SectionScreenViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
+    movieRepository: MovieRepository,
+    tvRepository: TvRepository
 ) : ViewModel() {
 
-    val shows get()  = when (sectionType) {
+    private val sectionType: SectionType = savedStateHandle.get<SectionType>("sectionType")!! as SectionType
+
+    val shows  = when (sectionType) {
         SectionType.MovieTrending -> { movieRepository.getTrendingStream() }
         SectionType.MovieNowPlaying -> { movieRepository.getNowPlayingStream() }
         SectionType.MovieUpcoming -> { movieRepository.getUpcomingStream() }
@@ -33,18 +28,5 @@ class SectionScreenViewModel(
         SectionType.TvTrending -> { tvRepository.getTrendingStream() }
         SectionType.TvPopular -> { tvRepository.getPopularStream() }
         SectionType.TvTopRated -> { tvRepository.getTopRatedStream() }
-    }
-
-    companion object {
-        fun Factory(
-            sectionType: SectionType,
-            movieRepository: MovieRepository,
-            tvRepository: TvRepository
-        ) =
-            viewModelFactory {
-                initializer {
-                    SectionScreenViewModel(sectionType, movieRepository, tvRepository)
-                }
-            }
     }
 }

@@ -22,7 +22,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
-val Client by lazy {
+fun createClient() =
     HttpClient(CIO) {
         install(Auth) {
             bearer {
@@ -42,32 +42,3 @@ val Client by lazy {
             host = "api.themoviedb.org"
         }
     }
-}
-
-@Serializable
-data class Temp(
-    val headquarters: String,
-    val homepage: String,
-    val id: Int,
-    @SerialName("logo_path") val logoPath: String,
-    val name: String,
-    @SerialName("origin_country") val originCountry: String,
-)
-
-suspend fun main() {
-    try {
-        val response = Client.get("/3/movie/now_playing") {
-            parameter("page", "2")
-            parameters {
-                append("page", "2")
-//                append("language", language)
-//                append("region", region)
-            }
-        }
-        println(response.request.url.authority)
-        val temp: String = response.body()
-        println(temp)
-    } catch (e: Exception) {
-        println(e)
-    }
-}

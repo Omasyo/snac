@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.quitr.snac.core.common.R as CommonR
 import com.quitr.snac.core.ui.theme.SnacTheme
 import kotlin.random.Random
 
@@ -46,7 +47,7 @@ fun ShowCard(
     ) {
         Box(Modifier.weight(1f)) {
             AsyncImage(
-                contentDescription = stringResource(R.string.poster_description),
+                contentDescription = stringResource(CommonR.string.poster_description),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(posterUrl)
                     .crossfade(true)

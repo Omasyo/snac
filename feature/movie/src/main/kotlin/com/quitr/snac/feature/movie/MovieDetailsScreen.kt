@@ -7,9 +7,12 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,7 +23,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -36,14 +41,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.quitr.snac.core.model.Movie
+import com.quitr.snac.core.model.Show
+import com.quitr.snac.core.ui.InlineText
+import com.quitr.snac.core.ui.ShowScaffold
+import com.quitr.snac.core.ui.append
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
 import kotlin.random.Random
@@ -52,15 +64,17 @@ import kotlin.random.Random
 fun MovieRoute(
     modifier: Modifier = Modifier
 ) {
-    MovieDetailsScreen(modifier = modifier)
+    MovieDetailsScreen(modifier = modifier, FakeMovie)
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class, ExperimentalLayoutApi::class
+)
 @Composable
 fun MovieDetailsScreen(
     modifier: Modifier = Modifier,
+    movie: Movie,
 ) {
-    val title = "Fantastic Beasts and How to Esacape Them"
     val lazyColumnState = rememberLazyListState()
 
     val isCollapsed by remember {
@@ -69,106 +83,71 @@ fun MovieDetailsScreen(
         }
     }
 
-    Scaffold(
-        modifier,
-        topBar = {
-            TopAppBar(
-
-                navigationIcon = {
-                    IconButton(onClick = {}) {
-                        Icon(SnacIcons.ArrowBack, null)
-                    }
-                },
-                title = {
-                    AnimatedVisibility(
-                        visible = isCollapsed,
-                        enter = fadeIn(),
-                        exit = fadeOut()
-                    ) {
-                        Text(title)
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Transparent
+    ShowScaffold(
+        modifier = modifier,
+        title = movie.title,
+        posterUrl = movie.posterUrl,
+        backdropUrl = movie.backDropUrl,
+        releaseDate = movie.releaseDate,
+        runtime = movie.runtime.toString(),
+        genres = movie.genres,
+        voteAverage = movie.voteAverage.toString(),
+        voteCount = movie.voteCount,
+        onBackPressed = { /*TODO*/ }) {
+        separator()
+        item {
+            Column(Modifier.padding(horizontal = 16f.dp)) {
+                Text(
+                    movie.tagline,
+                    style = MaterialTheme.typography.titleMedium.copy(fontStyle = FontStyle.Italic)
                 )
-            )
+            }
         }
-    ) { innerPadding ->
-        innerPadding.toString()
-        LazyColumn(
-            state = lazyColumnState
-        ) {
-            item {
-                Box(
-                    Modifier
-                        .height(386.dp)
-                        .fillMaxWidth()
-                ) {
-                    val backgroundColor = MaterialTheme.colorScheme.surface
-                    Image(
-                        painter = painterResource(com.quitr.snac.core.ui.R.drawable.poster_sample),
-                        contentDescription = null,
-                        contentScale = ContentScale.FillWidth,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .drawWithCache {
-                                val gradient = Brush.verticalGradient(
-                                    colors = listOf(Color.Transparent, backgroundColor),
-                                    startY = size.height / 5,
-                                    endY = size.height
-                                )
-                                onDrawWithContent {
-                                    drawContent()
-                                    drawRect(gradient)
-                                }
-                            }
-                    )
-                    Row(
-                        Modifier
-                            .align(Alignment.BottomStart)
-                            .padding(16f.dp)
-                            .offset(0f.dp, 48f.dp)
-                    ) {
-                        ElevatedCard(Modifier.size(120f.dp, 176f.dp)) {
+        separator()
+        item {
+            Column(Modifier.padding(horizontal = 16f.dp)) {
 
-                        }
-                        Spacer(Modifier.width(24f.dp))
-                        Column(
+                Text("Tags", style = MaterialTheme.typography.titleMedium)
+                Spacer(Modifier.height(8f.dp))
+                //TODO use verticalArrangement: https://issuetracker.google.com/issues/268365538
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(8f.dp)
+                ) {
+                    for (keyword in movie.keywords) {
+                        Box(
                             Modifier
-                                .fillMaxWidth()
-                                .align(Alignment.CenterVertically),
-                            verticalArrangement = Arrangement.spacedBy(8f.dp)
+                                .clip(MaterialTheme.shapes.small)
+                                .background(MaterialTheme.colorScheme.surfaceVariant)
+                                .clickable { }
+                                .padding(horizontal = 16f.dp, vertical = 8f.dp)
                         ) {
-                            Text(title, style = MaterialTheme.typography.titleLarge)
-                            Text("Jun 2023 • 140 mins • PG")
-                            Text("Action • Adventure • Sci-fi")
+                            Text(keyword.name, style = MaterialTheme.typography.labelLarge)
                         }
                     }
                 }
             }
-            stickyHeader {
-                val backGroundColor = MaterialTheme.colorScheme.surface
-                Box(
-                    Modifier
-                        .drawBehind {
-                            drawRect(if (isCollapsed) backGroundColor else Color.Transparent)
-                        }
-                        .statusBarsPadding()
-                        .height(64f.dp)
-                        .fillMaxWidth()
-//                        .background(if(isCollapsed) backGroundColor else Color.Transparent)
-
-                )
-            }
-            items(20) {
-                Box(
-                    Modifier
-                        .background(Color(0xFF000000 + Random.nextLong(0xFFFFFF)))
-                        .height(64f.dp)
-                        .fillMaxWidth()
-                )
-            }
         }
+//        seperator()
+        item {
+
+        }
+
+        items(20) {
+            Box(
+                Modifier
+                    .background(Color(0xFF000000 + Random.nextLong(0xFFFFFF)))
+                    .height(64f.dp)
+                    .fillMaxWidth()
+            )
+        }
+    }
+}
+
+fun LazyListScope.separator(
+    modifier: Modifier = Modifier.padding(16f.dp)
+) {
+    item {
+        Divider(modifier)
     }
 }
 
@@ -176,6 +155,6 @@ fun MovieDetailsScreen(
 @Composable
 fun MovieScreenPreview() {
     SnacTheme {
-        MovieDetailsScreen()
+        MovieDetailsScreen(movie = FakeMovie)
     }
 }
