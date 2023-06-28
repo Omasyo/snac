@@ -77,7 +77,8 @@ fun ResizableHeaderScaffold(
     }) { innerPadding ->
         val backGroundColor = MaterialTheme.colorScheme.surface
         LazyColumn(
-            state = lazyColumnState
+            state = lazyColumnState,
+            contentPadding = PaddingValues(bottom = 24f.dp)
         ) {
             item {
                 expandedContent(innerPadding)

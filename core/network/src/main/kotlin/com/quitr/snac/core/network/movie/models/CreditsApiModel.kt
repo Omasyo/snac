@@ -5,9 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ProductionCountry(
-    @SerialName("iso_3166_1")
-    val iso31661: String,
-    @SerialName("name")
-    val name: String
+data class CreditsApiModel(
+    @SerialName("cast") val cast: List<CastApiModel>,
+    @SerialName("crew") val crew: List<CrewApiModel>
 )

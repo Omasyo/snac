@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Cast(
+data class CastApiModel(
     @SerialName("adult") val adult: Boolean,
     @SerialName("cast_id") val castId: Int,
     @SerialName("character") val character: String,
@@ -17,5 +17,5 @@ data class Cast(
     @SerialName("order") val order: Int,
     @SerialName("original_name") val originalName: String,
     @SerialName("popularity") val popularity: Double,
-    @SerialName("profile_path") val profilePath: String
+    @SerialName("profile_path") val profilePath: String?
 )

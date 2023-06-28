@@ -46,111 +46,67 @@ fun Section(
     onMovieCardClicked: (id: Int) -> Unit,
     onTvCardClicked: (id: Int) -> Unit,
 ) {
-    Column(modifier) {
-        Row(
-            Modifier
-                .clickable(onClick = onExpand)
-                .padding(horizontal = 16f.dp, vertical = 12f.dp)
-                .fillMaxWidth()
-                .height(40f.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(name, style = MaterialTheme.typography.titleLarge)
-            Spacer(Modifier.width(4f.dp))
-            TypeContainer(type)
-            Spacer(Modifier.weight(1f))
-            Icon(SnacIcons.ArrowForward, contentDescription = null)
-
-        }
-        LazyRow(
-            Modifier
-                .height(200f.dp)
-                .fillMaxWidth(),
-            contentPadding = PaddingValues(horizontal = 16f.dp),
-            horizontalArrangement = Arrangement.spacedBy(8f.dp)
-        ) {
-            items(
-                shows,
-                key = { show -> show.id },
-            ) { show ->
-                ShowCard(
-                    Modifier.size(120f.dp, 200f.dp),
-                    title = show.title,
-                    posterUrl = show.posterUrl,
-                    rating = show.rating,
-                    onClick = {
-                        when (show.showType) {
-                            ShowType.Movie -> onMovieCardClicked(show.id)
-                            ShowType.Tv -> onTvCardClicked(show.id)
-                        }
+    ExpandableSection(modifier, header = {
+        Text(name, style = MaterialTheme.typography.titleLarge)
+        Spacer(Modifier.width(4f.dp))
+        TypeContainer(type)
+    }, onExpand = onExpand) {
+        items(
+            shows,
+            key = { show -> show.id },
+        ) { show ->
+            ShowCard(
+                Modifier.size(120f.dp, 200f.dp),
+                title = show.title,
+                posterUrl = show.posterUrl,
+                rating = show.rating,
+                onClick = {
+                    when (show.showType) {
+                        ShowType.Movie -> onMovieCardClicked(show.id)
+                        ShowType.Tv -> onTvCardClicked(show.id)
                     }
-                )
-            }
+                }
+            )
         }
     }
 }
 
-@Preview
 @Composable
-fun SectionPlaceholder(modifier: Modifier = Modifier) {
-    PlaceholderHighlight.shimmer()
-    Column(modifier.padding(16f.dp)) {
-        val sharedModifier = Modifier
-            .fillMaxWidth()
-            .placeholder(
-                true, color = MaterialTheme.colorScheme.inverseOnSurface,
-                highlight = PlaceholderHighlight.fade(
-                    MaterialTheme.colorScheme.surfaceVariant,
-                )
-            )
-
-        Box(
-            sharedModifier
-                .height(36f.dp)
-        )
-        Spacer(Modifier.height(16f.dp))
-        Box(
-            sharedModifier
-                .height(176f.dp)
-        )
-    }
-}
-
-@Composable
-fun SectionError(
+fun Section(
     modifier: Modifier = Modifier,
     name: String,
-    type: ShowType,
-    onRetry: () -> Unit
+    shows: List<Show>,
+    onExpand: () -> Unit,
+    onMovieCardClicked: (id: Int) -> Unit,
+    onTvCardClicked: (id: Int) -> Unit,
 ) {
-    Column(modifier) {
-        Row(
-            Modifier
-                .padding(horizontal = 16f.dp, vertical = 12f.dp)
-                .fillMaxWidth()
-                .height(40f.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(name, style = MaterialTheme.typography.titleLarge)
-            Spacer(Modifier.width(4f.dp))
-            TypeContainer(type)
-            Spacer(Modifier.weight(1f))
-            Icon(SnacIcons.ArrowForward, contentDescription = null)
-        }
-        Box(
-            Modifier
-                .height(200f.dp)
-                .fillMaxWidth(),
-        ) {
-            OutlinedButton(onClick = onRetry, modifier = Modifier.align(Alignment.Center)) {
-                Text(text = "Retry")
-            }
+    ExpandableSection(modifier, header = {
+        Text(name, style = MaterialTheme.typography.titleLarge)
+        Spacer(Modifier.width(4f.dp))
+    }, onExpand = onExpand) {
+        items(
+            shows,
+            key = { show -> show.id },
+        ) { show ->
+            ShowCard(
+                Modifier.size(120f.dp, 200f.dp),
+                title = show.title,
+                posterUrl = show.posterUrl,
+                rating = show.rating,
+                onClick = {
+                    when (show.showType) {
+                        ShowType.Movie -> onMovieCardClicked(show.id)
+                        ShowType.Tv -> onTvCardClicked(show.id)
+                    }
+                }
+            )
         }
     }
 }
 
+
 @Composable
-private fun TypeContainer(type: ShowType) {
+fun TypeContainer(type: ShowType) {
     Surface(
         color = MaterialTheme.colorScheme.surfaceVariant,
         shape = MaterialTheme.shapes.extraSmall

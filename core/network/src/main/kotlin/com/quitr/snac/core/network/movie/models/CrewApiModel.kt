@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Crew(
+data class CrewApiModel(
     @SerialName("adult") val adult: Boolean,
     @SerialName("credit_id") val creditId: String,
     @SerialName("department") val department: String,
@@ -16,5 +16,5 @@ data class Crew(
     @SerialName("name") val name: String,
     @SerialName("original_name") val originalName: String,
     @SerialName("popularity") val popularity: Double,
-    @SerialName("profile_path") val profilePath: String
+    @SerialName("profile_path") val profilePath: String?
 )

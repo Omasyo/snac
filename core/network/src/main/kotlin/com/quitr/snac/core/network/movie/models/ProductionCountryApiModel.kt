@@ -5,6 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Genre(
-    @SerialName("id") val id: Int, @SerialName("name") val name: String
+data class ProductionCountryApiModel(
+    @SerialName("iso_3166_1") val iso31661: String,
+    @SerialName("name") val name: String
 )

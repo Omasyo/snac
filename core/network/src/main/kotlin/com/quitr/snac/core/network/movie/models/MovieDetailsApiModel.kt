@@ -1,34 +1,35 @@
 package com.quitr.snac.core.network.movie.models
 
 
+import com.quitr.snac.core.network.movie.list.MovieListApiModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MovieDetails(
+data class MovieDetailsApiModel(
     @SerialName("adult") val adult: Boolean,
     @SerialName("backdrop_path") val backdropPath: String,
 //    @SerialName("belongs_to_collection") val belongsToCollection: Any,
     @SerialName("budget") val budget: Int,
-    @SerialName("credits") val credits: Credits,
-    @SerialName("genres") val genres: List<Genre>,
+    @SerialName("credits") val credits: CreditsApiModel,
+    @SerialName("genres") val genres: List<GenreApiModel>,
     @SerialName("homepage") val homepage: String,
     @SerialName("id") val id: Int,
     @SerialName("imdb_id") val imdbId: String,
-    @SerialName("keywords") val keywords: Keywords,
+    @SerialName("keywords") val keywords: KeywordsApiModel,
     @SerialName("original_language") val originalLanguage: String,
     @SerialName("original_title") val originalTitle: String,
     @SerialName("overview") val overview: String,
     @SerialName("popularity") val popularity: Double,
     @SerialName("poster_path") val posterPath: String,
-    @SerialName("production_companies") val productionCompanies: List<ProductionCompany>,
-    @SerialName("production_countries") val productionCountries: List<ProductionCountry>,
-    @SerialName("recommendations") val recommendations: Recommendations,
+    @SerialName("production_companies") val productionCompanies: List<ProductionCompanyApiModel>,
+    @SerialName("production_countries") val productionCountries: List<ProductionCountryApiModel>,
+    @SerialName("recommendations") val recommendations: RecommendationsApiModel,
     @SerialName("release_date") val releaseDate: String,
     @SerialName("revenue") val revenue: Int,
     @SerialName("runtime") val runtime: Int,
-    @SerialName("similar") val similar: Similar,
-    @SerialName("spoken_languages") val spokenLanguages: List<SpokenLanguage>,
+    @SerialName("similar") val similar: MovieListApiModel,
+    @SerialName("spoken_languages") val spokenLanguages: List<SpokenLanguageApiModel>,
     @SerialName("status") val status: String,
     @SerialName("tagline") val tagline: String,
     @SerialName("title") val title: String,

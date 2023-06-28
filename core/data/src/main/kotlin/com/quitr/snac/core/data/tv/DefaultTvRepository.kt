@@ -112,4 +112,4 @@ internal class DefaultTvRepository @Inject constructor(
 }
 
 internal fun TvApiModel.toShow() =
-    Show(id, name, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Movie)
+    Show(id, name, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Tv)

@@ -9,12 +9,25 @@ import com.quitr.snac.core.data.Response
 import com.quitr.snac.core.data.show.ShowPagingSource
 import com.quitr.snac.core.data.Success
 import com.quitr.snac.core.data.TimeWindow
+import com.quitr.snac.core.model.Genre
+import com.quitr.snac.core.model.Keyword
+import com.quitr.snac.core.model.Movie
+import com.quitr.snac.core.model.Person
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api
 import com.quitr.snac.core.network.movie.MovieNetworkDataSource
 import com.quitr.snac.core.network.movie.list.MovieApiModel
 import com.quitr.snac.core.network.movie.list.MovieListApiModel
+import com.quitr.snac.core.network.movie.models.CastApiModel
+import com.quitr.snac.core.network.movie.models.CrewApiModel
+import com.quitr.snac.core.network.movie.models.GenreApiModel
+import com.quitr.snac.core.network.movie.models.KeywordApiModel
+import com.quitr.snac.core.network.movie.models.MovieDetailsApiModel
+import com.quitr.snac.core.network.movie.models.ProductionCompanyApiModel
+import com.quitr.snac.core.network.movie.models.ProductionCountryApiModel
+import com.quitr.snac.core.network.movie.models.RecommendationApiModel
+import com.quitr.snac.core.network.movie.models.SpokenLanguageApiModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -29,6 +42,17 @@ internal class DefaultMovieRepository @Inject constructor(
 //    private val localDataSource: MovieLocalDataSource
     @Named("IO") private val dispatcher: CoroutineDispatcher,
 ) : MovieRepository {
+    override suspend fun getDetails(id: Int, language: String): Response<Movie> =
+        withContext(dispatcher) {
+            try {
+                val result = networkDataSource.getDetails(id, language).toMovie()
+                Success(result)
+            } catch (exception: Exception) {
+                Log.d(TAG, "getTrending: $exception")
+                Error
+            }
+        }
+
     override suspend fun getTrending(
         page: Int, language: String, timeWindow: TimeWindow
     ): Response<List<Show>> = withContext(dispatcher) {
@@ -101,6 +125,67 @@ internal class DefaultMovieRepository @Inject constructor(
     }
 }
 
+internal fun CastApiModel.toPerson() =
+    Person(id = id, name = name, role = character, photoUrl = profilePath ?: "")
+
+internal fun List<CastApiModel>.toPeople() = map { cast -> cast.toPerson() }
+
+internal fun CrewApiModel.toPerson() =
+    Person(id = id, name = name, role = job, photoUrl = profilePath ?: "")
+
+
+internal fun GenreApiModel.toGenre() = Genre(id, name)
+internal fun List<GenreApiModel>.toGenres() = map { genreApiModel -> genreApiModel.toGenre() }
+
+internal fun KeywordApiModel.toKeyword() = Keyword(id, name)
+internal fun List<KeywordApiModel>.toKeywords() =
+    map { keywordApiModel -> keywordApiModel.toKeyword() }
+
+
+internal fun List<ProductionCountryApiModel>.toNames() =
+    map { productionCountryApiModel -> productionCountryApiModel.name }
+
+internal fun MovieDetailsApiModel.toMovie() = Movie(
+    id = id,
+    backDropUrl = backdropPath,
+    budget = budget,
+    cast = credits.cast.toPeople().combineSimilar(),
+    crew = credits.crew.toPeople().combineSimilar(),
+    genres = genres.toGenres(),
+    homePageUrl = homepage,
+    imdbId = imdbId,
+    keywords = keywords.keywords.toKeywords(),
+    originalLanguage = originalLanguage,
+    originalTitle = originalTitle,
+    overview = overview,
+    popularity = popularity,
+    posterUrl = posterPath,
+    productionCompanies = productionCompanies.toNames(),
+    productionCountries = productionCountries.toNames(),
+    recommendations = recommendations.results.toShows(),
+    releaseDate = releaseDate,
+    revenue = revenue,
+    runtime = runtime,
+    similar = similar.results.toShows(),
+    spokenLanguages = spokenLanguages.toName(),
+    status = status,
+    tagline = tagline,
+    title = title,
+    voteAverage = voteAverage,
+    voteCount = voteCount
+
+)
+
+internal fun List<SpokenLanguageApiModel>.toName() =
+    map { spokenLanguageApiModel -> spokenLanguageApiModel.englishName }
+
 internal fun MovieApiModel.toShow() = Show(
     id, title, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Movie
 )
+
+internal fun RecommendationApiModel.toShow() = Show(
+    id, title, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Movie
+)
+
+internal fun List<RecommendationApiModel>.toShows() =
+    map { recommendationApiModel -> recommendationApiModel.toShow() }

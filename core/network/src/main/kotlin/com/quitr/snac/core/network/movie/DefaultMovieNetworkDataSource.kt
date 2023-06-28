@@ -1,6 +1,8 @@
 package com.quitr.snac.core.network.movie
 
+import com.quitr.snac.core.network.createClient
 import com.quitr.snac.core.network.movie.list.MovieListApiModel
+import com.quitr.snac.core.network.movie.models.MovieDetailsApiModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -8,8 +10,21 @@ import io.ktor.client.request.parameter
 import javax.inject.Inject
 
 
+suspend fun main() {
+    val res: MovieDetailsApiModel = createClient().get("/3/movie/2") {
+//        parameter("language", language)
+        parameter("append_to_response", "credits,keywords,recommendations,similar")
+    }.body()
+    println(res)
+}
+
 internal class DefaultMovieNetworkDataSource @Inject constructor(private val client: HttpClient) :
     MovieNetworkDataSource {
+    override suspend fun getDetails(id: Int, language: String): MovieDetailsApiModel = client.get("/3/movie/$id") {
+        parameter("language", language)
+        parameter("append_to_response", "credits,keywords,recommendations,similar")
+    }.body()
+
     override suspend fun getTrending(
         page: Int,
         timeWindow: String,

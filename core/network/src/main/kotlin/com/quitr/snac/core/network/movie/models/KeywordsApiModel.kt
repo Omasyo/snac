@@ -5,6 +5,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Keyword(
-    @SerialName("id") val id: Int, @SerialName("name") val name: String
+data class KeywordsApiModel(
+    @SerialName("keywords") val keywords: List<KeywordApiModel>
 )
