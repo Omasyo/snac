@@ -6,7 +6,9 @@ import com.quitr.snac.core.data.movie.MovieRepository
 import com.quitr.snac.core.data.tv.TvRepository
 import com.quitr.snac.core.data.getOrElse
 import com.quitr.snac.core.model.SectionType
+import com.quitr.snac.core.ui.section.SectionUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -54,7 +56,7 @@ class DiscoverScreenViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             for (type in SectionType.values()) {
-                getAndUpdateState(type)
+                launch { getAndUpdateState(type) }
             }
         }
     }

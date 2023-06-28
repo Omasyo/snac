@@ -136,6 +136,8 @@ private fun SectionScreen(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun SectionScreenPlaceholder(modifier: Modifier = Modifier) {
+
+    //TODO use arrangement: https://issuetracker.google.com/issues/268365538
     FlowRow(
         modifier, maxItemsInEachRow = 3
     ) {

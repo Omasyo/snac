@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.discover.discover
+package com.quitr.snac.core.ui.section
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -37,7 +37,7 @@ import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
 
 @Composable
-internal fun Section(
+fun Section(
     modifier: Modifier = Modifier,
     name: String,
     type: ShowType,
@@ -92,7 +92,7 @@ internal fun Section(
 
 @Preview
 @Composable
-internal fun SectionPlaceholder(modifier: Modifier = Modifier) {
+fun SectionPlaceholder(modifier: Modifier = Modifier) {
     PlaceholderHighlight.shimmer()
     Column(modifier.padding(16f.dp)) {
         val sharedModifier = Modifier
@@ -117,7 +117,7 @@ internal fun SectionPlaceholder(modifier: Modifier = Modifier) {
 }
 
 @Composable
-internal fun SectionError(
+fun SectionError(
     modifier: Modifier = Modifier,
     name: String,
     type: ShowType,

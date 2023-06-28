@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.quitr.snac.core.common.R as CommonR
 import com.quitr.snac.core.ui.theme.SnacTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,7 +36,7 @@ fun PersonCard(
         modifier
     ) {
         AsyncImage(
-            contentDescription = stringResource(R.string.poster_description),
+            contentDescription = stringResource(CommonR.string.poster_description),
             model = ImageRequest.Builder(LocalContext.current)
                 .data(photoUrl)
                 .crossfade(true)

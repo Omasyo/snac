@@ -25,12 +25,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.quitr.snac.core.common.R as CommonR
 import com.quitr.snac.core.ui.theme.SnacTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SeasonCard(
     modifier: Modifier = Modifier,
+    title: String,
     season: Int,
     releaseYear: Int,
     episodeCount: Int,
@@ -38,56 +40,56 @@ fun SeasonCard(
     posterUrl: String,
     onClick: () -> Unit
 ) {
-        OutlinedCard(
-            onClick = onClick,
-            modifier
-        ) {
-            Row {
-                Box(
+    OutlinedCard(
+        onClick = onClick,
+        modifier
+    ) {
+        Row {
+            Box(
+                Modifier
+                    .aspectRatio(2f / 3f)
+                    .fillMaxHeight()
+            ) {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(posterUrl)
+                        .crossfade(true)
+                        .build(),
+                    placeholder = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
+                    error = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
+
+                    contentDescription = stringResource(CommonR.string.poster_description, title),
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+
+            Column {
+                Row(
                     Modifier
-                        .aspectRatio(2f / 3f)
-                        .fillMaxHeight()
+                        .height(56f.dp)
+                        .padding(8f.dp),
+                    verticalAlignment = Alignment.Bottom,
                 ) {
-                    AsyncImage(
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(posterUrl)
-                            .crossfade(true)
-                            .build(),
-                        placeholder = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
-                        error = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
-
-                        contentDescription = stringResource(R.string.poster_description),
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-
-                Column {
-                    Row(
-                        Modifier
-                            .height(56f.dp)
-                            .padding(8f.dp),
-                        verticalAlignment = Alignment.Bottom,
-                    ) {
-                        Text(
-                            stringResource(R.string.season, season),
-                            style = MaterialTheme.typography.titleMedium
-//                            Modifier.align(Alignment.Center)
-                        )
-                        Spacer(Modifier.width(8f.dp))
-                        Text(
-                            "$releaseYear | $episodeCount ${stringResource(R.string.episodes)}",
-                            style = MaterialTheme.typography.titleSmall
-                        )
-                    }
-                    Divider()
                     Text(
-                        description,
-                        Modifier.padding(8f.dp),
-                        style = MaterialTheme.typography.bodyMedium
+                        stringResource(R.string.season, season),
+                        style = MaterialTheme.typography.titleMedium
+//                            Modifier.align(Alignment.Center)
+                    )
+                    Spacer(Modifier.width(8f.dp))
+                    Text(
+                        "$releaseYear | $episodeCount ${stringResource(R.string.episodes)}",
+                        style = MaterialTheme.typography.titleSmall
                     )
                 }
+                Divider()
+                Text(
+                    description,
+                    Modifier.padding(8f.dp),
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
         }
+    }
 
 }
 
@@ -98,7 +100,7 @@ fun SeasonCardPreview() {
     SnacTheme {
         SeasonCard(
             Modifier,
-
+            title = "Stranger Things",
             season = 1,
             releaseYear = 2012,
             episodeCount = 7,

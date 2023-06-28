@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.discover.discover
+package com.quitr.snac.core.ui.section
 
 import com.quitr.snac.core.model.Show
 
