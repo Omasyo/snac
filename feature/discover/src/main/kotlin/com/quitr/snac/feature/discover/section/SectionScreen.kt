@@ -41,6 +41,7 @@ import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.ui.ShowCard
+import com.quitr.snac.core.ui.fadePlaceholder
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
 import com.quitr.snac.feature.discover.discover.title
@@ -147,13 +148,7 @@ private fun SectionScreenPlaceholder(modifier: Modifier = Modifier) {
                     .weight(1f)
                     .aspectRatio(3f / 5f)
                     .padding(horizontal = 4f.dp, vertical = 8f.dp)
-                    .placeholder(
-                        true,
-                        color = MaterialTheme.colorScheme.inverseOnSurface,
-                        highlight = PlaceholderHighlight.fade(
-                            MaterialTheme.colorScheme.surfaceVariant,
-                        )
-                    )
+                    .fadePlaceholder()
             )
         }
     }

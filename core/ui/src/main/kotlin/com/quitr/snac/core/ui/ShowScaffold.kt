@@ -67,6 +67,7 @@ fun ShowScaffold(
                     contentDescription = stringResource(CommonR.string.backdrop_description, title),
                     contentScale = ContentScale.FillWidth,
                     modifier = Modifier
+                        .height(220f.dp)
                         .fillMaxWidth()
                         .drawWithCache {
                             val gradient = Brush.verticalGradient(
@@ -90,6 +91,7 @@ fun ShowScaffold(
                                 .crossfade(true).build(),
                             placeholder = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
                             error = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
+                            contentScale = ContentScale.Crop,
                             contentDescription = stringResource(
                                 CommonR.string.poster_description, title
                             )

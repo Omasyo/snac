@@ -1,0 +1,13 @@
+package com.quitr.snac.core.data.mapppers
+
+import com.quitr.snac.core.model.Show
+import com.quitr.snac.core.model.ShowType
+import com.quitr.snac.core.network.Api
+import com.quitr.snac.core.network.movie.models.RecommendationApiModel
+
+internal fun RecommendationApiModel.toShow() = Show(
+    id, title, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Movie
+)
+
+internal fun List<RecommendationApiModel>.toShows() =
+    map { recommendationApiModel -> recommendationApiModel.toShow() }

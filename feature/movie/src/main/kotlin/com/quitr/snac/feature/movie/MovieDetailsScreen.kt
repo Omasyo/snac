@@ -59,6 +59,7 @@ import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.ui.EpisodeCard
 import com.quitr.snac.core.ui.InlineText
 import com.quitr.snac.core.ui.PersonScroll
+import com.quitr.snac.core.ui.ShowDetailsPlaceholder
 import com.quitr.snac.core.ui.ShowScaffold
 import com.quitr.snac.core.ui.append
 import com.quitr.snac.core.ui.section.Section
@@ -83,7 +84,7 @@ fun MovieDetailsScreen(
 ) {
     when (uiState) {
         MovieDetailsUiState.Error -> TODO()
-        MovieDetailsUiState.Loading -> { Text("Loading")}
+        MovieDetailsUiState.Loading -> ShowDetailsPlaceholder(onBackPressed = {})
         is MovieDetailsUiState.Success -> {
             val movie = uiState.movie
             ShowScaffold(modifier = modifier,
@@ -240,12 +241,12 @@ fun LazyListScope.separator(
     }
 }
 
-//@Preview(
-//    uiMode = Configuration.UI_MODE_NIGHT_YES, device = "spec:width=1080px,height=6000px,dpi=440"
-//)
-//@Composable
-//fun MovieScreenPreview() {
-//    SnacTheme {
-//        MovieDetailsScreen(movie = FakeMovie)
-//    }
-//}
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES, device = "spec:width=1080px,height=6000px,dpi=440"
+)
+@Composable
+fun MovieScreenPreview() {
+    SnacTheme {
+        MovieDetailsScreen(uiState = MovieDetailsUiState.Loading)
+    }
+}

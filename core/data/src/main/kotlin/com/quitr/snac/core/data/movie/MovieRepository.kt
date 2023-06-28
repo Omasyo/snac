@@ -11,29 +11,6 @@ import com.quitr.snac.core.network.movie.models.CrewApiModel
 import com.quitr.snac.core.network.movie.models.ProductionCompanyApiModel
 import kotlinx.coroutines.flow.Flow
 
-fun Person.addRole(other: String) = copy(
-    role = "$role, $other"
-)
-
-internal fun List<Person>.combineSimilar() = fold(mutableMapOf<Int, Person>()) { result, person ->
-    result[person.id] = if (!result.containsKey(person.id)) {
-        person
-    } else {
-        result[person.id]!!.addRole(person.role)
-    }
-    result
-}.map { (key, value) -> value }
-
-internal fun List<CrewApiModel>.toPeople() = map { crew -> crew.toPerson() }
-
-
-internal fun List<ProductionCompanyApiModel>.toNames() =
-    map { productionCompanyApiModel -> productionCompanyApiModel.name }
-
-
-internal fun List<MovieApiModel>.toShows() = map { movieApiModel -> movieApiModel.toShow() }
-
-
 interface MovieRepository {
     suspend fun getDetails(id: Int, language: String = ""): Response<Movie>
 

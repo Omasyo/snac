@@ -32,6 +32,7 @@ import com.google.accompanist.placeholder.placeholder
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.ui.ShowCard
+import com.quitr.snac.core.ui.fadePlaceholder
 import com.quitr.snac.core.ui.theme.SnacIcons
 
 
@@ -84,12 +85,7 @@ fun SectionPlaceholder(modifier: Modifier = Modifier) {
     Column(modifier.padding(16f.dp)) {
         val sharedModifier = Modifier
             .fillMaxWidth()
-            .placeholder(
-                true, color = MaterialTheme.colorScheme.inverseOnSurface,
-                highlight = PlaceholderHighlight.fade(
-                    MaterialTheme.colorScheme.surfaceVariant,
-                )
-            )
+            .fadePlaceholder()
 
         Box(
             sharedModifier
