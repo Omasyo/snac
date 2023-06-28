@@ -1,6 +1,7 @@
 package com.quitr.snac.feature.discover.discover
 
 
+import android.content.res.Configuration
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +14,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quitr.snac.core.model.SectionType
@@ -21,13 +23,14 @@ import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.ui.section.Section
 import com.quitr.snac.core.ui.section.SectionError
 import com.quitr.snac.core.ui.section.SectionPlaceholder
-import com.quitr.snac.core.ui.section.SectionUiState
+import com.quitr.snac.core.ui.section.ShowCarouselUiState
+import com.quitr.snac.core.ui.theme.SnacTheme
 import com.quitr.snac.feature.discover.R
 
 @Composable
 fun DiscoverRoute(
     modifier: Modifier = Modifier,
-    onSectionClicked: (SectionType) -> Unit,
+    onCarouselExpand: (SectionType) -> Unit,
     onMovieCardClicked: (id: Int) -> Unit,
     onTvCardClicked: (id: Int) -> Unit,
     viewModel: DiscoverScreenViewModel = hiltViewModel()
@@ -35,7 +38,7 @@ fun DiscoverRoute(
     DiscoverScreen(
         modifier,
         mapSectionTypeToUiState(viewModel),
-        onSectionClicked,
+        onCarouselExpand,
         onMovieCardClicked,
         onTvCardClicked,
         viewModel::retrySectionFetch
@@ -46,8 +49,8 @@ fun DiscoverRoute(
 @Composable
 private fun DiscoverScreen(
     modifier: Modifier = Modifier,
-    sectionUiStates: Map<SectionType, SectionUiState>,
-    onSectionClicked: (SectionType) -> Unit,
+    showCarouselUiStates: Map<SectionType, ShowCarouselUiState>,
+    onCarouselExpand: (SectionType) -> Unit,
     onMovieCardClicked: (id: Int) -> Unit,
     onTvCardClicked: (id: Int) -> Unit,
     onRetry: (SectionType) -> Unit,
@@ -59,21 +62,21 @@ private fun DiscoverScreen(
         ) {
             items(SectionType.values(), { it.name }) { sectionType ->
                 AnimatedContent(
-                    targetState = sectionUiStates[sectionType] ?: SectionUiState.Error
+                    targetState = showCarouselUiStates[sectionType] ?: ShowCarouselUiState.Error
                 ) { uiState ->
                     when (uiState) {
-                        SectionUiState.Error -> SectionError(
+                        ShowCarouselUiState.Error -> SectionError(
                             name = sectionType.title,
                             type = sectionType.showType,
                             onRetry = { onRetry(sectionType) })
 
-                        SectionUiState.Loading -> SectionPlaceholder()
-                        is SectionUiState.Success -> {
+                        ShowCarouselUiState.Loading -> SectionPlaceholder()
+                        is ShowCarouselUiState.Success -> {
                             Section(
                                 name = sectionType.title,
                                 type = sectionType.showType,
                                 shows = uiState.shows,
-                                onExpand = { onSectionClicked(sectionType) },
+                                onExpand = { onCarouselExpand(sectionType) },
                                 onMovieCardClicked = onMovieCardClicked,
                                 onTvCardClicked = onTvCardClicked
                             )
@@ -98,8 +101,8 @@ internal val SectionType.title
         }
 
 @Composable
-private fun mapSectionTypeToUiState(viewModel: DiscoverScreenViewModel): Map<SectionType, SectionUiState> {
-    val map = mutableMapOf<SectionType, SectionUiState>()
+private fun mapSectionTypeToUiState(viewModel: DiscoverScreenViewModel): Map<SectionType, ShowCarouselUiState> {
+    val map = mutableMapOf<SectionType, ShowCarouselUiState>()
 
     for (type in SectionType.values()) {
         val state by when (type) {
@@ -119,21 +122,22 @@ private fun mapSectionTypeToUiState(viewModel: DiscoverScreenViewModel): Map<Sec
     return map
 }
 
-//@Preview
-//@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-//@Composable
-//private fun HomeScreenPreview() {
-//    SnacTheme {
-//        DiscoverScreen(
-//            sectionUiStates = SectionType.values().associateWith {
-//                SectionUiState.Error
-//            },
-//            onSectionClicked = {},
-//            onMovieCardClicked = {},
-//            onTvCardClicked = {},
-//        )
-//    }
-//}
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun HomeScreenPreview() {
+    SnacTheme {
+        DiscoverScreen(
+            showCarouselUiStates = SectionType.values().associateWith {
+                ShowCarouselUiState.Success(shows)
+            },
+            onCarouselExpand = {},
+            onMovieCardClicked = {},
+            onTvCardClicked = {},
+            onRetry = {}
+        )
+    }
+}
 
 private val shows = List(30) {
     Show(

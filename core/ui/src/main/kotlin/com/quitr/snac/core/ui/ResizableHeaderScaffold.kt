@@ -1,21 +1,16 @@
 package com.quitr.snac.core.ui
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,15 +26,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.ui.theme.SnacIcons
 
 
-@OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class,
-    ExperimentalLayoutApi::class
-)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ResizableHeaderScaffold(
     modifier: Modifier = Modifier,
@@ -77,8 +68,7 @@ fun ResizableHeaderScaffold(
     }) { innerPadding ->
         val backGroundColor = MaterialTheme.colorScheme.surface
         LazyColumn(
-            state = lazyColumnState,
-            contentPadding = PaddingValues(bottom = 24f.dp)
+            state = lazyColumnState, contentPadding = PaddingValues(bottom = 24f.dp)
         ) {
             item {
                 expandedContent(innerPadding)
@@ -95,24 +85,5 @@ fun ResizableHeaderScaffold(
                 .fillMaxWidth()
 
         )
-    }
-}
-
-fun LazyListScope.separator(
-    modifier: Modifier = Modifier.padding(16f.dp)
-) {
-    item {
-        Divider(modifier)
-    }
-}
-
-@Preview
-@Composable
-private fun ScaffoldPreview() {
-    ResizableHeaderScaffold(
-        title = "Hello new world",
-        onBackPressed = { /*TODO*/ },
-        expandedContent = {}) {
-
     }
 }

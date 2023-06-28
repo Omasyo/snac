@@ -1,6 +1,5 @@
 package com.quitr.snac.core.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,11 +7,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -29,10 +28,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.quitr.snac.core.common.R as CommonR
 import com.quitr.snac.core.model.Genre
 import com.quitr.snac.core.ui.theme.SnacIcons
-
+import com.quitr.snac.core.common.R as CommonR
 
 @Composable
 fun ShowScaffold(
@@ -115,7 +113,7 @@ fun ShowScaffold(
                             Text(genresString, style = titleSmall)
 
                             InlineText(style = titleSmall) {
-                                append(SnacIcons.HomeFilled)
+                                append(SnacIcons.Star)
                                 append(" $voteAverage • ")
                                 append(SnacIcons.People)
                                 append(" $voteCount")
@@ -127,3 +125,39 @@ fun ShowScaffold(
         },
     )
 }
+
+fun LazyListScope.separator(
+    modifier: Modifier = Modifier.padding(16f.dp)
+) {
+    item {
+        Divider(modifier)
+    }
+}
+
+@Composable
+fun AboutDetails(
+    modifier: Modifier = Modifier,
+    info: String,
+    details: List<String>,
+) {
+    Row(modifier) {
+        Text(
+            text = info,
+            modifier = Modifier.fillMaxWidth(0.4f),
+            color = MaterialTheme.colorScheme.onSurface.copy(0.5f)
+        )
+        Spacer(Modifier.width(4f.dp))
+        Column(modifier = Modifier) {
+            details.forEach { detail ->
+                Text(text = detail)
+            }
+        }
+    }
+}
+
+@Composable
+fun AboutDetails(
+    modifier: Modifier = Modifier,
+    info: String,
+    detail: String,
+) = AboutDetails(modifier, info, listOf(detail))

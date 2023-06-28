@@ -6,7 +6,11 @@ import com.quitr.snac.core.network.Api
 import com.quitr.snac.core.network.movie.models.RecommendationApiModel
 
 internal fun RecommendationApiModel.toShow() = Show(
-    id, title, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Movie
+    id,
+    title,
+    voteAverage.toString(),
+    Api.BasePosterPath + posterPath,
+    if (mediaType == "tv") ShowType.Tv else ShowType.Movie
 )
 
 internal fun List<RecommendationApiModel>.toShows() =

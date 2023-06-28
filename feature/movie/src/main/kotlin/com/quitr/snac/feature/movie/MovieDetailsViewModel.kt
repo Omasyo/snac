@@ -1,10 +1,8 @@
 package com.quitr.snac.feature.movie
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quitr.snac.core.data.getOrElse
 import com.quitr.snac.core.data.movie.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,14 +19,14 @@ class MovieDetailsViewModel @Inject constructor(
     private val id = savedStateHandle.get<Int>("movieId")!!
 
 
-    private val _movieDetailsUistate =
+    private val _movieDetailsUiState =
         MutableStateFlow<MovieDetailsUiState>(MovieDetailsUiState.Loading)
-    val movieDetailsUiState: StateFlow<MovieDetailsUiState> = _movieDetailsUistate
+    val movieDetailsUiState: StateFlow<MovieDetailsUiState> = _movieDetailsUiState
 
 
     init {
         viewModelScope.launch {
-            _movieDetailsUistate.value =
+            _movieDetailsUiState.value =
                 movieRepository.getDetails(id).getOrElse(MovieDetailsUiState.Error) {
                     MovieDetailsUiState.Success(it)
                 }

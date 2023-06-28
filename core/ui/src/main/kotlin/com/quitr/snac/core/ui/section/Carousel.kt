@@ -11,11 +11,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -26,23 +24,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.fade
 import com.google.accompanist.placeholder.material.shimmer
-import com.google.accompanist.placeholder.placeholder
-import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
-import com.quitr.snac.core.ui.ShowCard
 import com.quitr.snac.core.ui.fadePlaceholder
 import com.quitr.snac.core.ui.theme.SnacIcons
 
-
 @Composable
-fun ExpandableSection(
+fun Carousel(
     modifier: Modifier = Modifier,
     header: @Composable RowScope.() -> Unit,
     onExpand: () -> Unit,
     content: LazyListScope.() -> Unit,
-) = ExpandableSectionS(modifier = modifier, header = header, onExpand = onExpand) {
+) = Section(modifier = modifier, header = header, onExpand = onExpand) {
     LazyRow(
         Modifier
             .height(200f.dp)
@@ -54,7 +47,7 @@ fun ExpandableSection(
 }
 
 @Composable
-fun ExpandableSectionS(
+fun Section(
     modifier: Modifier = Modifier,
     header: @Composable RowScope.() -> Unit,
     onExpand: () -> Unit,

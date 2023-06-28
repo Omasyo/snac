@@ -18,7 +18,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -34,9 +33,6 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.fade
-import com.google.accompanist.placeholder.placeholder
 import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
@@ -50,7 +46,6 @@ import kotlinx.coroutines.flow.flow
 @Composable
 fun SectionRoute(
     modifier: Modifier = Modifier,
-    sectionType: SectionType,
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,
     onBackPressed: () -> Unit,
@@ -58,7 +53,7 @@ fun SectionRoute(
 ) {
     SectionScreen(
         modifier,
-        title = sectionType.title,
+        title = viewModel.sectionType.name,
         onMovieCardTap = onMovieCardTap,
         onTvCardTap = onTvCardTap,
         onBackPressed = onBackPressed,
@@ -85,8 +80,6 @@ private fun SectionScreen(
             Text(title)
         })
     }) { innerPadding ->
-
-        println("State is ${pagingItems.loadState.refresh}")
         when (pagingItems.loadState.refresh) {
             is LoadState.Error -> TODO()
             LoadState.Loading -> {
