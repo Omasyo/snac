@@ -2,6 +2,8 @@ package com.quitr.snac.core.data.di
 
 import com.quitr.snac.core.data.movie.DefaultMovieRepository
 import com.quitr.snac.core.data.movie.MovieRepository
+import com.quitr.snac.core.data.people.DefaultPeopleRepository
+import com.quitr.snac.core.data.people.PeopleRepository
 import com.quitr.snac.core.data.tv.DefaultTvRepository
 import com.quitr.snac.core.data.tv.TvRepository
 import dagger.Binds
@@ -17,4 +19,7 @@ private interface RepositoryModule{
 
     @Binds
     fun bindTvRepository(tvRepository: DefaultTvRepository) : TvRepository
+
+    @Binds
+    fun bindPeopleRepository(peopleRepository: DefaultPeopleRepository) : PeopleRepository
 }

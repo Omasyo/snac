@@ -1,7 +1,10 @@
-package com.quitr.snac.core.network
+package com.quitr.snac.core.network.di
 
+import com.quitr.snac.core.network.createClient
 import com.quitr.snac.core.network.movie.DefaultMovieNetworkDataSource
 import com.quitr.snac.core.network.movie.MovieNetworkDataSource
+import com.quitr.snac.core.network.people.DefaultPeopleNetworkDataSource
+import com.quitr.snac.core.network.people.PeopleNetworkDataSource
 import com.quitr.snac.core.network.tv.DefaultTvNetworkDataSource
 import com.quitr.snac.core.network.tv.TvNetworkDataSource
 import dagger.Module
@@ -28,4 +31,9 @@ private object NetworkModule {
     @Singleton
     fun provideNetworkDataSource(client: HttpClient): TvNetworkDataSource =
         DefaultTvNetworkDataSource(client)
+
+    @Provides
+    @Singleton
+    fun providePeopleDataSource(client: HttpClient): PeopleNetworkDataSource =
+        DefaultPeopleNetworkDataSource(client)
 }
