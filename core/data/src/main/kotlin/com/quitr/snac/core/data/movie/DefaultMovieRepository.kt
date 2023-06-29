@@ -37,7 +37,7 @@ internal class DefaultMovieRepository @Inject constructor(
                 val result = networkDataSource.getDetails(id, language).toMovie()
                 Success(result)
             } catch (exception: Exception) {
-                Log.d(TAG, "getTrending: $exception")
+                Log.d(TAG, "getDetails: $exception")
                 Error
             }
         }

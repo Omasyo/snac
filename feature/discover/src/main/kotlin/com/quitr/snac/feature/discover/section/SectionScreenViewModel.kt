@@ -15,7 +15,7 @@ class SectionScreenViewModel @Inject constructor(
     tvRepository: TvRepository
 ) : ViewModel() {
 
-    private val sectionType: SectionType = savedStateHandle.get<SectionType>("sectionType")!!
+    val sectionType: SectionType = checkNotNull(savedStateHandle.get<SectionType>(SectionRoute.sectionType))
 
     val shows  = when (sectionType) {
         SectionType.MovieTrending -> { movieRepository.getTrendingStream() }

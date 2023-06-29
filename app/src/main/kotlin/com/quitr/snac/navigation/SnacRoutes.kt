@@ -1,18 +1,22 @@
 package com.quitr.snac.navigation
 
+import com.quitr.snac.core.model.NavigationRoute
 import com.quitr.snac.core.model.SectionType
+import com.quitr.snac.feature.discover.discover.DiscoverRoute
+import com.quitr.snac.feature.discover.section.SectionRoute
+import com.quitr.snac.feature.movie.MovieDetailsRoute
 
 object SnacRoutes {
-    const val root = "root"
+    val Root = object : NavigationRoute() {
+        override val root: String
+            get() = "root"
 
-    const val discover = "discover"
-    const val library = "library"
+    }
 
-    const val sectionArg = "sectionType"
-    const val section = "section/{$sectionArg}"
-    fun section(sectionType: SectionType) = "section/$sectionType"
+    val Discover = DiscoverRoute
+//    const val library = "library"
 
-    const val movieArg = "movieId"
-    const val movie = "movie/{$movieArg}"
-    fun movie(id: Int) = "movie/$id"
+    val Section = SectionRoute
+
+    val Movie = MovieDetailsRoute
 }

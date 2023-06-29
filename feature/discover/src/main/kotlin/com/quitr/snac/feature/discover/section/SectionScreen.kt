@@ -27,43 +27,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.ui.ShowCard
 import com.quitr.snac.core.ui.fadePlaceholder
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
-import com.quitr.snac.feature.discover.discover.title
 import kotlinx.coroutines.flow.flow
-
-@Composable
-fun SectionRoute(
-    modifier: Modifier = Modifier,
-    onMovieCardTap: (id: Int) -> Unit,
-    onTvCardTap: (id: Int) -> Unit,
-    onBackPressed: () -> Unit,
-    viewModel: SectionScreenViewModel = hiltViewModel()
-) {
-    SectionScreen(
-        modifier,
-        title = viewModel.sectionType.name,
-        onMovieCardTap = onMovieCardTap,
-        onTvCardTap = onTvCardTap,
-        onBackPressed = onBackPressed,
-        pagingItems = viewModel.shows.collectAsLazyPagingItems()
-    )
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun SectionScreen(
+internal fun SectionScreen(
     modifier: Modifier = Modifier,
     title: String,
     onMovieCardTap: (id: Int) -> Unit,
@@ -147,6 +126,16 @@ private fun SectionScreenPlaceholder(modifier: Modifier = Modifier) {
     }
 }
 
+private operator fun PaddingValues.plus(other: PaddingValues) = PaddingValues(
+
+    this.calculateStartPadding(LayoutDirection.Ltr) + other.calculateStartPadding(
+        LayoutDirection.Ltr
+    ),
+    this.calculateTopPadding() + other.calculateTopPadding(),
+    this.calculateEndPadding(LayoutDirection.Ltr) + other.calculateEndPadding(LayoutDirection.Ltr),
+    this.calculateBottomPadding() + other.calculateBottomPadding()
+)
+
 @Preview(fontScale = 1.0f)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -159,16 +148,6 @@ private fun SectionScreenPreview() {
         )
     }
 }
-
-private operator fun PaddingValues.plus(other: PaddingValues) = PaddingValues(
-
-    this.calculateStartPadding(LayoutDirection.Ltr) + other.calculateStartPadding(
-        LayoutDirection.Ltr
-    ),
-    this.calculateTopPadding() + other.calculateTopPadding(),
-    this.calculateEndPadding(LayoutDirection.Ltr) + other.calculateEndPadding(LayoutDirection.Ltr),
-    this.calculateBottomPadding() + other.calculateBottomPadding()
-)
 
 private val shows = List(20) {
     Show(

@@ -16,7 +16,7 @@ class MovieDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     movieRepository: MovieRepository,
 ) : ViewModel() {
-    private val id = savedStateHandle.get<Int>("movieId")!!
+    private val id = checkNotNull(savedStateHandle.get<Int>(MovieDetailsRoute.movieId))
 
 
     private val _movieDetailsUiState =

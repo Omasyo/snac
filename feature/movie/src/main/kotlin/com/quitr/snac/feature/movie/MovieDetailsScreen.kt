@@ -30,29 +30,9 @@ import com.quitr.snac.core.ui.section.Section
 import com.quitr.snac.core.ui.separator
 import com.quitr.snac.core.ui.theme.SnacTheme
 
-@Composable
-fun MovieRoute(
-    modifier: Modifier = Modifier,
-    onMovieCardTap: (id: Int) -> Unit,
-    onTvCardTap: (id: Int) -> Unit,
-    onPersonCardTap: (id: Int) -> Unit,
-    onBackPressed: () -> Unit,
-    viewModel: MovieDetailsViewModel = hiltViewModel()
-) {
-    val uiState by viewModel.movieDetailsUiState.collectAsState()
-    MovieDetailsScreen(
-        modifier = modifier,
-        onMovieCardTap = onMovieCardTap,
-        onTvCardTap = onTvCardTap,
-        onPersonCardTap = onPersonCardTap,
-        onBackPressed = onBackPressed,
-        uiState = uiState
-    )
-}
-
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun MovieDetailsScreen(
+internal fun MovieDetailsScreen(
     modifier: Modifier = Modifier,
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,
@@ -119,12 +99,14 @@ fun MovieDetailsScreen(
                     )
                 }
                 item { Spacer(Modifier.height(16f.dp)) }
-                item {
-                    PersonCarousel(category = "Crew",
-                        people = movie.crew,
-                        onExpand = { /*TODO*/ },
-                        onPersonClicked = onPersonCardTap
-                    )
+                if(movie.crew.isNotEmpty()) {
+                    item {
+                        PersonCarousel(category = "Crew",
+                            people = movie.crew,
+                            onExpand = { /*TODO*/ },
+                            onPersonClicked = onPersonCardTap
+                        )
+                    }
                 }
                 separator()
                 item {
@@ -153,14 +135,16 @@ fun MovieDetailsScreen(
                     }
                 }
                 separator()
-                item {
-                    Section(
-                        name = "Recommendations",
-                        shows = movie.recommendations,
-                        onExpand = { /*TODO*/ },
-                        onMovieCardClicked = onMovieCardTap,
-                        onTvCardClicked = onTvCardTap,
-                    )
+                if(movie.recommendations.isNotEmpty()) {
+                    item {
+                        Section(
+                            name = "Recommendations",
+                            shows = movie.recommendations,
+                            onExpand = { /*TODO*/ },
+                            onMovieCardClicked = onMovieCardTap,
+                            onTvCardClicked = onTvCardTap,
+                        )
+                    }
                 }
                 item {
                     Section(
@@ -177,7 +161,7 @@ fun MovieDetailsScreen(
 }
 
 @Composable
-fun MovieSection(
+private fun MovieSection(
     title: String, modifier: Modifier = Modifier, content: @Composable () -> Unit
 ) {
     Column(modifier) {
@@ -191,7 +175,7 @@ fun MovieSection(
     uiMode = Configuration.UI_MODE_NIGHT_YES, device = "spec:width=1080px,height=6000px,dpi=440"
 )
 @Composable
-fun MovieScreenPreview() {
+private fun MovieScreenPreview() {
     SnacTheme {
         MovieDetailsScreen(
             uiState = MovieDetailsUiState.Loading,

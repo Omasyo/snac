@@ -11,47 +11,45 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.feature.discover.section.SectionRoute
-import com.quitr.snac.feature.movie.MovieRoute
+import com.quitr.snac.feature.movie.MovieDetailsRoute
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun SnacNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     navBarController: NavHostController = rememberNavController(),
 ) {
+    val onMovieCardTap = { id: Int -> navController.navigate(SnacRoutes.Movie.route(id)) }
+
     NavHost(
-        navController = navController,
-        startDestination = SnacRoutes.root,
-        modifier = modifier
+        navController = navController, startDestination = SnacRoutes.Root.route, modifier = modifier
     ) {
-        composable(SnacRoutes.root) {
+        composable(SnacRoutes.Root.route) {
             RootRoute(rootNavController = navController, navBarController = navBarController)
 
         }
         composable(
-            SnacRoutes.section,
-            arguments = listOf(navArgument(SnacRoutes.sectionArg) {
+            SnacRoutes.Section.route,
+            arguments = listOf(navArgument(SnacRoutes.Section.sectionType) {
                 type = NavType.EnumType(SectionType::class.java)
             })
-        ) { backStackEntry ->
-
-            val sectionType = backStackEntry.arguments?.get(SnacRoutes.sectionArg) as SectionType
-            SectionRoute(
-                sectionType = sectionType,
-                onMovieCardTap = { id -> navController.navigate(SnacRoutes.movie(id)) },
+        ) {
+            SectionRoute(onMovieCardTap = onMovieCardTap,
                 onTvCardTap = {},
                 onBackPressed = { navController.popBackStack() })
         }
 
         composable(
-            SnacRoutes.movie,
-            arguments = listOf(navArgument(SnacRoutes.movieArg) {
+            SnacRoutes.Movie.route, arguments = listOf(navArgument(SnacRoutes.Movie.movieId) {
                 type = NavType.IntType
             })
-        ) { backStackEntry ->
-            val sectionType = backStackEntry.arguments!!.getInt(SnacRoutes.sectionArg)
-            MovieRoute()
+        ) {
+            MovieDetailsRoute(
+                onMovieCardTap = onMovieCardTap,
+                onTvCardTap = {},
+                onPersonCardTap = {},
+                onBackPressed = { navController.popBackStack() },
+            )
         }
     }
 }
