@@ -1,4 +1,4 @@
-package com.quitr.snac.core.ui
+package com.quitr.snac.core.ui.card
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -42,7 +42,7 @@ fun ShowCard(
     ) {
         Box(Modifier.weight(1f)) {
             AsyncImage(
-                contentDescription = stringResource(CommonR.string.poster_description),
+                contentDescription = stringResource(CommonR.string.poster_description, title),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(posterUrl)
                     .crossfade(true)

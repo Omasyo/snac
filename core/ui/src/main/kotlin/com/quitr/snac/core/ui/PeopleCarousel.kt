@@ -8,7 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.model.Person
-import com.quitr.snac.core.ui.section.Carousel
+import com.quitr.snac.core.ui.card.PersonCard
+import com.quitr.snac.core.ui.carousel.Carousel
 
 @Composable
 fun PersonCarousel(

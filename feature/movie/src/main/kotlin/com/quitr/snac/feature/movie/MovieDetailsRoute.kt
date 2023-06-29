@@ -27,7 +27,8 @@ fun MovieDetailsRoute(
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,
     onPersonCardTap: (id: Int) -> Unit,
-    onRecommendationsExpand: () -> Unit,
+    onCastExpand: () -> Unit,
+    onCrewExpand: () -> Unit,
     onBackPressed: () -> Unit,
     viewModel: MovieDetailsViewModel = hiltViewModel()
 ) {
@@ -38,7 +39,8 @@ fun MovieDetailsRoute(
         onTvCardTap = onTvCardTap,
         onPersonCardTap = onPersonCardTap,
         onBackPressed = onBackPressed,
-        onRecommendationsExpand = onRecommendationsExpand,
+        onCastExpand = onCastExpand,
+        onCrewExpand = onCrewExpand,
         uiState = uiState
     )
 }

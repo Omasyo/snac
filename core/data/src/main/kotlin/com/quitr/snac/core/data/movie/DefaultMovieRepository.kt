@@ -67,7 +67,8 @@ internal class DefaultMovieRepository @Inject constructor(
     ): Response<List<Show>> = getList(page, language, region, networkDataSource::getNowPlaying)
 
     override fun getNowPlayingStream(language: String, region: String): Flow<PagingData<Show>> =
-        getStream { page -> networkDataSource.getNowPlaying(page, language, region) }gi
+        getStream { page -> networkDataSource.getNowPlaying(page, language, region) }
+    
 
     override suspend fun getPopular(
         page: Int, language: String, region: String

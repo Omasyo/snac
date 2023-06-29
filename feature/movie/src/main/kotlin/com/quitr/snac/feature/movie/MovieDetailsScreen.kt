@@ -14,19 +14,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.quitr.snac.core.common.R
 import com.quitr.snac.core.ui.AboutDetails
 import com.quitr.snac.core.ui.PersonCarousel
 import com.quitr.snac.core.ui.ShowDetailsPlaceholder
-import com.quitr.snac.core.ui.ShowScaffold
-import com.quitr.snac.core.ui.section.Section
+import com.quitr.snac.core.ui.ShowDetailsScaffold
+import com.quitr.snac.core.ui.carousel.ShowCarousel
 import com.quitr.snac.core.ui.separator
 import com.quitr.snac.core.ui.theme.SnacTheme
 
@@ -37,7 +37,8 @@ internal fun MovieDetailsScreen(
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,
     onPersonCardTap: (id: Int) -> Unit,
-    onRecommendationsExpand: () -> Unit,
+    onCastExpand: () -> Unit,
+    onCrewExpand: () -> Unit,
     onBackPressed: () -> Unit,
     uiState: MovieDetailsUiState,
 ) {
@@ -45,116 +46,159 @@ internal fun MovieDetailsScreen(
         MovieDetailsUiState.Error -> TODO()
         MovieDetailsUiState.Loading -> ShowDetailsPlaceholder(onBackPressed = onBackPressed)
         is MovieDetailsUiState.Success -> {
-            val movie = uiState.movie
-            ShowScaffold(modifier = modifier,
-                title = movie.title,
-                posterUrl = movie.posterUrl,
-                backdropUrl = movie.backDropUrl,
-                releaseDate = movie.releaseDate,
-                runtime = movie.runtime.toString(),
-                genres = movie.genres,
-                voteAverage = movie.voteAverage.toString(),
-                voteCount = movie.voteCount,
-                onBackPressed = onBackPressed) {
-                if (movie.tagline.isNotBlank()) {
-                    separator()
-                    item {
-                        Column(Modifier.padding(horizontal = 16f.dp)) {
-                            Text(
-                                movie.tagline,
-                                style = MaterialTheme.typography.titleMedium.copy(fontStyle = FontStyle.Italic)
-                            )
+
+            with(uiState.movie) {
+                ShowDetailsScaffold(
+                    modifier = modifier,
+                    title = title,
+                    posterUrl = posterUrl,
+                    backdropUrl = backDropUrl,
+                    releaseDate = releaseDate,
+                    runtime = runtime.toString(),
+                    genres = genres,
+                    voteAverage = voteAverage.toString(),
+                    voteCount = voteCount,
+                    onBackPressed = onBackPressed
+                ) {
+                    if (tagline.isNotBlank()) {
+                        separator()
+                        item {
+                            Column(Modifier.padding(horizontal = 16f.dp)) {
+                                Text(
+                                    tagline,
+                                    style = MaterialTheme.typography.titleMedium.copy(fontStyle = FontStyle.Italic)
+                                )
+                            }
                         }
                     }
-                }
-                separator()
-                item {
-                    MovieSection("Tags", Modifier.padding(horizontal = 16f.dp)) {
-                        FlowRow(
-                            horizontalArrangement = Arrangement.spacedBy(8f.dp)
+                    separator()
+                    item {
+                        MovieSection(
+                            stringResource(R.string.tags),
+                            Modifier.padding(horizontal = 16f.dp)
                         ) {
-                            for (keyword in movie.keywords) {
-                                Box(Modifier
-                                    .clip(MaterialTheme.shapes.small)
-                                    .background(MaterialTheme.colorScheme.surfaceVariant)
-                                    .clickable { }
-                                    .padding(horizontal = 16f.dp, vertical = 8f.dp)) {
-                                    Text(keyword.name, style = MaterialTheme.typography.labelLarge)
+                            FlowRow(
+                                horizontalArrangement = Arrangement.spacedBy(8f.dp)
+                            ) {
+                                for (keyword in keywords) {
+                                    Box(Modifier
+                                        .clip(MaterialTheme.shapes.small)
+                                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                                        .clickable { }
+                                        .padding(horizontal = 16f.dp, vertical = 8f.dp)) {
+                                        Text(
+                                            keyword.name,
+                                            style = MaterialTheme.typography.labelLarge
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                separator()
-                item {
-                    MovieSection(title = "Overview", Modifier.padding(horizontal = 16f.dp)) {
-                        Text(movie.overview)
-                    }
-                }
-                separator()
-                item {
-                    PersonCarousel(category = "Cast",
-                        people = movie.cast,
-                        onExpand = { /*TODO*/ },
-                        onPersonClicked = onPersonCardTap
-                    )
-                }
-                item { Spacer(Modifier.height(16f.dp)) }
-                if(movie.crew.isNotEmpty()) {
+                    separator()
                     item {
-                        PersonCarousel(category = "Crew",
-                            people = movie.crew,
-                            onExpand = { /*TODO*/ },
+                        MovieSection(
+                            title = stringResource(R.string.overview),
+                            Modifier.padding(horizontal = 16f.dp)
+                        ) {
+                            Text(overview)
+                        }
+                    }
+                    separator()
+                    item {
+                        PersonCarousel(
+                            category = stringResource(R.string.cast),
+                            people = cast,
+                            onExpand = onCastExpand,
                             onPersonClicked = onPersonCardTap
                         )
                     }
-                }
-                separator()
-                item {
-                    MovieSection(title = "About", Modifier.padding(horizontal = 16f.dp)) {
-                        Column(
-                            verticalArrangement = Arrangement.spacedBy(8f.dp)
-                        ) {
-                            AboutDetails(info = "Original Title", detail = movie.originalTitle)
-                            AboutDetails(info = "Release Date", detail = movie.releaseDate)
-                            AboutDetails(info = "Runtime", detail = movie.runtime.toString())
-                            AboutDetails(info = "Status", detail = movie.status)
-                            AboutDetails(info = "Budget", detail = movie.budget.toString())
-                            AboutDetails(info = "Revenue", detail = movie.revenue.toString())
-                            AboutDetails(
-                                info = "Original Language", detail = movie.originalLanguage
+                    item { Spacer(Modifier.height(16f.dp)) }
+                    if (crew.isNotEmpty()) {
+                        item {
+                            PersonCarousel(
+                                category = stringResource(R.string.crew),
+                                people = crew,
+                                onExpand = onCrewExpand,
+                                onPersonClicked = onPersonCardTap
                             )
-//                    AboutDetails(info = "Country of Origin", detail = movie)
-                            AboutDetails(
-                                info = "Production Companies", details = movie.productionCompanies
-                            )
-                            AboutDetails(
-                                info = "Production Countries", details = movie.productionCompanies
-                            )
-
                         }
                     }
-                }
-                separator()
-                if(movie.recommendations.isNotEmpty()) {
+                    separator()
                     item {
-                        Section(
-                            name = "Recommendations",
-                            shows = movie.recommendations,
-                            onExpand = onRecommendationsExpand,
+                        MovieSection(
+                            title = stringResource(R.string.about),
+                            Modifier.padding(horizontal = 16f.dp)
+                        ) {
+                            Column(
+                                verticalArrangement = Arrangement.spacedBy(8f.dp)
+                            ) {
+                                AboutDetails(
+                                    info = stringResource(R.string.original_title),
+                                    detail = originalTitle
+                                )
+                                AboutDetails(
+                                    info = stringResource(R.string.release_date),
+                                    detail = releaseDate
+                                )
+                                AboutDetails(
+                                    info = stringResource(R.string.runtime),
+                                    detail = runtime.toString()
+                                )
+                                AboutDetails(
+                                    info = stringResource(R.string.status),
+                                    detail = status
+                                )
+                                AboutDetails(
+                                    info = stringResource(R.string.budget),
+                                    detail = budget.toString()
+                                )
+                                AboutDetails(
+                                    info = stringResource(R.string.revenue),
+                                    detail = revenue.toString()
+                                )
+                                AboutDetails(
+                                    info = stringResource(R.string.original_language),
+                                    detail = originalLanguage
+                                )
+//                    AboutDetails(info = "Country of Origin", detail = movie)
+                                AboutDetails(
+                                    info = pluralStringResource(
+                                        R.plurals.production_companies,
+                                        productionCompanies.size
+                                    ),
+                                    details = productionCompanies
+                                )
+                                AboutDetails(
+                                    info = pluralStringResource(
+                                        R.plurals.production_countries,
+                                        productionCountries.size
+                                    ),
+                                    details = productionCompanies
+                                )
+
+                            }
+                        }
+                    }
+                    separator()
+                    if (recommendations.isNotEmpty()) {
+                        item {
+                            ShowCarousel(
+                                name = stringResource(R.string.recommendations),
+                                shows = recommendations,
+                                onMovieCardClicked = onMovieCardTap,
+                                onTvCardClicked = onTvCardTap,
+                            )
+                        }
+                    }
+                    item {
+                        ShowCarousel(
+                            name = stringResource(R.string.similar),
+                            shows = similar,
                             onMovieCardClicked = onMovieCardTap,
                             onTvCardClicked = onTvCardTap,
                         )
                     }
-                }
-                item {
-                    Section(
-                        name = "Similar",
-                        shows = movie.similar,
-                        onExpand = { /*TODO*/ },
-                        onMovieCardClicked = onMovieCardTap,
-                        onTvCardClicked = onTvCardTap,
-                    )
                 }
             }
         }
@@ -183,7 +227,8 @@ private fun MovieScreenPreview() {
             onMovieCardTap = {},
             onTvCardTap = {},
             onPersonCardTap = {},
-            onRecommendationsExpand = {},
+            onCastExpand = {},
+            onCrewExpand = {},
             onBackPressed = {}
         )
     }

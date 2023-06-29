@@ -1,4 +1,4 @@
-package com.quitr.snac.core.ui
+package com.quitr.snac.core.ui.card
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement

@@ -1,6 +1,5 @@
 package com.quitr.snac.navigation
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -12,7 +11,8 @@ import androidx.navigation.navArgument
 import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.feature.discover.section.SectionRoute
 import com.quitr.snac.feature.movie.MovieDetailsRoute
-import com.quitr.snac.feature.movie.RecommendationsRoute
+import com.quitr.snac.feature.movie.MovieCastRoute
+import com.quitr.snac.feature.movie.MovieCrewRoute
 
 @Composable
 fun SnacNavHost(
@@ -51,9 +51,16 @@ fun SnacNavHost(
                 onMovieCardTap = onMovieCardTap,
                 onTvCardTap = {},
                 onPersonCardTap = {},
-                onRecommendationsExpand = {
+                onCastExpand = {
                     navController.navigate(
-                        SnacRoutes.Recommendations.route(
+                        SnacRoutes.MovieCast.route(
+                            movieId
+                        )
+                    )
+                },
+                onCrewExpand = {
+                    navController.navigate(
+                        SnacRoutes.MovieCrew.route(
                             movieId
                         )
                     )
@@ -62,14 +69,23 @@ fun SnacNavHost(
             )
         }
         composable(
-            SnacRoutes.Recommendations.route,
-            arguments = listOf(navArgument(SnacRoutes.Recommendations.movieId) {
+            SnacRoutes.MovieCast.route,
+            arguments = listOf(navArgument(SnacRoutes.MovieCast.movieId) {
                 type = NavType.IntType
             })
         ) {
-            RecommendationsRoute(
-                onMovieCardTap = onMovieCardTap,
-                onTvCardTap = {},
+            MovieCastRoute(
+                onPersonCardTapped = {},
+                onBackPressed = { navController.popBackStack() })
+        }
+        composable(
+            SnacRoutes.MovieCrew.route,
+            arguments = listOf(navArgument(SnacRoutes.MovieCrew.movieId) {
+                type = NavType.IntType
+            })
+        ) {
+            MovieCrewRoute(
+                onPersonCardTapped = {},
                 onBackPressed = { navController.popBackStack() })
         }
     }

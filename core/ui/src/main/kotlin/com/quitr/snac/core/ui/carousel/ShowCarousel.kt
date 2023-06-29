@@ -1,6 +1,9 @@
-package com.quitr.snac.core.ui.section
+package com.quitr.snac.core.ui.carousel
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -9,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,11 +20,11 @@ import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.common.R
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
-import com.quitr.snac.core.ui.ShowCard
+import com.quitr.snac.core.ui.card.ShowCard
 import com.quitr.snac.core.ui.theme.SnacTheme
 
 @Composable
-fun Section(
+fun ShowCarousel(
     modifier: Modifier = Modifier,
     name: String,
     type: ShowType,
@@ -38,8 +42,7 @@ fun Section(
             shows,
             key = { show -> show.id },
         ) { show ->
-            ShowCard(
-                Modifier.size(120f.dp, 200f.dp),
+            ShowCard(Modifier.size(120f.dp, 200f.dp),
                 title = show.title,
                 posterUrl = show.posterUrl,
                 rating = show.rating,
@@ -48,31 +51,38 @@ fun Section(
                         ShowType.Movie -> onMovieCardClicked(show.id)
                         ShowType.Tv -> onTvCardClicked(show.id)
                     }
-                }
-            )
+                })
         }
     }
 }
 
 @Composable
-fun Section(
+fun ShowCarousel(
     modifier: Modifier = Modifier,
     name: String,
     shows: List<Show>,
-    onExpand: () -> Unit,
     onMovieCardClicked: (id: Int) -> Unit,
     onTvCardClicked: (id: Int) -> Unit,
 ) {
-    Carousel(modifier, header = {
-        Text(name, style = MaterialTheme.typography.titleLarge)
-        Spacer(Modifier.width(4f.dp))
-    }, onExpand = onExpand) {
+    Carousel(
+        modifier,
+        header = {
+            Box(
+                Modifier
+                    .padding(horizontal = 16f.dp, vertical = 8f.dp)
+                    .fillMaxWidth()
+                    .height(40f.dp),
+            ) {
+                Text(name, style = MaterialTheme.typography.titleLarge, modifier = Modifier.align(
+                    Alignment.CenterStart))
+            }
+        },
+    ) {
         items(
             shows,
             key = { show -> show.id },
         ) { show ->
-            ShowCard(
-                Modifier.size(120f.dp, 200f.dp),
+            ShowCard(Modifier.size(120f.dp, 200f.dp),
                 title = show.title,
                 posterUrl = show.posterUrl,
                 rating = show.rating,
@@ -81,8 +91,7 @@ fun Section(
                         ShowType.Movie -> onMovieCardClicked(show.id)
                         ShowType.Tv -> onTvCardClicked(show.id)
                     }
-                }
-            )
+                })
         }
     }
 }
@@ -91,8 +100,7 @@ fun Section(
 @Composable
 fun TypeContainer(type: ShowType) {
     Surface(
-        color = MaterialTheme.colorScheme.surfaceVariant,
-        shape = MaterialTheme.shapes.extraSmall
+        color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.extraSmall
     ) {
         Text(
             when (type) {
@@ -110,11 +118,10 @@ fun TypeContainer(type: ShowType) {
 @Composable
 private fun SectionPreview() {
     SnacTheme {
-        Section(
-            name = "Section",
-            type = ShowType.Movie,
+        ShowCarousel(name = "Section",
+//            type = ShowType.Movie,
             shows = shows,
-            onExpand = {},
+//            onExpand = {},
             onTvCardClicked = {},
             onMovieCardClicked = {})
     }

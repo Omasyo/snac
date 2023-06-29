@@ -1,4 +1,4 @@
-package com.quitr.snac.core.ui.section
+package com.quitr.snac.core.ui.carousel
 
 import com.quitr.snac.core.model.Show
 

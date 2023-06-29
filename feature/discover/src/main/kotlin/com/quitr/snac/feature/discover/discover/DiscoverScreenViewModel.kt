@@ -6,7 +6,7 @@ import com.quitr.snac.core.data.movie.MovieRepository
 import com.quitr.snac.core.data.tv.TvRepository
 import com.quitr.snac.core.data.getOrElse
 import com.quitr.snac.core.model.SectionType
-import com.quitr.snac.core.ui.section.ShowCarouselUiState
+import com.quitr.snac.core.ui.carousel.ShowCarouselUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,4 +1,4 @@
-package com.quitr.snac.core.ui.section
+package com.quitr.snac.core.ui.carousel
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -35,25 +35,10 @@ fun Carousel(
     header: @Composable RowScope.() -> Unit,
     onExpand: () -> Unit,
     content: LazyListScope.() -> Unit,
-) = Section(modifier = modifier, header = header, onExpand = onExpand) {
-    LazyRow(
-        Modifier
-            .height(200f.dp)
-            .fillMaxWidth(),
-        contentPadding = PaddingValues(horizontal = 16f.dp),
-        horizontalArrangement = Arrangement.spacedBy(8f.dp),
-        content = content
-    )
-}
-
-@Composable
-fun Section(
-    modifier: Modifier = Modifier,
-    header: @Composable RowScope.() -> Unit,
-    onExpand: () -> Unit,
-    content: @Composable () -> Unit,
-) {
-    Column(modifier) {
+) = Carousel(
+    modifier = modifier,
+    content = content,
+    header = {
         Row(
             Modifier
                 .clickable(onClick = onExpand)
@@ -65,9 +50,26 @@ fun Section(
             header()
             Spacer(Modifier.weight(1f))
             Icon(SnacIcons.ArrowForward, contentDescription = null)
-
         }
-        content()
+    })
+
+
+@Composable
+fun Carousel(
+    modifier: Modifier = Modifier,
+    header: @Composable () -> Unit,
+    content: LazyListScope.() -> Unit,
+) {
+    Column(modifier) {
+        header()
+        LazyRow(
+            Modifier
+                .height(200f.dp)
+                .fillMaxWidth(),
+            contentPadding = PaddingValues(horizontal = 16f.dp),
+            horizontalArrangement = Arrangement.spacedBy(8f.dp),
+            content = content
+        )
     }
 }
 
@@ -81,23 +83,18 @@ fun SectionPlaceholder(modifier: Modifier = Modifier) {
             .fadePlaceholder()
 
         Box(
-            sharedModifier
-                .height(36f.dp)
+            sharedModifier.height(36f.dp)
         )
         Spacer(Modifier.height(16f.dp))
         Box(
-            sharedModifier
-                .height(176f.dp)
+            sharedModifier.height(176f.dp)
         )
     }
 }
 
 @Composable
 fun SectionError(
-    modifier: Modifier = Modifier,
-    name: String,
-    type: ShowType,
-    onRetry: () -> Unit
+    modifier: Modifier = Modifier, name: String, type: ShowType, onRetry: () -> Unit
 ) {
     Column(modifier) {
         Row(

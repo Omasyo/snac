@@ -1,4 +1,4 @@
-package com.quitr.snac.core.ui
+package com.quitr.snac.feature.discover.section
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -25,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.PagingData
@@ -34,13 +31,16 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
+import com.quitr.snac.core.ui.card.ShowCard
+import com.quitr.snac.core.ui.fadePlaceholder
+import com.quitr.snac.core.ui.extensions.plus
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
 import kotlinx.coroutines.flow.flow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SectionScreen(
+fun ShowGridScreen(
     modifier: Modifier = Modifier,
     title: String,
     onMovieCardTap: (id: Int) -> Unit,
@@ -60,14 +60,14 @@ fun SectionScreen(
         when (pagingItems.loadState.refresh) {
             is LoadState.Error -> TODO()
             LoadState.Loading -> {
-                SectionScreenPlaceholder(
+                GridScreenPlaceholder(
                     Modifier
                         .padding(innerPadding)
                         .padding(horizontal = 12f.dp, vertical = 16f.dp)
                 )
             }
-
             is LoadState.NotLoading -> {
+
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(96f.dp),
                     contentPadding = innerPadding + PaddingValues(16f.dp),
@@ -104,9 +104,10 @@ fun SectionScreen(
     }
 }
 
+
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun SectionScreenPlaceholder(modifier: Modifier = Modifier) {
+fun GridScreenPlaceholder(modifier: Modifier = Modifier) {
 
     //TODO use arrangement: https://issuetracker.google.com/issues/268365538
     FlowRow(
@@ -124,22 +125,12 @@ fun SectionScreenPlaceholder(modifier: Modifier = Modifier) {
     }
 }
 
-private operator fun PaddingValues.plus(other: PaddingValues) = PaddingValues(
-
-    this.calculateStartPadding(LayoutDirection.Ltr) + other.calculateStartPadding(
-        LayoutDirection.Ltr
-    ),
-    this.calculateTopPadding() + other.calculateTopPadding(),
-    this.calculateEndPadding(LayoutDirection.Ltr) + other.calculateEndPadding(LayoutDirection.Ltr),
-    this.calculateBottomPadding() + other.calculateBottomPadding()
-)
-
 @Preview(fontScale = 1.0f)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun SectionScreenPreview() {
     SnacTheme {
-        SectionScreen(Modifier, "Section", {}, {}, {},
+        ShowGridScreen(Modifier, "Section", {}, {}, {},
             flow {
                 emit(PagingData.from(shows))
             }.collectAsLazyPagingItems()

@@ -6,7 +6,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.quitr.snac.core.model.NavigationRoute
 import com.quitr.snac.core.model.SectionType
-import com.quitr.snac.core.ui.SectionScreen
 import com.quitr.snac.feature.discover.discover.title
 
 object SectionRoute : NavigationRoute() {
@@ -29,7 +28,7 @@ fun SectionRoute(
     onBackPressed: () -> Unit,
     viewModel: SectionScreenViewModel = hiltViewModel()
 ) {
-    SectionScreen(
+    ShowGridScreen(
         modifier,
         title = viewModel.sectionType.title,
         onMovieCardTap = onMovieCardTap,

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -33,7 +34,7 @@ import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.common.R as CommonR
 
 @Composable
-fun ShowScaffold(
+fun ShowDetailsScaffold(
     modifier: Modifier = Modifier,
     title: String,
     posterUrl: String,
@@ -92,7 +93,8 @@ fun ShowScaffold(
                             contentScale = ContentScale.Crop,
                             contentDescription = stringResource(
                                 CommonR.string.poster_description, title
-                            )
+                            ),
+                            modifier = Modifier.fillMaxSize()
                         )
                     }
                     Spacer(Modifier.width(24f.dp))
