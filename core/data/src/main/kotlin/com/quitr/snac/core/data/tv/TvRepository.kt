@@ -1,7 +1,6 @@
 package com.quitr.snac.core.data.tv
 
 import androidx.paging.PagingData
-import com.quitr.snac.core.data.Response
 import com.quitr.snac.core.data.TimeWindow
 import com.quitr.snac.core.model.Show
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +11,7 @@ interface TvRepository {
         page: Int,
         language: String = "",
         timeWindow: TimeWindow = TimeWindow.Day
-    ): Response<List<Show>>
+    ): Result<List<Show>>
 
     fun getTrendingStream(
         language: String = "",
@@ -23,7 +22,7 @@ interface TvRepository {
         page: Int,
         language: String = "",
         region: String = ""
-    ): Response<List<Show>>
+    ): Result<List<Show>>
 
     fun getAiringTodayStream(
         language: String = "",
@@ -34,7 +33,7 @@ interface TvRepository {
         page: Int,
         language: String = "",
         region: String = ""
-    ): Response<List<Show>>
+    ): Result<List<Show>>
 
     fun getOnTheAirStream(
         language: String = "",
@@ -45,7 +44,7 @@ interface TvRepository {
         page: Int,
         language: String = "",
         region: String = ""
-    ): Response<List<Show>>
+    ): Result<List<Show>>
 
     fun getPopularStream(
         language: String = "",
@@ -56,7 +55,7 @@ interface TvRepository {
         page: Int,
         language: String = "",
         region: String = ""
-    ): Response<List<Show>>
+    ): Result<List<Show>>
 
     fun getTopRatedStream(
         language: String = "",

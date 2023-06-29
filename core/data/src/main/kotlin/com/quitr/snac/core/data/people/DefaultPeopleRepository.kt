@@ -1,9 +1,6 @@
 package com.quitr.snac.core.data.people
 
 import android.util.Log
-import com.quitr.snac.core.data.Error
-import com.quitr.snac.core.data.Response
-import com.quitr.snac.core.data.Success
 import com.quitr.snac.core.data.mapppers.toPersonDetails
 import com.quitr.snac.core.model.PersonDetails
 import com.quitr.snac.core.network.people.PeopleNetworkDataSource
@@ -19,14 +16,14 @@ class DefaultPeopleRepository @Inject constructor(
     @Named("IO") private val dispatcher: CoroutineDispatcher,
 ) :
     PeopleRepository {
-    override suspend fun getDetails(id: Int, language: String): Response<PersonDetails> =
+    override suspend fun getDetails(id: Int, language: String): Result<PersonDetails> =
         withContext(dispatcher) {
             try {
                 val result = networkDataSource.getDetails(id, language).toPersonDetails()
-                Success(result)
+                Result.success(result)
             } catch (exception: Exception) {
                 Log.d(TAG, "getDetails: $exception")
-                Error
+                Result.failure(exception)
             }
         }
 

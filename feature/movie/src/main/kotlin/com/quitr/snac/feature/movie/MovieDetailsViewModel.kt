@@ -3,7 +3,6 @@ package com.quitr.snac.feature.movie
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.quitr.snac.core.data.getOrElse
 import com.quitr.snac.core.data.movie.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,8 +25,8 @@ class MovieDetailsViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _movieDetailsUiState.value =
-                movieRepository.getDetails(id).getOrElse(MovieDetailsUiState.Error) {
-                    MovieDetailsUiState.Success(it)
+                movieRepository.getDetails(id).fold({ MovieDetailsUiState.Success(it) }) {
+                    MovieDetailsUiState.Error(it)
                 }
         }
     }

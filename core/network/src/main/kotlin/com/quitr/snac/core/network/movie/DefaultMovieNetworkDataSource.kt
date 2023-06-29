@@ -1,9 +1,7 @@
 package com.quitr.snac.core.network.movie
 
-import com.quitr.snac.core.network.createClient
 import com.quitr.snac.core.network.movie.list.MovieListApiModel
 import com.quitr.snac.core.network.movie.models.MovieDetailsApiModel
-import com.quitr.snac.core.network.movie.models.RecommendationApiModel
 import com.quitr.snac.core.network.movie.models.RecommendationsApiModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -11,21 +9,13 @@ import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import javax.inject.Inject
 
-
-suspend fun main() {
-    val res: MovieDetailsApiModel = createClient().get("/3/movie/2") {
-//        parameter("language", language)
-        parameter("append_to_response", "credits,keywords,recommendations,similar")
-    }.body()
-    println(res)
-}
-
 internal class DefaultMovieNetworkDataSource @Inject constructor(private val client: HttpClient) :
     MovieNetworkDataSource {
     override suspend fun getDetails(id: Int, language: String): MovieDetailsApiModel =
         client.get("/3/movie/$id") {
             parameter("language", language)
             parameter("append_to_response", "credits,keywords,recommendations,similar")
+
         }.body()
 
     override suspend fun getTrending(
@@ -74,10 +64,10 @@ internal class DefaultMovieNetworkDataSource @Inject constructor(private val cli
         }.body()
 
     override suspend fun getSimilar(id: Int, page: Int, language: String): MovieListApiModel =
-    client.get("/3/movie/$id/similar") {
-        parameter("page", page.toString())
-        parameter("language", language)
-    }.body()
+        client.get("/3/movie/$id/similar") {
+            parameter("page", page.toString())
+            parameter("language", language)
+        }.body()
 
     private suspend inline fun getMovieList(
         path: String,

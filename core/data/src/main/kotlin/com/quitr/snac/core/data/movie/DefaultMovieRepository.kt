@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.quitr.snac.core.data.Error
-import com.quitr.snac.core.data.Response
 import com.quitr.snac.core.data.show.ShowPagingSource
-import com.quitr.snac.core.data.Success
 import com.quitr.snac.core.data.TimeWindow
 import com.quitr.snac.core.data.mapppers.toMovie
 import com.quitr.snac.core.data.mapppers.toShows
@@ -16,9 +13,7 @@ import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.network.movie.MovieNetworkDataSource
 import com.quitr.snac.core.network.movie.list.MovieApiModel
 import com.quitr.snac.core.network.movie.list.MovieListApiModel
-import com.quitr.snac.core.network.movie.models.ProductionCountryApiModel
 import com.quitr.snac.core.network.movie.models.RecommendationApiModel
-import com.quitr.snac.core.network.movie.models.SpokenLanguageApiModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -33,27 +28,27 @@ internal class DefaultMovieRepository @Inject constructor(
 //    private val localDataSource: MovieLocalDataSource
     @Named("IO") private val dispatcher: CoroutineDispatcher,
 ) : MovieRepository {
-    override suspend fun getDetails(id: Int, language: String): Response<Movie> =
+    override suspend fun getDetails(id: Int, language: String): Result<Movie> =
         withContext(dispatcher) {
             try {
                 val result = networkDataSource.getDetails(id, language).toMovie()
-                Success(result)
+                Result.success(result)
             } catch (exception: Exception) {
                 Log.d(TAG, "getDetails: $exception")
-                Error
+                Result.failure(exception)
             }
         }
 
     override suspend fun getTrending(
         page: Int, language: String, timeWindow: TimeWindow
-    ): Response<List<Show>> = withContext(dispatcher) {
+    ): Result<List<Show>> = withContext(dispatcher) {
         try {
             val results =
                 networkDataSource.getTrending(page, timeWindow.text, language).results.toShows()
-            Success(results)
+            Result.success(results)
         } catch (exception: Exception) {
             Log.d(TAG, "getTrending: $exception")
-            Error
+            Result.failure(exception)
         }
     }
 
@@ -64,7 +59,7 @@ internal class DefaultMovieRepository @Inject constructor(
 
     override suspend fun getNowPlaying(
         page: Int, language: String, region: String
-    ): Response<List<Show>> = getList(page, language, region, networkDataSource::getNowPlaying)
+    ): Result<List<Show>> = getList(page, language, region, networkDataSource::getNowPlaying)
 
     override fun getNowPlayingStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getNowPlaying(page, language, region) }
@@ -72,21 +67,21 @@ internal class DefaultMovieRepository @Inject constructor(
 
     override suspend fun getPopular(
         page: Int, language: String, region: String
-    ): Response<List<Show>> = getList(page, language, region, networkDataSource::getPopular)
+    ): Result<List<Show>> = getList(page, language, region, networkDataSource::getPopular)
 
     override fun getPopularStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getPopular(page, language, region) }
 
     override suspend fun getTopRated(
         page: Int, language: String, region: String
-    ): Response<List<Show>> = getList(page, language, region, networkDataSource::getTopRated)
+    ): Result<List<Show>> = getList(page, language, region, networkDataSource::getTopRated)
 
     override fun getTopRatedStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getTopRated(page, language, region) }
 
     override suspend fun getUpcoming(
         page: Int, language: String, region: String
-    ): Response<List<Show>> = getList(page, language, region, networkDataSource::getUpcoming)
+    ): Result<List<Show>> = getList(page, language, region, networkDataSource::getUpcoming)
 
     override fun getUpcomingStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getUpcoming(page, language, region) }
@@ -119,10 +114,10 @@ internal class DefaultMovieRepository @Inject constructor(
     ) = withContext(dispatcher) {
         try {
             val results = func(page, language, region).results.toShows()
-            Success(results)
+            Result.success(results)
         } catch (exception: Exception) {
             Log.d(TAG, "getList: $exception")
-            Error
+            Result.failure(exception)
         }
     }
 
