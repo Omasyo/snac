@@ -9,11 +9,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.pluralStringResource
@@ -43,7 +45,19 @@ internal fun MovieDetailsScreen(
     uiState: MovieDetailsUiState,
 ) {
     when (uiState) {
-        MovieDetailsUiState.Error ->  { /* TODO */ }
+        is MovieDetailsUiState.Error -> {
+            Column(Modifier.fillMaxWidth().padding(16f.dp).padding(top = 36f.dp)) {
+                Text(
+                    uiState.error.message ?: "", style =
+                    MaterialTheme.typography.headlineMedium
+                )
+                Text(
+                    uiState.error.toString(), style =
+                    MaterialTheme.typography.headlineMedium
+                )
+            }
+        }
+
         MovieDetailsUiState.Loading -> ShowDetailsPlaceholder(onBackPressed = onBackPressed)
         is MovieDetailsUiState.Success -> {
 

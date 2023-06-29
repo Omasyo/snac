@@ -4,16 +4,11 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.quitr.snac.core.data.Error
-import com.quitr.snac.core.data.Response
-import com.quitr.snac.core.data.show.ShowPagingSource
-import com.quitr.snac.core.data.Success
 import com.quitr.snac.core.data.TimeWindow
-import com.quitr.snac.core.data.mapppers.toShows
+import com.quitr.snac.core.data.show.ShowPagingSource
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api
-import com.quitr.snac.core.network.movie.list.MovieApiModel
 import com.quitr.snac.core.network.tv.TvNetworkDataSource
 import com.quitr.snac.core.network.tv.list.TvApiModel
 import com.quitr.snac.core.network.tv.list.TvListApiModel
@@ -34,13 +29,13 @@ internal class DefaultTvRepository @Inject constructor(
         page: Int,
         language: String,
         timeWindow: TimeWindow,
-    ): Response<List<Show>> = withContext(dispatcher) {
+    ): Result<List<Show>> = withContext(dispatcher) {
         try {
             val results = networkDataSource.getTrending(page, timeWindow.text, language).results
-            Success(results.map { tv -> tv.toShow() })
+            Result.success(results.map { tv -> tv.toShow() })
         } catch (exception: Exception) {
             Log.d(TAG, "getTrending: $exception")
-            Error
+            Result.failure(exception)
         }
     }
 
@@ -55,7 +50,7 @@ internal class DefaultTvRepository @Inject constructor(
         page: Int,
         language: String,
         region: String
-    ): Response<List<Show>> = getList(page, language, region, networkDataSource::getAiringToday)
+    ): Result<List<Show>> = getList(page, language, region, networkDataSource::getAiringToday)
 
     override fun getAiringTodayStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getAiringToday(page, language, region) }
@@ -64,7 +59,7 @@ internal class DefaultTvRepository @Inject constructor(
         page: Int,
         language: String,
         region: String
-    ): Response<List<Show>> = getList(page, language, region, networkDataSource::getOnTheAir)
+    ): Result<List<Show>> = getList(page, language, region, networkDataSource::getOnTheAir)
 
     override fun getOnTheAirStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getOnTheAir(page, language, region) }
@@ -73,7 +68,7 @@ internal class DefaultTvRepository @Inject constructor(
         page: Int,
         language: String,
         region: String
-    ): Response<List<Show>> = getList(page, language, region, networkDataSource::getPopular)
+    ): Result<List<Show>> = getList(page, language, region, networkDataSource::getPopular)
 
     override fun getPopularStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getPopular(page, language, region) }
@@ -82,7 +77,7 @@ internal class DefaultTvRepository @Inject constructor(
         page: Int,
         language: String,
         region: String
-    ): Response<List<Show>> = getList(page, language, region, networkDataSource::getTopRated)
+    ): Result<List<Show>> = getList(page, language, region, networkDataSource::getTopRated)
 
     override fun getTopRatedStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getTopRated(page, language, region) }
@@ -95,10 +90,10 @@ internal class DefaultTvRepository @Inject constructor(
     ) = withContext(dispatcher) {
         try {
             val results = func(page, language, region).results
-            Success(results.map { movie -> movie.toShow() })
+            Result.success(results.map { movie -> movie.toShow() })
         } catch (exception: Exception) {
             Log.d(TAG, "getList: $exception")
-            Error
+            Result.failure(exception)
         }
     }
 

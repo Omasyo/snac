@@ -20,4 +20,10 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# Using ktor client in Android has missing proguard rule
+# See https://youtrack.jetbrains.com/issue/KTOR-5528
 -dontwarn org.slf4j.**
+
+# ktor requests are gone after code shrinking
+# See https://youtrack.jetbrains.com/issue/KTOR-5564
+-keepclassmembers class io.ktor.http.CodecsKt$encodeURL** { *; }
