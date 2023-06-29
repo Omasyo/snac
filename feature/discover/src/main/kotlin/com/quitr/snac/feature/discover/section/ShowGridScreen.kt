@@ -58,7 +58,7 @@ fun ShowGridScreen(
         })
     }) { innerPadding ->
         when (pagingItems.loadState.refresh) {
-            is LoadState.Error -> TODO()
+            is LoadState.Error -> { /*TODO*/ }
             LoadState.Loading -> {
                 GridScreenPlaceholder(
                     Modifier

@@ -43,7 +43,7 @@ internal fun MovieDetailsScreen(
     uiState: MovieDetailsUiState,
 ) {
     when (uiState) {
-        MovieDetailsUiState.Error -> TODO()
+        MovieDetailsUiState.Error ->  { /* TODO */ }
         MovieDetailsUiState.Loading -> ShowDetailsPlaceholder(onBackPressed = onBackPressed)
         is MovieDetailsUiState.Success -> {
 
