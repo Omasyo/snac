@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 interface MovieRepository {
     suspend fun getDetails(id: Int, language: String = ""): Response<Movie>
 
+
     suspend fun getTrending(
         page: Int, language: String = "", timeWindow: TimeWindow = TimeWindow.Day
     ): Response<List<Show>>
@@ -53,4 +54,8 @@ interface MovieRepository {
     fun getUpcomingStream(
         language: String = "", region: String = ""
     ): Flow<PagingData<Show>>
+
+     fun getRecommendationStream(id: Int,  language: String) : Flow<PagingData<Show>>
+
+    suspend fun getSimilarStream(id: Int, language: String) : Flow<PagingData<Show>>
 }

@@ -23,7 +23,6 @@ class MovieDetailsViewModel @Inject constructor(
         MutableStateFlow<MovieDetailsUiState>(MovieDetailsUiState.Loading)
     val movieDetailsUiState: StateFlow<MovieDetailsUiState> = _movieDetailsUiState
 
-
     init {
         viewModelScope.launch {
             _movieDetailsUiState.value =

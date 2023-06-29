@@ -14,8 +14,10 @@ import com.quitr.snac.core.data.mapppers.toShows
 import com.quitr.snac.core.model.Movie
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.network.movie.MovieNetworkDataSource
+import com.quitr.snac.core.network.movie.list.MovieApiModel
 import com.quitr.snac.core.network.movie.list.MovieListApiModel
 import com.quitr.snac.core.network.movie.models.ProductionCountryApiModel
+import com.quitr.snac.core.network.movie.models.RecommendationApiModel
 import com.quitr.snac.core.network.movie.models.SpokenLanguageApiModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -46,7 +48,8 @@ internal class DefaultMovieRepository @Inject constructor(
         page: Int, language: String, timeWindow: TimeWindow
     ): Response<List<Show>> = withContext(dispatcher) {
         try {
-            val results = networkDataSource.getTrending(page, timeWindow.text, language).results.toShows()
+            val results =
+                networkDataSource.getTrending(page, timeWindow.text, language).results.toShows()
             Success(results)
         } catch (exception: Exception) {
             Log.d(TAG, "getTrending: $exception")
@@ -87,6 +90,26 @@ internal class DefaultMovieRepository @Inject constructor(
     override fun getUpcomingStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getUpcoming(page, language, region) }
 
+    override fun getRecommendationStream(
+        id: Int,
+        language: String
+    ): Flow<PagingData<Show>> = Pager(
+        config = PagingConfig(
+            pageSize = 20, enablePlaceholders = false
+        )
+    ) {
+        ShowPagingSource(
+            provider = { page -> networkDataSource.getRecommendation(id, page, language).results },
+            mapper = List<RecommendationApiModel>::toShows
+        )
+    }.flow.flowOn(dispatcher)
+
+    override suspend fun getSimilarStream(
+        id: Int,
+        language: String
+    ): Flow<PagingData<Show>> =
+        getStream { page -> networkDataSource.getSimilar(id, page, language) }
+
     private suspend fun getList(
         page: Int,
         language: String,
@@ -108,8 +131,10 @@ internal class DefaultMovieRepository @Inject constructor(
                 pageSize = 20, enablePlaceholders = false
             )
         ) {
-            println("HROT New pager")
-            ShowPagingSource(provider)
+            ShowPagingSource(
+                provider = { provider(it).results },
+                mapper = List<MovieApiModel>::toShows
+            )
         }.flow.flowOn(dispatcher)
     }
 }

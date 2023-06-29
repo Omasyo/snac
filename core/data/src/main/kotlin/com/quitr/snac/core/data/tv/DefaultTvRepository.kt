@@ -9,9 +9,11 @@ import com.quitr.snac.core.data.Response
 import com.quitr.snac.core.data.show.ShowPagingSource
 import com.quitr.snac.core.data.Success
 import com.quitr.snac.core.data.TimeWindow
+import com.quitr.snac.core.data.mapppers.toShows
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api
+import com.quitr.snac.core.network.movie.list.MovieApiModel
 import com.quitr.snac.core.network.tv.TvNetworkDataSource
 import com.quitr.snac.core.network.tv.list.TvApiModel
 import com.quitr.snac.core.network.tv.list.TvListApiModel
@@ -106,10 +108,15 @@ internal class DefaultTvRepository @Inject constructor(
                 pageSize = 20, enablePlaceholders = false
             )
         ) {
-            ShowPagingSource(provider)
+            ShowPagingSource(
+                provider = { provider(it).results },
+                mapper = List<TvApiModel>::toShows
+            )
         }.flow.flowOn(dispatcher)
     }
 }
 
 internal fun TvApiModel.toShow() =
     Show(id, name, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Tv)
+
+internal fun List<TvApiModel>.toShows() = map { tvApiModel -> tvApiModel.toShow() }
