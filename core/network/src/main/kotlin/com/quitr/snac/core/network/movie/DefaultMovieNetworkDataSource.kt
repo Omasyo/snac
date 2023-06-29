@@ -4,6 +4,7 @@ import com.quitr.snac.core.network.createClient
 import com.quitr.snac.core.network.movie.list.MovieListApiModel
 import com.quitr.snac.core.network.movie.models.MovieDetailsApiModel
 import com.quitr.snac.core.network.movie.models.RecommendationApiModel
+import com.quitr.snac.core.network.movie.models.RecommendationsApiModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -66,7 +67,7 @@ internal class DefaultMovieNetworkDataSource @Inject constructor(private val cli
         id: Int,
         page: Int,
         language: String
-    ): RecommendationApiModel =
+    ): RecommendationsApiModel =
         client.get("/3/movie/$id/recommendations") {
             parameter("page", page.toString())
             parameter("language", language)

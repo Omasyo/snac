@@ -26,6 +26,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 "implementation"(project(":core:data"))
 
                 "implementation"(libs.findLibrary("androidx.lifecycle.viewmodel.compose").get())
+                "implementation"(libs.findLibrary("androidx.paging.compose").get())
             }
         }
     }

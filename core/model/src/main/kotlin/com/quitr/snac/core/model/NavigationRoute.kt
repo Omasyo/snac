@@ -6,7 +6,7 @@ abstract class NavigationRoute {
     protected abstract val root: String
 
 //    val arguments get() = requiredArguments + optionalArguments
-    val route: String get() = buildString {
+    open val route: String get() = buildString {
         append(root)
         requiredArguments.forEach { argument ->
             append("/{$argument}")
@@ -17,7 +17,7 @@ abstract class NavigationRoute {
         append(optional)
     }
 
-    fun route(args: Map<String, Any>) = buildString {
+    open fun route(args: Map<String, Any>) = buildString {
         append(root)
         requiredArguments.forEach { argument ->
             append("/${args[argument]}")

@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.discover.section
+package com.quitr.snac.core.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -34,15 +34,13 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
-import com.quitr.snac.core.ui.ShowCard
-import com.quitr.snac.core.ui.fadePlaceholder
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
 import kotlinx.coroutines.flow.flow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SectionScreen(
+fun SectionScreen(
     modifier: Modifier = Modifier,
     title: String,
     onMovieCardTap: (id: Int) -> Unit,
@@ -108,7 +106,7 @@ internal fun SectionScreen(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun SectionScreenPlaceholder(modifier: Modifier = Modifier) {
+fun SectionScreenPlaceholder(modifier: Modifier = Modifier) {
 
     //TODO use arrangement: https://issuetracker.google.com/issues/268365538
     FlowRow(

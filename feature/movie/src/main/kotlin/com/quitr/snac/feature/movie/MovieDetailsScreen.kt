@@ -37,6 +37,7 @@ internal fun MovieDetailsScreen(
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,
     onPersonCardTap: (id: Int) -> Unit,
+    onRecommendationsExpand: () -> Unit,
     onBackPressed: () -> Unit,
     uiState: MovieDetailsUiState,
 ) {
@@ -140,7 +141,7 @@ internal fun MovieDetailsScreen(
                         Section(
                             name = "Recommendations",
                             shows = movie.recommendations,
-                            onExpand = { /*TODO*/ },
+                            onExpand = onRecommendationsExpand,
                             onMovieCardClicked = onMovieCardTap,
                             onTvCardClicked = onTvCardTap,
                         )
@@ -182,6 +183,7 @@ private fun MovieScreenPreview() {
             onMovieCardTap = {},
             onTvCardTap = {},
             onPersonCardTap = {},
+            onRecommendationsExpand = {},
             onBackPressed = {}
         )
     }

@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.feature.discover.section.SectionRoute
 import com.quitr.snac.feature.movie.MovieDetailsRoute
+import com.quitr.snac.feature.movie.RecommendationsRoute
 
 @Composable
 fun SnacNavHost(
@@ -43,13 +44,33 @@ fun SnacNavHost(
             SnacRoutes.Movie.route, arguments = listOf(navArgument(SnacRoutes.Movie.movieId) {
                 type = NavType.IntType
             })
-        ) {
+        ) { backStackEntry ->
+            val movieId = checkNotNull(backStackEntry.arguments?.getInt(MovieDetailsRoute.movieId))
+
             MovieDetailsRoute(
                 onMovieCardTap = onMovieCardTap,
                 onTvCardTap = {},
                 onPersonCardTap = {},
+                onRecommendationsExpand = {
+                    navController.navigate(
+                        SnacRoutes.Recommendations.route(
+                            movieId
+                        )
+                    )
+                },
                 onBackPressed = { navController.popBackStack() },
             )
+        }
+        composable(
+            SnacRoutes.Recommendations.route,
+            arguments = listOf(navArgument(SnacRoutes.Recommendations.movieId) {
+                type = NavType.IntType
+            })
+        ) {
+            RecommendationsRoute(
+                onMovieCardTap = onMovieCardTap,
+                onTvCardTap = {},
+                onBackPressed = { navController.popBackStack() })
         }
     }
 }

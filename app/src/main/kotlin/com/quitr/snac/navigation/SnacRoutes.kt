@@ -5,6 +5,7 @@ import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.feature.discover.discover.DiscoverRoute
 import com.quitr.snac.feature.discover.section.SectionRoute
 import com.quitr.snac.feature.movie.MovieDetailsRoute
+import com.quitr.snac.feature.movie.RecommendationsRoute
 
 object SnacRoutes {
     val Root = object : NavigationRoute() {
@@ -19,4 +20,5 @@ object SnacRoutes {
     val Section = SectionRoute
 
     val Movie = MovieDetailsRoute
+    val Recommendations = RecommendationsRoute
 }

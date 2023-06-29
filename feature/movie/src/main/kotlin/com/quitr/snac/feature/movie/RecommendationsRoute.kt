@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.discover.section
+package com.quitr.snac.feature.movie
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -7,31 +7,30 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.quitr.snac.core.model.NavigationRoute
 import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.core.ui.SectionScreen
-import com.quitr.snac.feature.discover.discover.title
 
-object SectionRoute : NavigationRoute() {
-    const val sectionType = "section-type"
+object RecommendationsRoute : NavigationRoute() {
+    const val movieId = "movieId"
 
-    override val root = "section"
+    override val root = "movie/recommendations"
 
-    override val requiredArguments: List<String> = listOf(sectionType)
+    override val requiredArguments: List<String> = listOf(movieId)
 
-    fun route(type: SectionType) = route(
-        mapOf(sectionType to type)
+    fun route(id: Int) = route(
+        mapOf(movieId to id)
     )
 }
 
 @Composable
-fun SectionRoute(
+fun RecommendationsRoute(
     modifier: Modifier = Modifier,
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,
     onBackPressed: () -> Unit,
-    viewModel: SectionScreenViewModel = hiltViewModel()
+    viewModel: RecommendationsScreenViewModel = hiltViewModel()
 ) {
     SectionScreen(
         modifier,
-        title = viewModel.sectionType.title,
+        title = "Recommendations",
         onMovieCardTap = onMovieCardTap,
         onTvCardTap = onTvCardTap,
         onBackPressed = onBackPressed,
