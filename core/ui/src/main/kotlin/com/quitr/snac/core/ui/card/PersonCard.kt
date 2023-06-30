@@ -36,7 +36,7 @@ fun PersonCard(
         modifier
     ) {
         AsyncImage(
-            contentDescription = stringResource(CommonR.string.poster_description),
+            contentDescription = stringResource(CommonR.string.profile_image, name),
             model = ImageRequest.Builder(LocalContext.current)
                 .data(photoUrl)
                 .crossfade(true)

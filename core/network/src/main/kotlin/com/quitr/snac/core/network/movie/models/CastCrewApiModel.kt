@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CreditsApiModel(
+data class CastCrewApiModel(
     @SerialName("cast") val cast: List<CastApiModel>,
     @SerialName("crew") val crew: List<CrewApiModel>
 )

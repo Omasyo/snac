@@ -11,7 +11,7 @@ data class MovieDetailsApiModel(
     @SerialName("backdrop_path") val backdropPath: String?,
 //    @SerialName("belongs_to_collection") val belongsToCollection: Any,
     @SerialName("budget") val budget: Int,
-    @SerialName("credits") val credits: CreditsApiModel,
+    @SerialName("credits") val credits: CastCrewApiModel,
     @SerialName("genres") val genres: List<GenreApiModel>,
     @SerialName("homepage") val homepage: String,
     @SerialName("id") val id: Int,

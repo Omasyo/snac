@@ -2,6 +2,7 @@ package com.quitr.snac.core.model
 
 data class PersonDetails(
     val id: Int,
+    val actingCredits: List<Show>,
     val adult: Boolean,
     val alsoKnownAs: List<String>,
     val biography: String,
@@ -12,6 +13,7 @@ data class PersonDetails(
     val imdbId: String,
     val knownForDepartment: String,
     val name: String,
+    val otherCredits: List<Show>,
     val placeOfBirth: String,
     val popularity: Double,
     val profilePath: String
