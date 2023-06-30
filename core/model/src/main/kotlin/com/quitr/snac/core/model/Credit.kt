@@ -2,6 +2,7 @@ package com.quitr.snac.core.model
 
 data class Credit(
     val id: String,
+    val showId: Int,
     val role: String,
     val title: String,
     val rating: String,

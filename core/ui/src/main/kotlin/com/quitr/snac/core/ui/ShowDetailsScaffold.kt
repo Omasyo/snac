@@ -141,11 +141,12 @@ fun AboutDetails(
     modifier: Modifier = Modifier,
     info: String,
     details: List<String>,
+    infoRatio: Float = 0.4f
 ) {
     Row(modifier) {
         Text(
             text = info,
-            modifier = Modifier.fillMaxWidth(0.4f),
+            modifier = Modifier.fillMaxWidth(infoRatio),
             color = MaterialTheme.colorScheme.onSurface.copy(0.5f)
         )
         Spacer(Modifier.width(4f.dp))
@@ -162,4 +163,5 @@ fun AboutDetails(
     modifier: Modifier = Modifier,
     info: String,
     detail: String,
-) = AboutDetails(modifier, info, listOf(detail))
+    infoRatio: Float = 0.4f
+) = AboutDetails(modifier, info, listOf(detail), infoRatio)

@@ -85,37 +85,41 @@ internal fun MovieDetailsScreen(
                             }
                         }
                     }
-                    separator()
-                    item {
-                        MovieSection(
-                            stringResource(R.string.tags),
-                            Modifier.padding(horizontal = 16f.dp)
-                        ) {
-                            FlowRow(
-                                horizontalArrangement = Arrangement.spacedBy(8f.dp)
+                    if(keywords.isNotEmpty()) {
+                        separator()
+                        item {
+                            MovieSection(
+                                stringResource(R.string.tags),
+                                Modifier.padding(horizontal = 16f.dp)
                             ) {
-                                for (keyword in keywords) {
-                                    Box(Modifier
-                                        .clip(MaterialTheme.shapes.small)
-                                        .background(MaterialTheme.colorScheme.surfaceVariant)
-                                        .clickable { }
-                                        .padding(horizontal = 16f.dp, vertical = 8f.dp)) {
-                                        Text(
-                                            keyword.name,
-                                            style = MaterialTheme.typography.labelLarge
-                                        )
+                                FlowRow(
+                                    horizontalArrangement = Arrangement.spacedBy(8f.dp)
+                                ) {
+                                    for (keyword in keywords) {
+                                        Box(Modifier
+                                            .clip(MaterialTheme.shapes.small)
+                                            .background(MaterialTheme.colorScheme.surfaceVariant)
+                                            .clickable { }
+                                            .padding(horizontal = 16f.dp, vertical = 8f.dp)) {
+                                            Text(
+                                                keyword.name,
+                                                style = MaterialTheme.typography.labelLarge
+                                            )
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                     separator()
-                    item {
-                        MovieSection(
-                            title = stringResource(R.string.overview),
-                            Modifier.padding(horizontal = 16f.dp)
-                        ) {
-                            Text(overview)
+                    if(overview.isNotBlank()) {
+                        item {
+                            MovieSection(
+                                title = stringResource(R.string.overview),
+                                Modifier.padding(horizontal = 16f.dp)
+                            ) {
+                                Text(overview)
+                            }
                         }
                     }
                     separator()
@@ -205,13 +209,15 @@ internal fun MovieDetailsScreen(
                             )
                         }
                     }
-                    item {
-                        ShowCarousel(
-                            name = stringResource(R.string.similar),
-                            shows = similar,
-                            onMovieCardClicked = onMovieCardTap,
-                            onTvCardClicked = onTvCardTap,
-                        )
+                    if(similar.isNotEmpty()) {
+                        item {
+                            ShowCarousel(
+                                name = stringResource(R.string.similar),
+                                shows = similar,
+                                onMovieCardClicked = onMovieCardTap,
+                                onTvCardClicked = onTvCardTap,
+                            )
+                        }
                     }
                 }
             }

@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
 
     implementation(libs.accompanist.navigation.animation)
+    implementation(project(mapOf("path" to ":feature:people")))
 
     testImplementation(libs.junit)
 

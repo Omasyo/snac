@@ -11,19 +11,19 @@ import com.quitr.snac.core.network.people.models.PersonApiModel
 internal fun PersonApiModel.toPersonDetails() =
     PersonDetails(
         id = id,
-        actingCredits = movieCredits.cast.map { it.toShow() } + tvCredits.cast.map { it.toShow() },
+        actingCredits = movieCredits.cast.map { it.toCredit() } + tvCredits.cast.map { it.toCredit() },
         adult = adult,
         alsoKnownAs = alsoKnownAs,
         biography = biography,
-        birthday = birthday,
+        birthday = birthday ?: "",
         deathday = deathday ?: "",
         gender = Gender.from(gender),
         homepage = homepage ?: "",
         imdbId = imdbId,
         knownForDepartment = knownForDepartment,
         name = name,
-        otherCredits = movieCredits.crew.map { it.toShow() } + tvCredits.crew.map { it.toShow() },
-        placeOfBirth = placeOfBirth,
+        otherCredits = movieCredits.crew.map { it.toCredit() } + tvCredits.crew.map { it.toCredit() },
+        placeOfBirth = placeOfBirth ?: "",
         popularity = popularity,
         profilePath = Api.BaseProfilePath + profilePath
     )

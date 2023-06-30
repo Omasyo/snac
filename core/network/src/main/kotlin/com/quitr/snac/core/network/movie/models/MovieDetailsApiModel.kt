@@ -15,7 +15,7 @@ data class MovieDetailsApiModel(
     @SerialName("genres") val genres: List<GenreApiModel>,
     @SerialName("homepage") val homepage: String,
     @SerialName("id") val id: Int,
-    @SerialName("imdb_id") val imdbId: String,
+    @SerialName("imdb_id") val imdbId: String?,
     @SerialName("keywords") val keywords: KeywordsApiModel,
     @SerialName("original_language") val originalLanguage: String,
     @SerialName("original_title") val originalTitle: String,

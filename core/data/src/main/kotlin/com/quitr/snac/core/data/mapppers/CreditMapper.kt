@@ -9,8 +9,9 @@ import com.quitr.snac.core.network.people.models.MovieOtherCreditApiModel
 import com.quitr.snac.core.network.people.models.TvActingCreditApiModel
 import com.quitr.snac.core.network.people.models.TvOtherCreditApiModel
 
-internal fun MovieActingCreditApiModel.toShow() = Credit(
+internal fun MovieActingCreditApiModel.toCredit() = Credit(
     id = creditId,
+    showId = id,
     role = character,
     title = title,
     rating = voteAverage.toString(),
@@ -19,8 +20,9 @@ internal fun MovieActingCreditApiModel.toShow() = Credit(
     relevance = 0.0,
 )
 
-internal fun MovieOtherCreditApiModel.toShow() = Credit(
+internal fun MovieOtherCreditApiModel.toCredit() = Credit(
     id = creditId,
+    showId = id,
     role = job,
     title = title,
     rating = voteAverage.toString(),
@@ -29,8 +31,9 @@ internal fun MovieOtherCreditApiModel.toShow() = Credit(
     relevance = 0.0
 )
 
-internal fun TvActingCreditApiModel.toShow() = Credit(
+internal fun TvActingCreditApiModel.toCredit() = Credit(
     id = creditId,
+    showId = id,
     role = character,
     title = name,
     rating = voteAverage.toString(),
@@ -39,8 +42,9 @@ internal fun TvActingCreditApiModel.toShow() = Credit(
     relevance = 0.0,
 )
 
-internal fun TvOtherCreditApiModel.toShow() = Credit(
+internal fun TvOtherCreditApiModel.toCredit() = Credit(
     id = creditId,
+    showId = id,
     role = job,
     title = name,
     rating = voteAverage.toString(),

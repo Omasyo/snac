@@ -13,6 +13,7 @@ import com.quitr.snac.feature.discover.section.SectionRoute
 import com.quitr.snac.feature.movie.MovieDetailsRoute
 import com.quitr.snac.feature.movie.MovieCastRoute
 import com.quitr.snac.feature.movie.MovieCrewRoute
+import com.quitr.snac.feature.people.PersonDetailsRoute
 
 @Composable
 fun SnacNavHost(
@@ -21,6 +22,7 @@ fun SnacNavHost(
     navBarController: NavHostController = rememberNavController(),
 ) {
     val onMovieCardTap = { id: Int -> navController.navigate(SnacRoutes.Movie.route(id)) }
+    val onPersonCardTap = { id: Int -> navController.navigate(SnacRoutes.Person.route(id))}
 
     NavHost(
         navController = navController, startDestination = SnacRoutes.Root.route, modifier = modifier
@@ -50,7 +52,7 @@ fun SnacNavHost(
             MovieDetailsRoute(
                 onMovieCardTap = onMovieCardTap,
                 onTvCardTap = {},
-                onPersonCardTap = {},
+                onPersonCardTap = onPersonCardTap,
                 onCastExpand = {
                     navController.navigate(
                         SnacRoutes.MovieCast.route(
@@ -87,6 +89,29 @@ fun SnacNavHost(
             MovieCrewRoute(
                 onPersonCardTapped = {},
                 onBackPressed = { navController.popBackStack() })
+        }
+
+        composable(
+            SnacRoutes.Person.route, arguments = listOf(navArgument(SnacRoutes.Person.personId) {
+                type = NavType.IntType
+            })
+        ) { backStackEntry ->
+            val personId = checkNotNull(backStackEntry.arguments?.getInt(SnacRoutes.Person.personId))
+
+            PersonDetailsRoute(
+                onMovieCardTap = onMovieCardTap,
+                onTvCardTap = {},
+                onActingCreditsExpand = {
+                },
+                onOtherCreditsExpand = {
+//                    navController.navigate(
+//                        SnacRoutes.MovieCrew.route(
+//                            movieId
+//                        )
+//                    )
+                },
+                onBackPressed = { navController.popBackStack() },
+            )
         }
     }
 }
