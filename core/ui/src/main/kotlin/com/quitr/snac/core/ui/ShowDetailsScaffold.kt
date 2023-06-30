@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -40,7 +41,7 @@ fun ShowDetailsScaffold(
     posterUrl: String,
     backdropUrl: String,
     releaseDate: String,
-    runtime: String,
+    runtime: Int,
     genres: List<Genre>,
     voteAverage: String,
     voteCount: Int,
@@ -108,7 +109,8 @@ fun ShowDetailsScaffold(
                             Text(title, style = titleLarge)
 
                             Text(
-                                listOf(releaseDate, "$runtime mins").joinToString(" • "),//TODO extract to string
+                                listOf(releaseDate, pluralStringResource(CommonR.plurals.minutes_short, runtime, runtime)).filter(String::isNotBlank)//TODO extract to string
+                                    .joinToString(" • "),
                                 style = titleSmall
                             )
 

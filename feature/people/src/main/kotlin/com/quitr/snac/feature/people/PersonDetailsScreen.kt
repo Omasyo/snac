@@ -19,25 +19,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.quitr.snac.core.common.R
 import com.quitr.snac.core.model.Credit
 import com.quitr.snac.core.model.Gender
 import com.quitr.snac.core.model.PersonDetails
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.ui.AboutDetails
-import com.quitr.snac.core.ui.InlineText
 import com.quitr.snac.core.ui.ResizableHeaderScaffold
-import com.quitr.snac.core.ui.append
 import com.quitr.snac.core.ui.separator
-import com.quitr.snac.core.ui.theme.SnacIcons
+import com.quitr.snac.core.common.R as CommonR
 
 @Composable
 fun PeopleScreen(
@@ -84,7 +82,22 @@ fun PeopleScreen(
                             .height(360.dp)
                             .fillMaxWidth()
                     ) {
-                        val backgroundColor = MaterialTheme.colorScheme.surface
+                        with(MaterialTheme.colorScheme) {
+                            Box(modifier = Modifier
+                                .height(220f.dp)
+                                .fillMaxWidth()
+                                .drawWithCache {
+                                    val gradient = Brush.verticalGradient(
+                                        colors = listOf(surfaceVariant, background),
+                                        startY = size.height / 5,
+                                        endY = size.height
+                                    )
+                                    onDrawWithContent {
+                                        drawContent()
+                                        drawRect(gradient)
+                                    }
+                                })
+                        }
                         Row(
                             Modifier
                                 .align(Alignment.BottomStart)
@@ -102,7 +115,7 @@ fun PeopleScreen(
                                     error = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
                                     contentScale = ContentScale.Crop,
                                     contentDescription = stringResource(
-                                        R.string.profile_image, name
+                                        CommonR.string.profile_image, name
                                     ),
                                     modifier = Modifier.fillMaxSize()
                                 )
@@ -133,13 +146,13 @@ fun PeopleScreen(
                     ) {
 //                    AboutDetails(info = "Age", detail = person)
                         if (birthday.isNotBlank()) AboutDetails(
-                            info = "Born on", detail = birthday, infoRatio = 0.3f
+                            info = stringResource(R.string.born_on), detail = birthday, infoRatio = 0.3f
                         )
                         if (deathday.isNotBlank()) AboutDetails(
-                            info = "Died on", detail = deathday, infoRatio = 0.3f
+                            info = stringResource(R.string.died_on), detail = deathday, infoRatio = 0.3f
                         )
                         if (placeOfBirth.isNotBlank()) AboutDetails(
-                            info = "From", detail = placeOfBirth, infoRatio = 0.3f
+                            info = stringResource(R.string.from), detail = placeOfBirth, infoRatio = 0.3f
                         )
                     }
                 }
@@ -148,7 +161,7 @@ fun PeopleScreen(
                     item {
                         Column(Modifier.padding(horizontal = 16f.dp)) {
                             Text(
-                                "Biography", color = MaterialTheme.colorScheme.onSurface.copy(0.5f)
+                                stringResource(R.string.biography), color = MaterialTheme.colorScheme.onSurface.copy(0.5f)
                             )
                             Spacer(Modifier.height(4f.dp))
                             Text(
@@ -161,7 +174,7 @@ fun PeopleScreen(
                 if (actingCredits.isNotEmpty()) {
                     item {
                         CreditCarousel(
-                            category = "Starred in",
+                            category = stringResource(R.string.starred_in),
                             credits = actingCredits,
                             onExpand = onActingCreditsExpand,
                             onShowClicked = ::showTapHandler,
@@ -171,7 +184,7 @@ fun PeopleScreen(
                 if (otherCredits.isNotEmpty()) {
                     item {
                         CreditCarousel(
-                            category = "Others",
+                            category = stringResource(R.string.others),
                             credits = otherCredits,
                             onExpand = onOtherCreditsExpand,
                             onShowClicked = ::showTapHandler,

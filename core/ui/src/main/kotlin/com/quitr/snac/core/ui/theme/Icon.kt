@@ -23,12 +23,6 @@ object SnacIcons {
     val People = Icons.Filled.PeopleAlt
 
     val Star: Painter
-        @Composable get() {
-            if (star == null) {
-                star = painterResource(R.drawable.star)
-            }
-            return star!!
-        }
-}
+        @Composable get() = painterResource(R.drawable.star)
 
-private var star: Painter? = null
+}

@@ -64,7 +64,7 @@ internal fun MovieDetailsScreen(
                     posterUrl = posterUrl,
                     backdropUrl = backDropUrl,
                     releaseDate = releaseDate,
-                    runtime = runtime.toString(),
+                    runtime = runtime,
                     genres = genres,
                     voteAverage = voteAverage.toString(),
                     voteCount = voteCount,

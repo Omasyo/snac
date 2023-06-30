@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="born_on">Born on</string>
+    <string name="died_on">Died on</string>
+    <string name="from">From</string>
+    <string name="biography">Biography</string>
+    <string name="starred_in">Starred in</string>
+    <string name="others">Others</string>
+</resources>

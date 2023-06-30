@@ -7,6 +7,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.Placeholder
@@ -16,6 +17,19 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
+
+@Preview
+@Composable
+fun Preview() {
+    SnacTheme {
+        InlineText(style = MaterialTheme.typography.bodyLarge) {
+            append(SnacIcons.Star)
+            append("First")
+            append(SnacIcons.People)
+            append("Secont")
+        }
+    }
+}
 
 @Composable
 fun InlineText(
@@ -34,7 +48,7 @@ fun InlineText(
             }
 
             is Painter -> buildInlineContent(style) {
-                Icon(content, contentDescription = description)
+                Icon(content, contentDescription = description, tint = Color.Unspecified)
             }
             else -> throw Exception()
         }

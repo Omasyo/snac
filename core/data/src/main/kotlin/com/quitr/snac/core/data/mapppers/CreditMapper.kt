@@ -38,7 +38,7 @@ internal fun TvActingCreditApiModel.toCredit() = Credit(
     title = name,
     rating = voteAverage.toString(),
     posterUrl = Api.BasePosterPath + posterPath,
-    showType = ShowType.Movie,
+    showType = ShowType.Tv,
     relevance = 0.0,
 )
 
@@ -49,6 +49,6 @@ internal fun TvOtherCreditApiModel.toCredit() = Credit(
     title = name,
     rating = voteAverage.toString(),
     posterUrl = Api.BasePosterPath + posterPath,
-    showType = ShowType.Movie,
+    showType = ShowType.Tv,
     relevance = 0.0,
 )
