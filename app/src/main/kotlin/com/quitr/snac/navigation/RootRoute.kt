@@ -1,6 +1,5 @@
 package com.quitr.snac.navigation
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,7 +19,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.quitr.snac.feature.discover.discover.DiscoverRoute
-import com.quitr.snac.feature.discover.section.SectionRoute
 
 @Composable
 fun RootRoute(
@@ -31,7 +29,7 @@ fun RootRoute(
     Scaffold(
         modifier,
         bottomBar = {
-            NavigationBar() {
+            NavigationBar {
                 val navBackStackEntry by navBarController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
 

@@ -2,9 +2,7 @@ package com.quitr.snac.core.network.movie
 
 import com.quitr.snac.core.network.movie.list.MovieListApiModel
 import com.quitr.snac.core.network.movie.models.MovieDetailsApiModel
-import com.quitr.snac.core.network.movie.models.RecommendationApiModel
 import com.quitr.snac.core.network.movie.models.RecommendationsApiModel
-import io.ktor.http.cio.Response
 
 interface MovieNetworkDataSource {
     suspend fun getDetails(id: Int, language: String): MovieDetailsApiModel

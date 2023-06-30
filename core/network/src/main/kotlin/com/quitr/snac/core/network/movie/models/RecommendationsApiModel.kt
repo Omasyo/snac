@@ -1,7 +1,6 @@
 package com.quitr.snac.core.network.movie.models
 
 
-import com.quitr.snac.core.network.movie.models.RecommendationApiModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

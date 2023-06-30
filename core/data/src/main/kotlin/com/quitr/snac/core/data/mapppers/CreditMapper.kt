@@ -1,7 +1,6 @@
 package com.quitr.snac.core.data.mapppers
 
 import com.quitr.snac.core.model.Credit
-import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api
 import com.quitr.snac.core.network.people.models.MovieActingCreditApiModel

@@ -92,7 +92,7 @@ class InlineText internal constructor() {
     val icons = mutableSetOf<Pair<Any, String?>>()
 }
 
-fun InlineText.append(text: String) = contents.add(text)
+fun InlineText.append(text: String) { contents.add(text) }
 
 fun InlineText.append(icon: ImageVector, contentDescription: String? = null) {
     contents.add(icon)

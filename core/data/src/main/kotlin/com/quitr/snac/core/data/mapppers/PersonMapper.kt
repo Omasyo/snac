@@ -4,8 +4,6 @@ import com.quitr.snac.core.model.Gender
 import com.quitr.snac.core.model.Person
 import com.quitr.snac.core.model.PersonDetails
 import com.quitr.snac.core.network.Api
-import com.quitr.snac.core.network.movie.models.CastApiModel
-import com.quitr.snac.core.network.movie.models.CrewApiModel
 import com.quitr.snac.core.network.people.models.PersonApiModel
 
 internal fun PersonApiModel.toPersonDetails() =

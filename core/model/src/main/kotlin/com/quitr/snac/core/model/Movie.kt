@@ -1,7 +1,5 @@
 package com.quitr.snac.core.model
 
-import org.intellij.lang.annotations.Language
-
 data class Movie(
     val id: Int,
     val backDropUrl: String,
