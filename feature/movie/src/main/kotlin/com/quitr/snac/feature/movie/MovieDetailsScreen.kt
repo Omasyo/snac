@@ -51,10 +51,6 @@ internal fun MovieDetailsScreen(
                     uiState.error.message ?: "", style =
                     MaterialTheme.typography.headlineMedium
                 )
-                Text(
-                    uiState.error.toString(), style =
-                    MaterialTheme.typography.headlineMedium
-                )
             }
         }
 
@@ -121,8 +117,8 @@ internal fun MovieDetailsScreen(
                                 Text(overview)
                             }
                         }
+                        separator()
                     }
-                    separator()
                     item {
                         PersonCarousel(
                             category = stringResource(R.string.cast),

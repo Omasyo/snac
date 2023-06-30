@@ -14,7 +14,7 @@ data class PersonApiModel(
     @SerialName("gender") val gender: Int,
     @SerialName("homepage") val homepage: String?,
     @SerialName("id") val id: Int,
-    @SerialName("imdb_id") val imdbId: String,
+    @SerialName("imdb_id") val imdbId: String?,
     @SerialName("known_for_department") val knownForDepartment: String,
     @SerialName("movie_credits") val movieCredits: MovieCreditsApiModel,
     @SerialName("name") val name: String,

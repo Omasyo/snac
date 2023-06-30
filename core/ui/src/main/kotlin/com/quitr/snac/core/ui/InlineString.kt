@@ -3,6 +3,7 @@ package com.quitr.snac.core.ui
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,6 +13,9 @@ import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.tooling.preview.Preview
+import com.quitr.snac.core.ui.theme.SnacIcons
+import com.quitr.snac.core.ui.theme.SnacTheme
 
 @Composable
 fun InlineText(
@@ -82,5 +86,6 @@ fun InlineText.append(icon: ImageVector, contentDescription: String? = null) {
 }
 
 fun InlineText.append(icon: Painter, contentDescription: String? = null) {
-    contents.add(Pair(icon, contentDescription))
+    contents.add(icon)
+    icons.add(Pair(icon, contentDescription))
 }

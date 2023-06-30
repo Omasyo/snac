@@ -8,11 +8,11 @@ enum class Gender {
 
     companion object {
         fun from(id: Int) = when (id) {
-            1 -> NotSpecified
-            2 -> Female
-            3 -> Male
-            4 -> NonBinary
-            else -> throw IllegalArgumentException()
+            0 -> NotSpecified
+            1 -> Female
+            2 -> Male
+            3 -> NonBinary
+            else -> throw IllegalArgumentException("Invalid Gender Id")
         }
     }
 }

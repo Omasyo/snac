@@ -57,6 +57,16 @@ fun PeopleScreen(
     when (uiState) {
         is PersonDetailsUiState.Error -> {
             // TODO
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16f.dp)
+                    .padding(top = 36f.dp)) {
+                Text(
+                    uiState.error.message ?: "", style =
+                    MaterialTheme.typography.headlineMedium
+                )
+            }
         }
 
         PersonDetailsUiState.Loading -> {

@@ -108,7 +108,8 @@ fun ShowDetailsScaffold(
                             Text(title, style = titleLarge)
 
                             Text(
-                                "$releaseDate • $runtime mins", style = titleSmall
+                                listOf(releaseDate, "$runtime mins").joinToString(" • "),//TODO extract to string
+                                style = titleSmall
                             )
 
                             val genresString = genres.joinToString(" • ") { it.name }
