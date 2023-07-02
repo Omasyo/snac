@@ -1,10 +1,10 @@
-package com.quitr.snac.core.data.movie
+package com.quitr.snac.core.data.repository.movie
 
 import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.quitr.snac.core.data.show.ShowPagingSource
+import com.quitr.snac.core.data.pager.show.ShowPagingSource
 import com.quitr.snac.core.data.TimeWindow
 import com.quitr.snac.core.data.mapppers.toMovie
 import com.quitr.snac.core.data.mapppers.toShows

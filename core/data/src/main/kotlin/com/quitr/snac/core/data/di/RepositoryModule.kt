@@ -1,11 +1,11 @@
 package com.quitr.snac.core.data.di
 
-import com.quitr.snac.core.data.movie.DefaultMovieRepository
-import com.quitr.snac.core.data.movie.MovieRepository
-import com.quitr.snac.core.data.people.DefaultPeopleRepository
-import com.quitr.snac.core.data.people.PeopleRepository
-import com.quitr.snac.core.data.tv.DefaultTvRepository
-import com.quitr.snac.core.data.tv.TvRepository
+import com.quitr.snac.core.data.repository.movie.DefaultMovieRepository
+import com.quitr.snac.core.data.repository.movie.MovieRepository
+import com.quitr.snac.core.data.repository.people.DefaultPeopleRepository
+import com.quitr.snac.core.data.repository.people.PeopleRepository
+import com.quitr.snac.core.data.repository.tv.DefaultTvRepository
+import com.quitr.snac.core.data.repository.tv.TvRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -24,7 +24,7 @@ private val shows = List(30) {
 internal val FakeMovie = Movie(
     id = 6503,
     backDropUrl = "https://www.google.com/#q=morbi",
-    budget = 10000000,
+    budget = "\$ 100 Million",
     cast = People,
     crew = People,
     genres = listOf(Genre(1, "Action"), Genre(1, "Adventure"), Genre(1, "Sci-fi")),
@@ -49,13 +49,13 @@ internal val FakeMovie = Movie(
     productionCountries = listOf("United States of America", "New Zealand"),
     recommendations = shows,
     releaseDate = "15 July 2016",
-    revenue = 220000000,
+    revenue = "220",
     runtime = 45,
     similar = shows,
     spokenLanguages = listOf(),
     status = "Released",
     tagline = "It's how you wear the mask that matters",
     title = "Fantastic Beasts and How to Esacape Them",
-    voteAverage = 2.3,
+    voteAverage = "2.3",
     voteCount = 8974
 )

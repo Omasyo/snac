@@ -45,7 +45,11 @@ internal fun MovieDetailsScreen(
 ) {
     when (uiState) {
         is MovieDetailsUiState.Error -> {
-            Column(Modifier.fillMaxWidth().padding(16f.dp).padding(top = 36f.dp)) {
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16f.dp)
+                    .padding(top = 36f.dp)) {
                 Text(
                     uiState.error.message ?: "", style =
                     MaterialTheme.typography.headlineMedium
@@ -156,24 +160,28 @@ internal fun MovieDetailsScreen(
                                 )
                                 AboutDetails(
                                     info = stringResource(R.string.runtime),
-                                    detail = runtime.toString()
+                                    detail = pluralStringResource(R.plurals.minutes_short, runtime, runtime)
                                 )
                                 AboutDetails(
                                     info = stringResource(R.string.status),
                                     detail = status
                                 )
-                                AboutDetails(
-                                    info = stringResource(R.string.budget),
-                                    detail = budget.toString()
-                                )
-                                AboutDetails(
-                                    info = stringResource(R.string.revenue),
-                                    detail = revenue.toString()
-                                )
-                                AboutDetails(
-                                    info = stringResource(R.string.original_language),
-                                    detail = originalLanguage
-                                )
+                                if(budget.isNotEmpty()) {
+                                    AboutDetails(
+                                        info = stringResource(R.string.budget),
+                                        detail = budget
+                                    )
+                                }
+                                if(revenue.isNotEmpty()) {
+                                    AboutDetails(
+                                        info = stringResource(R.string.revenue),
+                                        detail = revenue
+                                    )
+                                }
+//                                AboutDetails(
+//                                    info = stringResource(R.string.original_language),
+//                                    detail = originalLanguage
+//                                )
 //                    AboutDetails(info = "Country of Origin", detail = movie)
                                 AboutDetails(
                                     info = pluralStringResource(

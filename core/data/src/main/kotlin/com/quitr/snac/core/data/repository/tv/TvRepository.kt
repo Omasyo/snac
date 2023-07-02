@@ -1,4 +1,4 @@
-package com.quitr.snac.core.data.tv
+package com.quitr.snac.core.data.repository.tv
 
 import androidx.paging.PagingData
 import com.quitr.snac.core.data.TimeWindow

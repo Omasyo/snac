@@ -8,7 +8,7 @@ import com.quitr.snac.core.network.movie.list.MovieApiModel
 import com.quitr.snac.core.network.movie.models.MovieDetailsApiModel
 
 internal fun MovieApiModel.toShow() = Show(
-    id, title, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Movie
+    id, title, voteAverage.formatTo1dp(), Api.BasePosterPath + posterPath, ShowType.Movie
 )
 
 internal fun List<MovieApiModel>.toShows() = map { movieApiModel -> movieApiModel.toShow() }
@@ -16,7 +16,7 @@ internal fun List<MovieApiModel>.toShows() = map { movieApiModel -> movieApiMode
 internal fun MovieDetailsApiModel.toMovie() = Movie(
     id = id,
     backDropUrl = Api.BaseBackdropPath + backdropPath,
-    budget = budget,
+    budget = budget.formatToUsd(),
     cast = credits.cast.toPeople().combineSimilar(),
     crew = credits.crew.toPeople().combineSimilar(),
     genres = genres.toGenres(),
@@ -31,15 +31,15 @@ internal fun MovieDetailsApiModel.toMovie() = Movie(
     productionCompanies = productionCompanies.toNames(),
     productionCountries = productionCountries.toNames(),
     recommendations = recommendations.results.toShows(),
-    releaseDate = releaseDate,
-    revenue = revenue,
+    releaseDate = releaseDate.formatDate(),
+    revenue = revenue.formatToUsd(),
     runtime = runtime,
     similar = similar.results.toShows(),
     spokenLanguages = spokenLanguages.toNames(),
     status = status,
     tagline = tagline,
     title = title,
-    voteAverage = voteAverage,
+    voteAverage = voteAverage.formatTo1dp(),
     voteCount = voteCount
 )
 

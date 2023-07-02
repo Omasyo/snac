@@ -48,24 +48,29 @@ fun ResizableHeaderScaffold(
         }
     }
 
-    Scaffold(modifier, topBar = {
-        TopAppBar(
-
-            navigationIcon = {
-                IconButton(onClick = onBackPressed) {
-                    Icon(SnacIcons.ArrowBack, null)
-                }
-            }, title = {
-                AnimatedVisibility(
-                    visible = !fadeTitle || isCollapsed, enter = fadeIn(), exit = fadeOut()
-                ) {
-                    Text(title)
-                }
-            }, colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.Transparent
+    Scaffold(
+        modifier,
+        topBar = {
+            TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = onBackPressed) {
+                        Icon(SnacIcons.ArrowBack, null)
+                    }
+                },
+                title = {
+                    AnimatedVisibility(
+                        visible = !fadeTitle || isCollapsed, enter = fadeIn(), exit = fadeOut()
+                    ) {
+                        Text(title)
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Transparent
+                )
             )
-        )
-    }) { innerPadding ->
+        },
+        containerColor = MaterialTheme.colorScheme.surface
+    ) { innerPadding ->
         val backGroundColor = MaterialTheme.colorScheme.surface
         LazyColumn(
             state = lazyColumnState, contentPadding = PaddingValues(bottom = 24f.dp)

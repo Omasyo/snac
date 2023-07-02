@@ -1,4 +1,4 @@
-package com.quitr.snac.core.data.people
+package com.quitr.snac.core.data.repository.people
 
 import com.quitr.snac.core.model.PersonDetails
 

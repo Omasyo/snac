@@ -1,11 +1,11 @@
-package com.quitr.snac.core.data.tv
+package com.quitr.snac.core.data.repository.tv
 
 import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.quitr.snac.core.data.TimeWindow
-import com.quitr.snac.core.data.show.ShowPagingSource
+import com.quitr.snac.core.data.pager.show.ShowPagingSource
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api

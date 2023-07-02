@@ -2,8 +2,8 @@ package com.quitr.snac.feature.discover.discover
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.quitr.snac.core.data.movie.MovieRepository
-import com.quitr.snac.core.data.tv.TvRepository
+import com.quitr.snac.core.data.repository.movie.MovieRepository
+import com.quitr.snac.core.data.repository.tv.TvRepository
 import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.core.ui.carousel.ShowCarouselUiState
 import dagger.hilt.android.lifecycle.HiltViewModel

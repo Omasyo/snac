@@ -30,6 +30,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.quitr.snac.core.model.Credit
 import com.quitr.snac.core.model.Gender
+import com.quitr.snac.core.model.Person
 import com.quitr.snac.core.model.PersonDetails
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.ui.show.AboutDetails
@@ -67,10 +68,7 @@ fun PeopleScreen(
             }
         }
 
-        PersonDetailsUiState.Loading -> {
-            // TODO
-        }
-
+        PersonDetailsUiState.Loading -> PersonDetailsPlaceholder()
         is PersonDetailsUiState.Success -> with(uiState.person) {
             ResizableHeaderScaffold(
                 modifier,
@@ -88,7 +86,7 @@ fun PeopleScreen(
                                 .fillMaxWidth()
                                 .drawWithCache {
                                     val gradient = Brush.verticalGradient(
-                                        colors = listOf(surfaceVariant, background),
+                                        colors = listOf(surfaceVariant, surface),
                                         startY = size.height / 5,
                                         endY = size.height
                                     )

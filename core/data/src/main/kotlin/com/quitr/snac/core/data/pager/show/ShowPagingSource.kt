@@ -1,4 +1,4 @@
-package com.quitr.snac.core.data.show
+package com.quitr.snac.core.data.pager.show
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

@@ -1,4 +1,4 @@
-package com.quitr.snac.core.data.people
+package com.quitr.snac.core.data.repository.people
 
 import android.util.Log
 import com.quitr.snac.core.data.mapppers.toPersonDetails
