@@ -28,7 +28,7 @@ fun SnacNavHost(
         navController = navController, startDestination = SnacRoutes.Root.route, modifier = modifier
     ) {
         composable(SnacRoutes.Root.route) {
-            RootRoute(rootNavController = navController, navBarController = navBarController)
+            HomeNavHost(rootNavController = navController, navBarController = navBarController)
 
         }
         composable(

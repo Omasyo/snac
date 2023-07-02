@@ -21,7 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.quitr.snac.feature.discover.discover.DiscoverRoute
 
 @Composable
-fun RootRoute(
+fun HomeNavHost(
     rootNavController: NavHostController,
     navBarController: NavHostController,
     modifier: Modifier = Modifier,
@@ -87,18 +87,5 @@ fun RootRoute(
         }
     }
 }
-
-//@OptIn(ExperimentalAnimationApi::class)
-//internal fun NavGraphBuilder.navBarComposable(
-//    route: String,
-//    arguments: List<NamedNavArgument> = emptyList(),
-//    content: @Composable() (AnimatedVisibilityScope.(NavBackStackEntry) -> Unit),
-//) = composable(
-//    route,
-//    arguments,
-////    enterTransition = { EnterTransition.None },
-////    exitTransition = { ExitTransition.None },
-//    content = content
-//)
 
 private val navBarItems = NavBarScreens.values()
