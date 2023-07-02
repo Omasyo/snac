@@ -11,8 +11,8 @@ import com.quitr.snac.core.data.mapppers.toShows
 import com.quitr.snac.core.model.Movie
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.network.movie.MovieNetworkDataSource
-import com.quitr.snac.core.network.movie.list.MovieApiModel
-import com.quitr.snac.core.network.movie.list.MovieListApiModel
+import com.quitr.snac.core.network.movie.models.MovieApiModel
+import com.quitr.snac.core.network.movie.models.MovieListApiModel
 import com.quitr.snac.core.network.movie.models.RecommendationApiModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

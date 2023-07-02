@@ -10,8 +10,8 @@ import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api
 import com.quitr.snac.core.network.tv.TvNetworkDataSource
-import com.quitr.snac.core.network.tv.list.TvApiModel
-import com.quitr.snac.core.network.tv.list.TvListApiModel
+import com.quitr.snac.core.network.tv.models.TvApiModel
+import com.quitr.snac.core.network.tv.models.TvListApiModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

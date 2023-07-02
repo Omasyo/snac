@@ -4,7 +4,7 @@ import com.quitr.snac.core.model.Movie
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api
-import com.quitr.snac.core.network.movie.list.MovieApiModel
+import com.quitr.snac.core.network.movie.models.MovieApiModel
 import com.quitr.snac.core.network.movie.models.MovieDetailsApiModel
 
 internal fun MovieApiModel.toShow() = Show(

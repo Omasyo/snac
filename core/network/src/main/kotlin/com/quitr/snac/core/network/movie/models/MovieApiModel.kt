@@ -1,22 +1,22 @@
-package com.quitr.snac.core.network.movie.list
+package com.quitr.snac.core.network.movie.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class MovieApiModel(
-    val adult: Boolean,
+    @SerialName("adult") val adult: Boolean,
     @SerialName("backdrop_path") val backdropPath: String?,
     @SerialName("genre_ids") val genreIds: List<Int>,
-    val id: Int,
+    @SerialName("id") val id: Int,
     @SerialName("original_language") val originalLanguage: String,
     @SerialName("original_title") val originalTitle: String,
-    val overview: String,
-    val popularity: Double,
+    @SerialName("overview") val overview: String,
+    @SerialName("popularity") val popularity: Double,
     @SerialName("poster_path") val posterPath: String?,
     @SerialName("release_date") val releaseDate: String,
-    val title: String,
-    val video: Boolean,
+    @SerialName("title") val title: String,
+    @SerialName("video") val video: Boolean,
     @SerialName("vote_average") val voteAverage: Double,
     @SerialName("vote_count") val voteCount: Int
 )

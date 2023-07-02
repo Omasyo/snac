@@ -1,7 +1,7 @@
 package com.quitr.snac.core.data.mapppers
 
 import com.quitr.snac.core.model.Keyword
-import com.quitr.snac.core.network.movie.models.KeywordApiModel
+import com.quitr.snac.core.network.models.KeywordApiModel
 
 internal fun KeywordApiModel.toKeyword() = Keyword(id, name)
 

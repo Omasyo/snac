@@ -1,7 +1,9 @@
 package com.quitr.snac.core.network.tv
 
 
-import com.quitr.snac.core.network.tv.list.TvListApiModel
+import com.quitr.snac.core.network.createClient
+import com.quitr.snac.core.network.tv.models.TvDetailsApiModel
+import com.quitr.snac.core.network.tv.models.TvListApiModel
 import javax.inject.Inject
 
 import io.ktor.client.HttpClient
@@ -11,6 +13,12 @@ import io.ktor.client.request.parameter
 
 class DefaultTvNetworkDataSource @Inject constructor(private val client: HttpClient) :
     TvNetworkDataSource {
+    override suspend fun getDetails(id: Int, language: String): TvDetailsApiModel =
+        client.get("/3/tv/$id") {
+            parameter("language", language)
+            parameter("append_to_response", "aggregate_credits,keywords,recommendations,similar")
+        }.body()
+
     override suspend fun getTrending(
         page: Int,
         timeWindow: String,

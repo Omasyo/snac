@@ -1,12 +1,13 @@
-package com.quitr.snac.core.network.movie.list
+package com.quitr.snac.core.network.tv.models
+
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MovieListApiModel(
-    val page: Int,
-    val results: List<MovieApiModel>,
+data class RecommendationsApiModel(
+    @SerialName("page") val page: Int,
+    @SerialName("results") val results: List<RecommendationApiModel>,
     @SerialName("total_pages") val totalPages: Int,
     @SerialName("total_results") val totalResults: Int
 )

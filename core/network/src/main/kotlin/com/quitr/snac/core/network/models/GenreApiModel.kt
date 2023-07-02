@@ -1,4 +1,4 @@
-package com.quitr.snac.core.network.movie.models
+package com.quitr.snac.core.network.models
 
 
 import kotlinx.serialization.SerialName

@@ -1,11 +1,11 @@
-package com.quitr.snac.core.network.movie.models
+package com.quitr.snac.core.network.models
 
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ProductionCountryApiModel(
-    @SerialName("iso_3166_1") val iso31661: String,
+data class KeywordApiModel(
+    @SerialName("id") val id: Int,
     @SerialName("name") val name: String
 )

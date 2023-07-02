@@ -1,6 +1,6 @@
 package com.quitr.snac.core.network.movie
 
-import com.quitr.snac.core.network.movie.list.MovieListApiModel
+import com.quitr.snac.core.network.movie.models.MovieListApiModel
 import com.quitr.snac.core.network.movie.models.MovieDetailsApiModel
 import com.quitr.snac.core.network.movie.models.RecommendationsApiModel
 
