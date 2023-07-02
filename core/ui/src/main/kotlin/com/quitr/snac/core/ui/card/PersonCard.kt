@@ -32,7 +32,7 @@ fun PersonCard(
     onClick: () -> Unit
 ) {
     OutlinedCard(
-        onClick =  onClick,
+        onClick = onClick,
         modifier
     ) {
         AsyncImage(
@@ -54,7 +54,7 @@ fun PersonCard(
             Text(
                 name,
                 style = MaterialTheme.typography.titleSmall,
-maxLines = 2,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
@@ -68,7 +68,8 @@ maxLines = 2,
 }
 
 @Preview(device = "spec:width=120dp,height=200dp,dpi=440")
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES,
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
     device = "spec:width=120dp,height=200dp,dpi=440", fontScale = 0.85f
 )
 @Composable
