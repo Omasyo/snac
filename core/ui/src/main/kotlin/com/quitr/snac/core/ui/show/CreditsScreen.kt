@@ -1,4 +1,4 @@
-package com.quitr.snac.core.ui
+package com.quitr.snac.core.ui.show
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.model.Person
 import com.quitr.snac.core.ui.card.PersonCard
-import com.quitr.snac.core.ui.extensions.plus
+import com.quitr.snac.core.ui.utils.plus
 import com.quitr.snac.core.ui.theme.SnacIcons
 
 

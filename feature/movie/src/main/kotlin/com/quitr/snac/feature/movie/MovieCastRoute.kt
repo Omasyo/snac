@@ -7,7 +7,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quitr.snac.core.common.R
 import com.quitr.snac.core.model.NavigationRoute
-import com.quitr.snac.core.ui.CreditsScreen
+import com.quitr.snac.core.ui.show.CreditsScreen
 
 object MovieCastRoute : NavigationRoute() {
     const val movieId = "movieId"

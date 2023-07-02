@@ -1,4 +1,4 @@
-package com.quitr.snac.core.ui
+package com.quitr.snac.core.ui.utils
 
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent

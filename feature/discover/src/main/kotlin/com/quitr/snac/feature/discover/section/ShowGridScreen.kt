@@ -32,8 +32,8 @@ import androidx.paging.compose.itemKey
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.ui.card.ShowCard
-import com.quitr.snac.core.ui.fadePlaceholder
-import com.quitr.snac.core.ui.extensions.plus
+import com.quitr.snac.core.ui.utils.fadePlaceholder
+import com.quitr.snac.core.ui.utils.plus
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
 import kotlinx.coroutines.flow.flow

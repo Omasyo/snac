@@ -23,12 +23,12 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.common.R
-import com.quitr.snac.core.ui.AboutDetails
-import com.quitr.snac.core.ui.PersonCarousel
-import com.quitr.snac.core.ui.ShowDetailsPlaceholder
-import com.quitr.snac.core.ui.ShowDetailsScaffold
+import com.quitr.snac.core.ui.show.AboutDetails
+import com.quitr.snac.core.ui.carousel.PersonCarousel
+import com.quitr.snac.core.ui.show.ShowDetailsPlaceholder
+import com.quitr.snac.core.ui.show.ShowDetailsScaffold
 import com.quitr.snac.core.ui.carousel.ShowCarousel
-import com.quitr.snac.core.ui.separator
+import com.quitr.snac.core.ui.show.separator
 import com.quitr.snac.core.ui.theme.SnacTheme
 
 @OptIn(ExperimentalLayoutApi::class)

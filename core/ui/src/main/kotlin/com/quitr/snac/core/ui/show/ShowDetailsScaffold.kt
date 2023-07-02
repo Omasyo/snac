@@ -1,4 +1,4 @@
-package com.quitr.snac.core.ui
+package com.quitr.snac.core.ui.show
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,6 +31,9 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.quitr.snac.core.model.Genre
+import com.quitr.snac.core.ui.utils.InlineText
+import com.quitr.snac.core.ui.ResizableHeaderScaffold
+import com.quitr.snac.core.ui.utils.append
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.common.R as CommonR
 

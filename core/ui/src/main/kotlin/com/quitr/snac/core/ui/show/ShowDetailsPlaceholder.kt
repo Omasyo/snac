@@ -1,4 +1,4 @@
-package com.quitr.snac.core.ui
+package com.quitr.snac.core.ui.show
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +22,8 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.quitr.snac.core.ui.ResizableHeaderScaffold
+import com.quitr.snac.core.ui.utils.fadePlaceholder
 
 @OptIn(ExperimentalLayoutApi::class)
 @Preview

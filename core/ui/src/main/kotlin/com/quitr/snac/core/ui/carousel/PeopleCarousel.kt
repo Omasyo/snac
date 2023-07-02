@@ -1,4 +1,4 @@
-package com.quitr.snac.core.ui
+package com.quitr.snac.core.ui.carousel
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.items

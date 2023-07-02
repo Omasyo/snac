@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.shimmer
 import com.quitr.snac.core.model.ShowType
-import com.quitr.snac.core.ui.fadePlaceholder
+import com.quitr.snac.core.ui.utils.fadePlaceholder
 import com.quitr.snac.core.ui.theme.SnacIcons
 
 @Composable

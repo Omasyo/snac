@@ -1,4 +1,4 @@
-package com.quitr.snac.core.ui.extensions
+package com.quitr.snac.core.ui.utils
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding

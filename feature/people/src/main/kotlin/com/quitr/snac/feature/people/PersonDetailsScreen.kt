@@ -32,9 +32,9 @@ import com.quitr.snac.core.model.Credit
 import com.quitr.snac.core.model.Gender
 import com.quitr.snac.core.model.PersonDetails
 import com.quitr.snac.core.model.ShowType
-import com.quitr.snac.core.ui.AboutDetails
+import com.quitr.snac.core.ui.show.AboutDetails
 import com.quitr.snac.core.ui.ResizableHeaderScaffold
-import com.quitr.snac.core.ui.separator
+import com.quitr.snac.core.ui.show.separator
 import com.quitr.snac.core.common.R as CommonR
 
 @Composable
