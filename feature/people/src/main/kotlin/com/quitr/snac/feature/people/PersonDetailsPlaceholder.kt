@@ -41,6 +41,7 @@ fun PersonDetailsPlaceholder(
     modifier: Modifier = Modifier, onBackPressed: () -> Unit = {}
 ) {
     ResizableHeaderScaffold(
+        modifier,
         title = "",
         onBackPressed = onBackPressed,
         expandedContent = {

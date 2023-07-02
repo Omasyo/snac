@@ -33,7 +33,7 @@ internal fun List<Person>.combineSimilar() = fold(mutableMapOf<Int, Person>()) {
         result[person.id]!!.addRole(person.role)
     }
     result
-}.map { (key, value) -> value }
+}.map { (_, value) -> value }
 
 private fun Person.addRole(other: String) = copy(
     role = "$role, $other"

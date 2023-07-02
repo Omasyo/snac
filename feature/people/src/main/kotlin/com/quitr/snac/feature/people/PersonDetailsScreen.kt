@@ -60,7 +60,8 @@ fun PeopleScreen(
                 Modifier
                     .fillMaxWidth()
                     .padding(16f.dp)
-                    .padding(top = 36f.dp)) {
+                    .padding(top = 36f.dp)
+            ) {
                 Text(
                     uiState.error.message ?: "", style =
                     MaterialTheme.typography.headlineMedium
@@ -144,13 +145,19 @@ fun PeopleScreen(
                     ) {
 //                    AboutDetails(info = "Age", detail = person)
                         if (birthday.isNotBlank()) AboutDetails(
-                            info = stringResource(R.string.born_on), detail = birthday, infoRatio = 0.3f
+                            info = stringResource(R.string.born_on),
+                            detail = birthday,
+                            infoRatio = 0.3f
                         )
                         if (deathday.isNotBlank()) AboutDetails(
-                            info = stringResource(R.string.died_on), detail = deathday, infoRatio = 0.3f
+                            info = stringResource(R.string.died_on),
+                            detail = deathday,
+                            infoRatio = 0.3f
                         )
                         if (placeOfBirth.isNotBlank()) AboutDetails(
-                            info = stringResource(R.string.from), detail = placeOfBirth, infoRatio = 0.3f
+                            info = stringResource(R.string.from),
+                            detail = placeOfBirth,
+                            infoRatio = 0.3f
                         )
                     }
                 }
@@ -159,7 +166,8 @@ fun PeopleScreen(
                     item {
                         Column(Modifier.padding(horizontal = 16f.dp)) {
                             Text(
-                                stringResource(R.string.biography), color = MaterialTheme.colorScheme.onSurface.copy(0.5f)
+                                stringResource(R.string.biography),
+                                color = MaterialTheme.colorScheme.onSurface.copy(0.5f)
                             )
                             Spacer(Modifier.height(4f.dp))
                             Text(
@@ -168,7 +176,11 @@ fun PeopleScreen(
                         }
                     }
                 }
-                if (!(birthday.isBlank() || placeOfBirth.isBlank() || deathday.isBlank() || deathday.isBlank())) separator()
+                if (birthday.isNotBlank() || biography.isNotBlank() ||
+                    placeOfBirth.isNotBlank() || deathday.isNotBlank()
+                ) {
+                    separator()
+                }
                 if (actingCredits.isNotEmpty()) {
                     item {
                         CreditCarousel(
@@ -179,6 +191,7 @@ fun PeopleScreen(
                         )
                     }
                 }
+                item { Spacer(Modifier.height(16f.dp)) }
                 if (otherCredits.isNotEmpty()) {
                     item {
                         CreditCarousel(
