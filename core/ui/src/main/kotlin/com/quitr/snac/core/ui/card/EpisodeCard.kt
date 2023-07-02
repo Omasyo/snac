@@ -27,6 +27,7 @@ fun EpisodeCard(
     onClick: () -> Unit
 ) {
     WideCard(
+        modifier,
         title = {
             Row(
                 Modifier

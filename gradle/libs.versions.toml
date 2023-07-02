@@ -18,6 +18,8 @@ kotlin = "1.8.21"
 kotlinxSerialization = "1.5.0"
 ksp = "1.8.21-1.0.11"
 ktor = "2.3.2"
+appcompat = "1.6.1"
+material = "1.9.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -64,3 +66,5 @@ ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlin
 
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }

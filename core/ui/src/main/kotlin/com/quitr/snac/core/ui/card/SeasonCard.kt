@@ -29,6 +29,7 @@ fun SeasonCard(
     onClick: () -> Unit
 ) {
     WideCard(
+        modifier,
         title = {
             Row(
                 Modifier
