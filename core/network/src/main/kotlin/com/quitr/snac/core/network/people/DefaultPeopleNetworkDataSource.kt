@@ -16,11 +16,3 @@ internal class DefaultPeopleNetworkDataSource @Inject constructor(private val cl
             parameter("append_to_response", "movie_credits,tv_credits")
         }.body()
 }
-
-suspend fun main() {
-    val res: PersonApiModel = createClient().get("/3/person/2") {
-        parameter("language", "")
-        parameter("append_to_response", "movie_credits,tv_credits")
-    }.body()
-    println(res)
-}

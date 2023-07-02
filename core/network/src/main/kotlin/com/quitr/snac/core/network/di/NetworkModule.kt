@@ -1,5 +1,6 @@
 package com.quitr.snac.core.network.di
 
+import android.content.Context
 import com.quitr.snac.core.network.createClient
 import com.quitr.snac.core.network.movie.DefaultMovieNetworkDataSource
 import com.quitr.snac.core.network.movie.MovieNetworkDataSource
@@ -10,6 +11,7 @@ import com.quitr.snac.core.network.tv.TvNetworkDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import javax.inject.Singleton
@@ -20,7 +22,8 @@ private object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient() = createClient()
+    fun provideHttpClient(@ApplicationContext applicationContext: Context) =
+        createClient(applicationContext)
 
     @Provides
     @Singleton
