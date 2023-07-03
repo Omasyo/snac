@@ -3,7 +3,7 @@ package com.quitr.snac.core.network.tv
 import android.content.Context
 import com.quitr.snac.core.network.createClient
 import com.quitr.snac.core.network.tv.fake.AiringTodayResponse
-import com.quitr.snac.core.network.tv.fake.DetailsResponse
+import com.quitr.snac.core.network.tv.fake.TvDetailsResponse
 import com.quitr.snac.core.network.tv.fake.OnTheAirResponse
 import com.quitr.snac.core.network.tv.fake.PopularResponse
 import com.quitr.snac.core.network.tv.fake.TopRatedResponse
@@ -12,28 +12,18 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
 import io.ktor.http.HttpHeaders
-import io.ktor.http.HttpStatusCode
-import io.ktor.http.URLBuilder
-import io.ktor.http.fullPath
 import io.ktor.http.headersOf
-import io.mockk.MockK
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Assertions.*
-
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
-import java.io.File
-import java.nio.file.InvalidPathException
 import java.nio.file.Path
 
 class DefaultTvNetworkDataSourceTest {
-
-
     private lateinit var client: HttpClient
 
     @BeforeEach
@@ -42,7 +32,7 @@ class DefaultTvNetworkDataSourceTest {
             respond(
                 headers = headersOf(HttpHeaders.ContentType, "application/json"),
                 content = when(request.url.encodedPath) {
-                    "/3/tv/60625" -> DetailsResponse
+                    "/3/tv/60625" -> TvDetailsResponse
                     "/3/trending/tv/day" -> TrendingResponse
                     "/3/tv/airing_today" -> AiringTodayResponse
                     "/3/tv/on_the_air" -> OnTheAirResponse

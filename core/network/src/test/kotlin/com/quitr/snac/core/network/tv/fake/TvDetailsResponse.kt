@@ -1,6 +1,6 @@
 package com.quitr.snac.core.network.tv.fake
 
-val DetailsResponse = """{
+val TvDetailsResponse = """{
   "adult": false,
   "backdrop_path": "/uGy4DCmM33I7l86W7iCskNkvmLD.jpg",
   "created_by": [
