@@ -86,25 +86,25 @@ internal class DefaultMovieRepository @Inject constructor(
     override fun getUpcomingStream(language: String, region: String): Flow<PagingData<Show>> =
         getStream { page -> networkDataSource.getUpcoming(page, language, region) }
 
-    override fun getRecommendationStream(
-        id: Int,
-        language: String
-    ): Flow<PagingData<Show>> = Pager(
-        config = PagingConfig(
-            pageSize = 20, enablePlaceholders = false
-        )
-    ) {
-        ShowPagingSource(
-            provider = { page -> networkDataSource.getRecommendation(id, page, language).results },
-            mapper = List<RecommendationApiModel>::toShows
-        )
-    }.flow.flowOn(dispatcher)
-
-    override suspend fun getSimilarStream(
-        id: Int,
-        language: String
-    ): Flow<PagingData<Show>> =
-        getStream { page -> networkDataSource.getSimilar(id, page, language) }
+//    override fun getRecommendationStream(
+//        id: Int,
+//        language: String
+//    ): Flow<PagingData<Show>> = Pager(
+//        config = PagingConfig(
+//            pageSize = 20, enablePlaceholders = false
+//        )
+//    ) {
+//        ShowPagingSource(
+//            provider = { page -> networkDataSource.getRecommendation(id, page, language).results },
+//            mapper = List<RecommendationApiModel>::toShows
+//        )
+//    }.flow.flowOn(dispatcher)
+//
+//    override suspend fun getSimilarStream(
+//        id: Int,
+//        language: String
+//    ): Flow<PagingData<Show>> =
+//        getStream { page -> networkDataSource.getSimilar(id, page, language) }
 
     private suspend fun getList(
         page: Int,

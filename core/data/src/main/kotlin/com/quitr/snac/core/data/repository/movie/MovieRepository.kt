@@ -50,7 +50,7 @@ interface MovieRepository {
         language: String = "", region: String = ""
     ): Flow<PagingData<Show>>
 
-     fun getRecommendationStream(id: Int,  language: String = "") : Flow<PagingData<Show>>
-
-    suspend fun getSimilarStream(id: Int, language: String = "") : Flow<PagingData<Show>>
+//     fun getRecommendationStream(id: Int,  language: String = "") : Flow<PagingData<Show>>
+//
+//    suspend fun getSimilarStream(id: Int, language: String = "") : Flow<PagingData<Show>>
 }
