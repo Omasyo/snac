@@ -14,4 +14,6 @@ dependencies {
     implementation(libs.ktor.core)
     implementation(libs.ktor.cio)
     implementation(libs.ktor.serialization.json)
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
