@@ -69,7 +69,7 @@ internal fun MovieDetailsScreen(
                     releaseDate = releaseDate,
                     runtime = runtime,
                     genres = genres,
-                    voteAverage = voteAverage.toString(),
+                    voteAverage = voteAverage,
                     voteCount = voteCount,
                     onBackPressed = onBackPressed
                 ) {
@@ -97,7 +97,7 @@ internal fun MovieDetailsScreen(
                                     for (keyword in keywords) {
                                         Box(Modifier
                                             .clip(MaterialTheme.shapes.small)
-                                            .background(MaterialTheme.colorScheme.surfaceVariant)
+                                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(0.5f))
                                             .clickable { }
                                             .padding(horizontal = 16f.dp, vertical = 8f.dp)) {
                                             Text(

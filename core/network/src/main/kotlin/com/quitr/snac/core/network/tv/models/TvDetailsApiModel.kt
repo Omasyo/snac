@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class TvDetailsApiModel(
     @SerialName("adult") val adult: Boolean,
-    @SerialName("backdrop_path") val backdropPath: String,
+    @SerialName("backdrop_path") val backdropPath: String?,
     @SerialName("created_by") val createdBy: List<CreatedByApiModel>,
     @SerialName("aggregate_credits") val credits: CastCrewApiModel,
     @SerialName("episode_run_time") val episodeRunTime: List<Int>,
@@ -34,7 +34,7 @@ data class TvDetailsApiModel(
     @SerialName("original_name") val originalName: String,
     @SerialName("overview") val overview: String,
     @SerialName("popularity") val popularity: Double,
-    @SerialName("poster_path") val posterPath: String,
+    @SerialName("poster_path") val posterPath: String?,
     @SerialName("production_companies") val productionCompanies: List<ProductionCompanyApiModel>,
     @SerialName("production_countries") val productionCountries: List<ProductionCountryApiModel>,
     @SerialName("recommendations") val recommendations: RecommendationsApiModel,

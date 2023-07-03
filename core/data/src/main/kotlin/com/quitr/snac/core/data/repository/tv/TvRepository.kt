@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface TvRepository {
+
     suspend fun getTrending(
         page: Int,
         language: String = "",
