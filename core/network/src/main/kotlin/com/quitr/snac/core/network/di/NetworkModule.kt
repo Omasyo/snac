@@ -14,6 +14,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.HttpClientEngine
+import io.ktor.client.engine.cio.CIO
 import javax.inject.Singleton
 
 @Module
@@ -22,8 +24,15 @@ private object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(@ApplicationContext applicationContext: Context) =
-        createClient(applicationContext)
+    fun provideHttpClientEngine() : HttpClientEngine = CIO.create()
+
+    @Provides
+    @Singleton
+    fun provideHttpClient(
+        engine: HttpClientEngine,
+        @ApplicationContext applicationContext: Context
+    ) =
+        createClient(engine, applicationContext)
 
     @Provides
     @Singleton

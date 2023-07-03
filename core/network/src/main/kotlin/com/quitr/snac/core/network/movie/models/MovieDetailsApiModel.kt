@@ -2,7 +2,6 @@ package com.quitr.snac.core.network.movie.models
 
 
 import com.quitr.snac.core.network.models.GenreApiModel
-import com.quitr.snac.core.network.models.KeywordsApiModel
 import com.quitr.snac.core.network.models.ProductionCompanyApiModel
 import com.quitr.snac.core.network.models.ProductionCountryApiModel
 import com.quitr.snac.core.network.models.SpokenLanguageApiModel

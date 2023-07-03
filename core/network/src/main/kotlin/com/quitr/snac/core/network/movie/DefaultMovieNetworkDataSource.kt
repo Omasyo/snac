@@ -53,21 +53,21 @@ internal class DefaultMovieNetworkDataSource @Inject constructor(private val cli
         region: String
     ): MovieListApiModel = getMovieList("upcoming", page, language, region)
 
-    override suspend fun getRecommendation(
-        id: Int,
-        page: Int,
-        language: String
-    ): RecommendationsApiModel =
-        client.get("/3/movie/$id/recommendations") {
-            parameter("page", page.toString())
-            parameter("language", language)
-        }.body()
-
-    override suspend fun getSimilar(id: Int, page: Int, language: String): MovieListApiModel =
-        client.get("/3/movie/$id/similar") {
-            parameter("page", page.toString())
-            parameter("language", language)
-        }.body()
+//    override suspend fun getRecommendation(
+//        id: Int,
+//        page: Int,
+//        language: String
+//    ): RecommendationsApiModel =
+//        client.get("/3/movie/$id/recommendations") {
+//            parameter("page", page.toString())
+//            parameter("language", language)
+//        }.body()
+//
+//    override suspend fun getSimilar(id: Int, page: Int, language: String): MovieListApiModel =
+//        client.get("/3/movie/$id/similar") {
+//            parameter("page", page.toString())
+//            parameter("language", language)
+//        }.body()
 
     private suspend inline fun getMovieList(
         path: String,

@@ -17,7 +17,7 @@ interface MovieNetworkDataSource {
 
     suspend fun getUpcoming(page: Int, language: String, region: String): MovieListApiModel
 
-    suspend fun getRecommendation(id: Int, page: Int, language: String): RecommendationsApiModel
-
-    suspend fun getSimilar(id: Int, page: Int, language: String): MovieListApiModel
+//    suspend fun getRecommendation(id: Int, page: Int, language: String): RecommendationsApiModel
+//
+//    suspend fun getSimilar(id: Int, page: Int, language: String): MovieListApiModel
 }
