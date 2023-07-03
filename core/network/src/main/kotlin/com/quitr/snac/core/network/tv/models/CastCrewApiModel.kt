@@ -8,5 +8,4 @@ import kotlinx.serialization.Serializable
 data class CastCrewApiModel(
     @SerialName("cast") val cast: List<CastApiModel>,
     @SerialName("crew") val crew: List<CrewApiModel>,
-    @SerialName("id") val id: Int
 )

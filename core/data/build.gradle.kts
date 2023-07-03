@@ -12,4 +12,5 @@ dependencies {
     implementation(project(":core:network"))
 
     implementation(libs.androidx.paging.compose)
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }

@@ -2,7 +2,6 @@ package com.quitr.snac.core.network.tv.models
 
 
 import com.quitr.snac.core.network.models.GenreApiModel
-import com.quitr.snac.core.network.models.KeywordsApiModel
 import com.quitr.snac.core.network.models.ProductionCompanyApiModel
 import com.quitr.snac.core.network.models.ProductionCountryApiModel
 import com.quitr.snac.core.network.models.SpokenLanguageApiModel
@@ -14,7 +13,7 @@ data class TvDetailsApiModel(
     @SerialName("adult") val adult: Boolean,
     @SerialName("backdrop_path") val backdropPath: String,
     @SerialName("created_by") val createdBy: List<CreatedByApiModel>,
-    @SerialName("aggregate_credits") val credits: List<CastCrewApiModel>,
+    @SerialName("aggregate_credits") val credits: CastCrewApiModel,
     @SerialName("episode_run_time") val episodeRunTime: List<Int>,
     @SerialName("first_air_date") val firstAirDate: String,
     @SerialName("genres") val genres: List<GenreApiModel>,
@@ -27,7 +26,7 @@ data class TvDetailsApiModel(
     @SerialName("last_episode_to_air") val lastEpisodeToAir: EpisodeApiModel,
     @SerialName("name") val name: String,
     @SerialName("networks") val networks: List<NetworkApiModel>,
-    @SerialName("next_episode_to_air") val nextEpisodeToAir: EpisodeApiModel,
+    @SerialName("next_episode_to_air") val nextEpisodeToAir: EpisodeApiModel?,
     @SerialName("number_of_episodes") val numberOfEpisodes: Int,
     @SerialName("number_of_seasons") val numberOfSeasons: Int,
     @SerialName("origin_country") val originCountry: List<String>,
@@ -45,6 +44,6 @@ data class TvDetailsApiModel(
     @SerialName("status") val status: String,
     @SerialName("tagline") val tagline: String,
     @SerialName("type") val type: String,
-    @SerialName("vote_average") val voteAverage: Int,
+    @SerialName("vote_average") val voteAverage: Double,
     @SerialName("vote_count") val voteCount: Int
 )

@@ -1,4 +1,4 @@
-package com.quitr.snac.core.network.models
+package com.quitr.snac.core.network.movie.models
 
 
 import com.quitr.snac.core.network.models.KeywordApiModel
@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class KeywordsApiModel(
-    @SerialName("keywords") val keywords: List<KeywordApiModel>
+    @SerialName("keywords") val results: List<KeywordApiModel>
 )
