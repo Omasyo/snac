@@ -1,8 +1,12 @@
 package com.quitr.snac.core.ui.show
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -30,7 +35,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.quitr.snac.core.common.R
 import com.quitr.snac.core.model.Genre
+import com.quitr.snac.core.model.Keyword
 import com.quitr.snac.core.ui.utils.InlineText
 import com.quitr.snac.core.ui.ResizableHeaderScaffold
 import com.quitr.snac.core.ui.utils.append
@@ -171,3 +178,57 @@ fun AboutDetails(
     detail: String,
     infoRatio: Float = 0.4f
 ) = AboutDetails(modifier, info, listOf(detail), infoRatio)
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun Tags(keywords: List<Keyword>, modifier: Modifier) {
+    ShowSection(
+        stringResource(R.string.tags),
+        Modifier.padding(horizontal = 16f.dp)
+    ) {
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(
+                8f.dp
+            )
+        ) {
+            for (keyword in keywords) {
+                Box(
+                    Modifier
+                        .clip(MaterialTheme.shapes.small)
+                        .background(
+                            MaterialTheme.colorScheme.surfaceVariant.copy(
+                                0.3f
+                            )
+                        )
+                        .clickable { }
+                        .padding(horizontal = 16f.dp, vertical = 8f.dp)) {
+                    Text(
+                        keyword.name,
+                        style = MaterialTheme.typography.labelLarge
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun Overview(overview: String, modifier: Modifier) {
+    ShowSection(
+        title = stringResource(R.string.overview),
+        modifier,
+    ) {
+        Text(overview)
+    }
+}
+
+@Composable
+fun ShowSection(
+    title: String, modifier: Modifier = Modifier, content: @Composable () -> Unit
+) {
+    Column(modifier) {
+        Text(title, style = MaterialTheme.typography.titleMedium)
+        Spacer(Modifier.height(16f.dp))
+        content()
+    }
+}

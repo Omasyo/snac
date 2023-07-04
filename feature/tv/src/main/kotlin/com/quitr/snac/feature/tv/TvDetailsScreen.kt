@@ -1,13 +1,9 @@
 package com.quitr.snac.feature.tv
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,23 +12,23 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.common.R
-import com.quitr.snac.core.ui.card.EpisodeCard
 import com.quitr.snac.core.ui.carousel.PersonCarousel
 import com.quitr.snac.core.ui.carousel.ShowCarousel
 import com.quitr.snac.core.ui.show.AboutDetails
+import com.quitr.snac.core.ui.show.Overview
 import com.quitr.snac.core.ui.show.ShowDetailsPlaceholder
 import com.quitr.snac.core.ui.show.ShowDetailsScaffold
+import com.quitr.snac.core.ui.show.ShowSection
+import com.quitr.snac.core.ui.show.Tags
 import com.quitr.snac.core.ui.show.separator
 import com.quitr.snac.core.ui.theme.SnacTheme
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun TvDetailsScreen(
     modifier: Modifier = Modifier,
@@ -78,62 +74,28 @@ internal fun TvDetailsScreen(
                     if (tagline.isNotBlank()) {
                         separator()
                         item {
-                            Column(Modifier.padding(horizontal = 16f.dp)) {
-                                Text(
-                                    tagline,
-                                    style = MaterialTheme.typography.titleMedium.copy(fontStyle = FontStyle.Italic)
-                                )
-                            }
+                            Tagline(
+                                tagline,
+                                modifier = Modifier.padding(horizontal = 16f.dp)
+                            )
                         }
                     }
                     if (keywords.isNotEmpty()) {
                         separator()
                         item {
-                            TvSection(
-                                stringResource(R.string.tags),
-                                Modifier.padding(horizontal = 16f.dp)
-                            ) {
-                                FlowRow(
-                                    horizontalArrangement = Arrangement.spacedBy(
-                                        8f.dp
-                                    )
-                                ) {
-                                    for (keyword in keywords) {
-                                        Box(
-                                            Modifier
-                                                .clip(MaterialTheme.shapes.small)
-                                                .background(
-                                                    MaterialTheme.colorScheme.surfaceVariant.copy(
-                                                        0.3f
-                                                    )
-                                                )
-                                                .clickable { }
-                                                .padding(horizontal = 16f.dp, vertical = 8f.dp)) {
-                                            Text(
-                                                keyword.name,
-                                                style = MaterialTheme.typography.labelLarge
-                                            )
-                                        }
-                                    }
-                                }
-                            }
+                            Tags(keywords, Modifier.padding(horizontal = 16f.dp))
                         }
                     }
                     separator()
                     if (overview.isNotBlank()) {
                         item {
-                            TvSection(
-                                title = stringResource(R.string.overview),
-                                Modifier.padding(horizontal = 16f.dp)
-                            ) {
-                                Text(overview)
-                            }
+                            Overview(overview, Modifier.padding(horizontal = 16f.dp))
                         }
                         separator()
                     }
                     nextEpisodeToAir?.let { episode ->
                         item {
-                            TvSection(title = stringResource(R.string.upcoming_episode)) {
+                            ShowSection(title = stringResource(R.string.upcoming_episode)) {
 //                                EpisodeCard(
 //                                    title = episode,
 //                                    season = ,
@@ -167,7 +129,7 @@ internal fun TvDetailsScreen(
                     }
                     separator()
                     item {
-                        TvSection(
+                        ShowSection(
                             title = stringResource(R.string.about),
                             Modifier.padding(horizontal = 16f.dp)
                         ) {
@@ -260,16 +222,13 @@ internal fun TvDetailsScreen(
     }
 }
 
-
 @Composable
-private fun TvSection(
-    title: String, modifier: Modifier = Modifier, content: @Composable () -> Unit
-) {
-    Column(modifier) {
-        Text(title, style = MaterialTheme.typography.titleMedium)
-        Spacer(Modifier.height(16f.dp))
-        content()
-    }
+fun Tagline(tagline: String, modifier: Modifier) {
+    Text(
+        tagline,
+        style = MaterialTheme.typography.titleMedium.copy(fontStyle = FontStyle.Italic),
+        modifier = modifier
+    )
 }
 
 @Preview(
