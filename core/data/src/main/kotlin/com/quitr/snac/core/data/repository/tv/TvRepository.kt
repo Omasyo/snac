@@ -3,10 +3,12 @@ package com.quitr.snac.core.data.repository.tv
 import androidx.paging.PagingData
 import com.quitr.snac.core.data.TimeWindow
 import com.quitr.snac.core.model.Show
+import com.quitr.snac.core.model.Tv
 import kotlinx.coroutines.flow.Flow
 
 
 interface TvRepository {
+    suspend fun getDetails(id: Int, language: String = ""): Result<Tv>
 
     suspend fun getTrending(
         page: Int,

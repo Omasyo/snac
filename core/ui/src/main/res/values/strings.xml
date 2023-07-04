@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="season">Season %1$s</string>
-    <string name="episode">Episode %1$s</string>
-    <string name="seasons">Seasons</string>
-    <string name="episodes">Episodes</string>
-</resources>

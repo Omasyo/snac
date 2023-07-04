@@ -23,7 +23,7 @@ fun CreditCarousel(
     Carousel(
         modifier,
         header = {
-            Text(category, style = MaterialTheme.typography.titleLarge)
+            Text(category, style = MaterialTheme.typography.titleMedium)
         },
         onExpand = onExpand
     ) {

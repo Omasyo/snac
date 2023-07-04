@@ -17,7 +17,6 @@ class MovieDetailsViewModel @Inject constructor(
 ) : ViewModel() {
     private val id = checkNotNull(savedStateHandle.get<Int>(MovieDetailsRoute.movieId))
 
-
     private val _movieDetailsUiState =
         MutableStateFlow<MovieDetailsUiState>(MovieDetailsUiState.Loading)
     val movieDetailsUiState: StateFlow<MovieDetailsUiState> = _movieDetailsUiState

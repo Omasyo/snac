@@ -1,16 +1,32 @@
 package com.quitr.snac.feature.tv
 
 import android.content.res.Configuration
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerDefaults
+import androidx.compose.foundation.pager.PagerSnapDistance
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -18,6 +34,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.common.R
+import com.quitr.snac.core.ui.card.EpisodeCard
+import com.quitr.snac.core.ui.card.SeasonCard
 import com.quitr.snac.core.ui.carousel.PersonCarousel
 import com.quitr.snac.core.ui.carousel.ShowCarousel
 import com.quitr.snac.core.ui.show.AboutDetails
@@ -27,14 +45,19 @@ import com.quitr.snac.core.ui.show.ShowDetailsScaffold
 import com.quitr.snac.core.ui.show.ShowSection
 import com.quitr.snac.core.ui.show.Tags
 import com.quitr.snac.core.ui.show.separator
+import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun TvDetailsScreen(
     modifier: Modifier = Modifier,
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,
     onPersonCardTap: (id: Int) -> Unit,
+    onEpisodeCardTap: (showId: Int, seasonNumber: Int, episodeNumber: Int) -> Unit,
+    onSeasonCardTap: (showId: Int, seasonNumber: Int) -> Unit,
+    onSeasonsExpand: () -> Unit,
     onCastExpand: () -> Unit,
     onCrewExpand: () -> Unit,
     onBackPressed: () -> Unit,
@@ -49,8 +72,7 @@ internal fun TvDetailsScreen(
                     .padding(top = 36f.dp)
             ) {
                 Text(
-                    uiState.message, style =
-                    MaterialTheme.typography.headlineMedium
+                    uiState.message, style = MaterialTheme.typography.headlineMedium
                 )
             }
         }
@@ -75,8 +97,7 @@ internal fun TvDetailsScreen(
                         separator()
                         item {
                             Tagline(
-                                tagline,
-                                modifier = Modifier.padding(horizontal = 16f.dp)
+                                tagline, modifier = Modifier.padding(horizontal = 16f.dp)
                             )
                         }
                     }
@@ -95,19 +116,78 @@ internal fun TvDetailsScreen(
                     }
                     nextEpisodeToAir?.let { episode ->
                         item {
-                            ShowSection(title = stringResource(R.string.upcoming_episode)) {
-//                                EpisodeCard(
-//                                    title = episode,
-//                                    season = ,
-//                                    episode = ,
-//                                    description = ,
-//                                    posterUrl =
-//                                ) {
-//
-//                                }
+                            ShowSection(
+                                stringResource(R.string.upcoming_episode),
+                                Modifier.padding(horizontal = 16f.dp)
+                            ) {
+                                EpisodeCard(Modifier.height(176f.dp),
+                                    title = episode.name,
+                                    season = episode.seasonNumber,
+                                    episode = episode.episodeNumber,
+                                    description = episode.overview,
+                                    posterUrl = episode.posterUrl,
+                                    onClick = {
+                                        onEpisodeCardTap(
+                                            id,
+                                            episode.seasonNumber,
+                                            episode.episodeNumber
+                                        )
+                                    })
+                            }
+                        }
+                        separator(
+                            Modifier
+                                .padding(horizontal = 16f.dp)
+                                .padding(top = 16f.dp, bottom = 4f.dp)
+                        )
+                    }
+                    item {
+                        val state = rememberPagerState()
+
+                        Column {
+                            Row(
+                                Modifier
+                                    .clickable(onClick = onSeasonsExpand)
+                                    .padding(horizontal = 16f.dp, vertical = 4f.dp)
+                                    .fillMaxWidth()
+                                    .height(40f.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Text(
+                                    stringResource(R.string.seasons),
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                                Spacer(Modifier.weight(1f))
+                                Icon(SnacIcons.ArrowForward, contentDescription = null)
+                            }
+                            HorizontalPager(
+                                state = state,
+                                pageCount = seasons.size,
+                                contentPadding = PaddingValues(horizontal = 16f.dp),
+                                pageSpacing = 32f.dp,
+                                modifier = Modifier.height(176f.dp),
+                                key = { seasons[it].id },
+                                flingBehavior = PagerDefaults.flingBehavior(
+                                    state = state,
+                                    lowVelocityAnimationSpec = tween(
+                                        easing = LinearOutSlowInEasing,
+                                        durationMillis = 700
+                                    )
+                                )
+                            ) { index ->
+                                val season = seasons[index]
+                                SeasonCard(
+                                    title = season.name,
+                                    season = season.seasonNumber,
+                                    airDate = season.airDate,
+                                    episodeCount = season.episodeCount,
+                                    description = season.overview,
+                                    posterUrl = season.posterUrl,
+                                    onClick = { onSeasonCardTap(id, season.seasonNumber) })
                             }
                         }
                     }
+                    separator()
                     item {
                         PersonCarousel(
                             category = stringResource(R.string.cast),
@@ -137,8 +217,7 @@ internal fun TvDetailsScreen(
                                 verticalArrangement = Arrangement.spacedBy(8f.dp)
                             ) {
                                 AboutDetails(
-                                    info = stringResource(R.string.created_by),
-                                    details = creators
+                                    info = stringResource(R.string.created_by), details = creators
                                 )
                                 AboutDetails(
                                     info = stringResource(R.string.original_title),
@@ -159,18 +238,14 @@ internal fun TvDetailsScreen(
                                 AboutDetails(
                                     info = stringResource(R.string.runtime),
                                     detail = pluralStringResource(
-                                        R.plurals.minutes_short,
-                                        runtime,
-                                        runtime
+                                        R.plurals.minutes_short, runtime, runtime
                                     )
                                 )
                                 AboutDetails(
-                                    info = stringResource(R.string.show_type),
-                                    detail = type
+                                    info = stringResource(R.string.show_type), detail = type
                                 )
                                 AboutDetails(
-                                    info = stringResource(R.string.status),
-                                    detail = status
+                                    info = stringResource(R.string.status), detail = status
                                 )
 //                                AboutDetails(
 //                                    info = stringResource(R.string.original_language),
@@ -179,17 +254,13 @@ internal fun TvDetailsScreen(
                                 AboutDetails(info = "Country of Origin", details = originCountry)
                                 AboutDetails(
                                     info = pluralStringResource(
-                                        R.plurals.production_companies,
-                                        productionCompanies.size
-                                    ),
-                                    details = productionCompanies
+                                        R.plurals.production_companies, productionCompanies.size
+                                    ), details = productionCompanies
                                 )
                                 AboutDetails(
                                     info = pluralStringResource(
-                                        R.plurals.production_countries,
-                                        productionCountries.size
-                                    ),
-                                    details = productionCompanies
+                                        R.plurals.production_countries, productionCountries.size
+                                    ), details = productionCompanies
                                 )
 
                             }
@@ -237,14 +308,15 @@ fun Tagline(tagline: String, modifier: Modifier) {
 @Composable
 private fun TvScreenPreview() {
     SnacTheme {
-        TvDetailsScreen(
-            uiState = TvScreenUiState.Success(FakeTv),
+        TvDetailsScreen(uiState = TvScreenUiState.Success(FakeTv),
             onMovieCardTap = {},
             onTvCardTap = {},
             onPersonCardTap = {},
             onCastExpand = {},
             onCrewExpand = {},
-            onBackPressed = {}
-        )
+            onBackPressed = {},
+            onSeasonsExpand = {},
+            onEpisodeCardTap = { _, _, _ -> },
+            onSeasonCardTap = { _, _ -> })
     }
 }

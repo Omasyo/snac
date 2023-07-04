@@ -54,6 +54,8 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":feature:discover"))
     implementation(project(":feature:movie"))
+    implementation(project(":feature:people"))
+    implementation(project(":feature:tv"))
 
     implementation(libs.androidx.core.ktx)
     implementation(platform(libs.kotlin.bom))
@@ -65,7 +67,6 @@ dependencies {
     implementation(libs.androidx.compose.material3)
 
     implementation(libs.accompanist.navigation.animation)
-    implementation(project(mapOf("path" to ":feature:people")))
 
     testImplementation(libs.junit)
 

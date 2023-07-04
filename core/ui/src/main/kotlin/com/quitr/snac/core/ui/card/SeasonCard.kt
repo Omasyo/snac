@@ -13,16 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.quitr.snac.core.ui.R
+import com.quitr.snac.core.common.R
 import com.quitr.snac.core.ui.theme.SnacTheme
-import com.quitr.snac.core.common.R as CommonR
 
 @Composable
 fun SeasonCard(
     modifier: Modifier = Modifier,
     title: String,
     season: Int,
-    releaseYear: Int,
+    airDate: String,
     episodeCount: Int,
     description: String,
     posterUrl: String,
@@ -44,13 +43,13 @@ fun SeasonCard(
                 )
                 Spacer(Modifier.width(8f.dp))
                 Text(
-                    "$releaseYear | $episodeCount ${stringResource(R.string.episodes)}",
+                    "$airDate | $episodeCount ${stringResource(R.string.episodes)}",
                     style = MaterialTheme.typography.titleSmall
                 )
             }
         },
         posterUrl = posterUrl,
-        posterDescription = stringResource(CommonR.string.poster_description, title),
+        posterDescription = stringResource(R.string.poster_description, title),
         onClick = onClick
     ) {
         Text(
@@ -70,7 +69,7 @@ fun SeasonCardPreview() {
             Modifier,
             title = "Stranger Things",
             season = 1,
-            releaseYear = 2012,
+            airDate = "2012",
             episodeCount = 7,
             description = Description,
             posterUrl = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg"

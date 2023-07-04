@@ -3,7 +3,6 @@ package com.quitr.snac.feature.tv
 import com.quitr.snac.core.model.Episode
 import com.quitr.snac.core.model.Genre
 import com.quitr.snac.core.model.Keyword
-import com.quitr.snac.core.model.Movie
 import com.quitr.snac.core.model.Person
 import com.quitr.snac.core.model.Season
 import com.quitr.snac.core.model.Show
@@ -34,6 +33,17 @@ private val Episode = Episode(
     runtime = 8223,
     voteAverage = "constituto",
     voteCount = 1314
+)
+
+private val Season = Season(
+    id = 2,
+    name = "Elma Saunders",
+    overview = "accumsan",
+    seasonNumber = 2950,
+    episodeCount = 3386,
+    airDate = "accusata",
+    voteAverage = "amet",
+    posterUrl = "https://www.google.com/#q=massa"
 
 )
 
@@ -60,7 +70,7 @@ internal val FakeTv = Tv(
     lastEpisodeToAir = Episode,
     name = "Fantastic Beasts and How to Esacape Them",
     networks = listOf(),
-    nextEpisodeToAir = null,
+    nextEpisodeToAir = Episode,
     originalLanguage = "English",
     originalName = "Dawn of Sapa: The Poor Shall Breath",
     originCountry = listOf("Germany", "New Zealand"),
@@ -75,7 +85,7 @@ internal val FakeTv = Tv(
     recommendations = shows,
     runtime = 45,
     seasonCount = 3,
-    seasons = listOf(Season("")),
+    seasons = List(5) { Season.copy(it) },
     similar = shows,
     spokenLanguages = listOf(),
     status = "Released",

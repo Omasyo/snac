@@ -7,6 +7,7 @@ import com.quitr.snac.feature.movie.MovieCastRoute
 import com.quitr.snac.feature.movie.MovieCrewRoute
 import com.quitr.snac.feature.movie.MovieDetailsRoute
 import com.quitr.snac.feature.people.PersonDetailsRoute
+import com.quitr.snac.feature.tv.TvDetailsRoute
 
 object SnacRoutes {
     val Root = object : NavigationRoute() {
@@ -23,6 +24,8 @@ object SnacRoutes {
     val Movie = MovieDetailsRoute
     val MovieCast = MovieCastRoute
     val MovieCrew = MovieCrewRoute
+
+    val Tv = TvDetailsRoute
 
     val Person = PersonDetailsRoute
 }

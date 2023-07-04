@@ -70,7 +70,9 @@ fun HomeNavHost(
                     onCarouselExpand = { sectionType ->
                         rootNavController.navigate(SnacRoutes.Section.route(sectionType))
                     },
-                    onTvCardClicked = { },
+                    onTvCardClicked = { id ->
+                        rootNavController.navigate(SnacRoutes.Tv.route(id))
+                    },
                     onMovieCardClicked = { id ->
                         rootNavController.navigate(
                             SnacRoutes.Movie.route(id)

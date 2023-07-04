@@ -6,6 +6,7 @@ import com.quitr.snac.core.network.tv.models.TvListApiModel
 
 interface TvNetworkDataSource {
     suspend fun getDetails(id: Int, language: String): TvDetailsApiModel
+
     suspend fun getTrending(page: Int, timeWindow: String, language: String): TvListApiModel
 
     suspend fun getAiringToday(page: Int, language: String, timezone: String): TvListApiModel

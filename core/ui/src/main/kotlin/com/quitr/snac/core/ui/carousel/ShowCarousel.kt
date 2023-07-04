@@ -34,7 +34,7 @@ fun ShowCarousel(
     onTvCardClicked: (id: Int) -> Unit,
 ) {
     Carousel(modifier, header = {
-        Text(name, style = MaterialTheme.typography.titleLarge)
+        Text(name, style = MaterialTheme.typography.titleMedium)
         Spacer(Modifier.width(4f.dp))
         TypeContainer(type)
     }, onExpand = onExpand) {
@@ -73,7 +73,7 @@ fun ShowCarousel(
                     .fillMaxWidth()
                     .height(40f.dp),
             ) {
-                Text(name, style = MaterialTheme.typography.titleLarge, modifier = Modifier.align(
+                Text(name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.align(
                     Alignment.CenterStart))
             }
         },

@@ -42,7 +42,7 @@ fun Carousel(
         Row(
             Modifier
                 .clickable(onClick = onExpand)
-                .padding(horizontal = 16f.dp, vertical = 8f.dp)
+                .padding(horizontal = 16f.dp, vertical = 4f.dp)
                 .fillMaxWidth()
                 .height(40f.dp),
             verticalAlignment = Alignment.CenterVertically,

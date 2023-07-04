@@ -22,7 +22,8 @@ fun SnacNavHost(
     navBarController: NavHostController = rememberNavController(),
 ) {
     val onMovieCardTap = { id: Int -> navController.navigate(SnacRoutes.Movie.route(id)) }
-    val onPersonCardTap = { id: Int -> navController.navigate(SnacRoutes.Person.route(id))}
+    val onTvCardTap = { id: Int -> navController.navigate(SnacRoutes.Tv.route(id)) }
+    val onPersonCardTap = { id: Int -> navController.navigate(SnacRoutes.Person.route(id)) }
 
     NavHost(
         navController = navController, startDestination = SnacRoutes.Root.route, modifier = modifier
@@ -38,7 +39,7 @@ fun SnacNavHost(
             })
         ) {
             SectionRoute(onMovieCardTap = onMovieCardTap,
-                onTvCardTap = {},
+                onTvCardTap = onTvCardTap,
                 onBackPressed = { navController.popBackStack() })
         }
 
@@ -51,7 +52,7 @@ fun SnacNavHost(
 
             MovieDetailsRoute(
                 onMovieCardTap = onMovieCardTap,
-                onTvCardTap = {},
+                onTvCardTap = onTvCardTap,
                 onPersonCardTap = onPersonCardTap,
                 onCastExpand = {
                     navController.navigate(
@@ -77,7 +78,7 @@ fun SnacNavHost(
             })
         ) {
             MovieCastRoute(
-                onPersonCardTapped = {},
+                onPersonCardTapped = onPersonCardTap,
                 onBackPressed = { navController.popBackStack() })
         }
         composable(
@@ -87,7 +88,7 @@ fun SnacNavHost(
             })
         ) {
             MovieCrewRoute(
-                onPersonCardTapped = {},
+                onPersonCardTapped = onPersonCardTap,
                 onBackPressed = { navController.popBackStack() })
         }
 
@@ -96,11 +97,12 @@ fun SnacNavHost(
                 type = NavType.IntType
             })
         ) { backStackEntry ->
-            val personId = checkNotNull(backStackEntry.arguments?.getInt(SnacRoutes.Person.personId))
+            val personId =
+                checkNotNull(backStackEntry.arguments?.getInt(SnacRoutes.Person.personId))
 
             PersonDetailsRoute(
                 onMovieCardTap = onMovieCardTap,
-                onTvCardTap = {},
+                onTvCardTap = onTvCardTap,
                 onActingCreditsExpand = {
                 },
                 onOtherCreditsExpand = {
