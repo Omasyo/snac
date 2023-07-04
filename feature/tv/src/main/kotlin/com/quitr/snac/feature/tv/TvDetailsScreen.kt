@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.common.R
+import com.quitr.snac.core.ui.card.EpisodeCard
 import com.quitr.snac.core.ui.carousel.PersonCarousel
 import com.quitr.snac.core.ui.carousel.ShowCarousel
 import com.quitr.snac.core.ui.show.AboutDetails
@@ -93,7 +94,7 @@ internal fun TvDetailsScreen(
                                 Modifier.padding(horizontal = 16f.dp)
                             ) {
                                 FlowRow(
-                                    horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(
+                                    horizontalArrangement = Arrangement.spacedBy(
                                         8f.dp
                                     )
                                 ) {
@@ -103,7 +104,7 @@ internal fun TvDetailsScreen(
                                                 .clip(MaterialTheme.shapes.small)
                                                 .background(
                                                     MaterialTheme.colorScheme.surfaceVariant.copy(
-                                                        0.5f
+                                                        0.3f
                                                     )
                                                 )
                                                 .clickable { }
@@ -122,27 +123,42 @@ internal fun TvDetailsScreen(
                     if (overview.isNotBlank()) {
                         item {
                             TvSection(
-                                title = stringResource(com.quitr.snac.core.common.R.string.overview),
-                                androidx.compose.ui.Modifier.padding(horizontal = 16f.dp)
+                                title = stringResource(R.string.overview),
+                                Modifier.padding(horizontal = 16f.dp)
                             ) {
                                 Text(overview)
                             }
                         }
                         separator()
                     }
+                    nextEpisodeToAir?.let { episode ->
+                        item {
+                            TvSection(title = stringResource(R.string.upcoming_episode)) {
+//                                EpisodeCard(
+//                                    title = episode,
+//                                    season = ,
+//                                    episode = ,
+//                                    description = ,
+//                                    posterUrl =
+//                                ) {
+//
+//                                }
+                            }
+                        }
+                    }
                     item {
                         PersonCarousel(
-                            category = stringResource(com.quitr.snac.core.common.R.string.cast),
+                            category = stringResource(R.string.cast),
                             people = cast,
                             onExpand = onCastExpand,
                             onPersonClicked = onPersonCardTap
                         )
                     }
-                    item { Spacer(androidx.compose.ui.Modifier.height(16f.dp)) }
+                    item { Spacer(Modifier.height(16f.dp)) }
                     if (crew.isNotEmpty()) {
                         item {
                             PersonCarousel(
-                                category = stringResource(com.quitr.snac.core.common.R.string.crew),
+                                category = stringResource(R.string.crew),
                                 people = crew,
                                 onExpand = onCrewExpand,
                                 onPersonClicked = onPersonCardTap
@@ -191,7 +207,7 @@ internal fun TvDetailsScreen(
                                     detail = type
                                 )
                                 AboutDetails(
-                                    info = stringResource(com.quitr.snac.core.common.R.string.status),
+                                    info = stringResource(R.string.status),
                                     detail = status
                                 )
 //                                AboutDetails(
@@ -201,7 +217,7 @@ internal fun TvDetailsScreen(
                                 AboutDetails(info = "Country of Origin", details = originCountry)
                                 AboutDetails(
                                     info = pluralStringResource(
-                                        com.quitr.snac.core.common.R.plurals.production_companies,
+                                        R.plurals.production_companies,
                                         productionCompanies.size
                                     ),
                                     details = productionCompanies

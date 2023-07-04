@@ -28,6 +28,7 @@
     <string name="aired_episodes">Aired Episodes</string>
     <string name="show_type">Show Type</string>
     <string name="origin_country">Country of Origin</string>
+    <string name="upcoming_episode">Upcoming Episode</string>
 
     <plurals name="production_companies">
         <item quantity="one">Production Company</item>

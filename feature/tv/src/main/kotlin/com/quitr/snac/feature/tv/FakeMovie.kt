@@ -24,6 +24,19 @@ private val shows = List(30) {
     )
 }
 
+private val Episode = Episode(
+    id = 4912,
+    name = "Lonnie Maynard",
+    overview = "pretium",
+    episodeNumber = 2399,
+    seasonNumber = 4254,
+    posterUrl = "https://search.yahoo.com/search?p=autem",
+    runtime = 8223,
+    voteAverage = "constituto",
+    voteCount = 1314
+
+)
+
 internal val FakeTv = Tv(
     id = 6503,
     backdropUrl = "https://www.google.com/#q=morbi",
@@ -44,7 +57,7 @@ internal val FakeTv = Tv(
     ),
     languages = listOf("Amasiri", "English", "Latin"),
     lastAirDate = "22 Apr 2022",
-    lastEpisodeToAir = Episode(2),
+    lastEpisodeToAir = Episode,
     name = "Fantastic Beasts and How to Esacape Them",
     networks = listOf(),
     nextEpisodeToAir = null,
