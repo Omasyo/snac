@@ -23,7 +23,7 @@ object TvDetailsRoute : NavigationRoute() {
 
 @Composable
 fun TvDetailsRoute(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,
     onPersonCardTap: (id: Int) -> Unit,
@@ -37,6 +37,7 @@ fun TvDetailsRoute(
 ) {
     val uiState by viewModel.tvDetailsUiState.collectAsState()
     TvDetailsScreen(
+        modifier = modifier,
         onMovieCardTap = onMovieCardTap,
         onTvCardTap = onTvCardTap,
         onPersonCardTap = onPersonCardTap,

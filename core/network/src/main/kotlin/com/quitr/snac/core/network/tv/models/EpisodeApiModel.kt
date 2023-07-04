@@ -12,7 +12,7 @@ data class EpisodeApiModel(
     @SerialName("name") val name: String,
     @SerialName("overview") val overview: String,
     @SerialName("production_code") val productionCode: String,
-    @SerialName("runtime") val runtime: Int,
+    @SerialName("runtime") val runtime: Int?,
     @SerialName("season_number") val seasonNumber: Int,
     @SerialName("show_id") val showId: Int,
     @SerialName("still_path") val stillPath: String?,

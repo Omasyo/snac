@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import com.quitr.snac.core.data.TimeWindow
 import com.quitr.snac.core.data.mapppers.toShow
 import com.quitr.snac.core.data.mapppers.toShows
+import com.quitr.snac.core.data.mapppers.toTv
 import com.quitr.snac.core.data.pager.show.ShowPagingSource
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
@@ -28,8 +29,14 @@ internal class DefaultTvRepository @Inject constructor(
     private val networkDataSource: TvNetworkDataSource,
     @Named("IO") private val dispatcher: CoroutineDispatcher,
 ) : TvRepository {
-    override suspend fun getDetails(id: Int, language: String): Result<Tv> {
-        TODO("Not yet implemented")
+    override suspend fun getDetails(id: Int, language: String): Result<Tv> = withContext(dispatcher) {
+        try {
+            val result = networkDataSource.getDetails(id, language)
+            Result.success(result.toTv())
+        } catch (exception: Exception) {
+            Log.d(TAG, "getDetails: $exception")
+            Result.failure(exception)
+        }
     }
 
     override suspend fun getTrending(
@@ -39,7 +46,7 @@ internal class DefaultTvRepository @Inject constructor(
     ): Result<List<Show>> = withContext(dispatcher) {
         try {
             val results = networkDataSource.getTrending(page, timeWindow.text, language).results
-            Result.success(results.map { tv -> tv.toShow() })
+            Result.success(results.toShows())
         } catch (exception: Exception) {
             Log.d(TAG, "getTrending: $exception")
             Result.failure(exception)
@@ -97,7 +104,7 @@ internal class DefaultTvRepository @Inject constructor(
     ) = withContext(dispatcher) {
         try {
             val results = func(page, language, region).results
-            Result.success(results.map { movie -> movie.toShow() })
+            Result.success(results.toShows())
         } catch (exception: Exception) {
             Log.d(TAG, "getList: $exception")
             Result.failure(exception)

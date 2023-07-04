@@ -11,7 +11,7 @@ fun EpisodeApiModel.toEpisode() = Episode(
     episodeNumber = episodeNumber,
     seasonNumber = seasonNumber,
     posterUrl = Api.BasePosterPath + stillPath,
-    runtime = runtime,
+    runtime = runtime ?: 0,
     voteAverage = voteAverage.formatTo1dp(),
     voteCount = voteCount
 

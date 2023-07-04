@@ -8,7 +8,7 @@ import com.quitr.snac.core.network.movie.models.RecommendationApiModel
 internal fun RecommendationApiModel.toShow() = Show(
     id,
     title,
-    voteAverage.toString(),
+    voteAverage.formatTo1dp(),
     Api.BasePosterPath + posterPath,
     if (mediaType == "tv") ShowType.Tv else ShowType.Movie
 )

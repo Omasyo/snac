@@ -14,6 +14,7 @@ import com.quitr.snac.feature.movie.MovieDetailsRoute
 import com.quitr.snac.feature.movie.MovieCastRoute
 import com.quitr.snac.feature.movie.MovieCrewRoute
 import com.quitr.snac.feature.people.PersonDetailsRoute
+import com.quitr.snac.feature.tv.TvDetailsRoute
 
 @Composable
 fun SnacNavHost(
@@ -48,7 +49,7 @@ fun SnacNavHost(
                 type = NavType.IntType
             })
         ) { backStackEntry ->
-            val movieId = checkNotNull(backStackEntry.arguments?.getInt(MovieDetailsRoute.movieId))
+            val movieId = checkNotNull(backStackEntry.arguments?.getInt(SnacRoutes.Movie.movieId))
 
             MovieDetailsRoute(
                 onMovieCardTap = onMovieCardTap,
@@ -90,6 +91,25 @@ fun SnacNavHost(
             MovieCrewRoute(
                 onPersonCardTapped = onPersonCardTap,
                 onBackPressed = { navController.popBackStack() })
+        }
+        
+        composable(
+            SnacRoutes.Tv.route, arguments = listOf(navArgument(SnacRoutes.Tv.tvId) {
+                type = NavType.IntType
+            })
+        ) {backStackEntry ->
+            val tvId = checkNotNull(backStackEntry.arguments?.getInt(SnacRoutes.Tv.tvId))
+            
+            TvDetailsRoute(
+                onMovieCardTap = onMovieCardTap,
+                onTvCardTap = onTvCardTap,
+                onPersonCardTap = onPersonCardTap,
+                onEpisodeCardTap = {showId, seasonNumber, episodeNumber ->  },
+                onSeasonCardTap = {showId, seasonNumber ->  },
+                onSeasonsExpand = { /*TODO*/ },
+                onCastExpand = { /*TODO*/ },
+                onCrewExpand = { /*TODO*/ },
+                onBackPressed = { /*TODO*/ })
         }
 
         composable(
