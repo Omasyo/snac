@@ -5,9 +5,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.quitr.snac.core.data.TimeWindow
+import com.quitr.snac.core.data.mapppers.toShow
+import com.quitr.snac.core.data.mapppers.toShows
 import com.quitr.snac.core.data.pager.show.ShowPagingSource
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
+import com.quitr.snac.core.model.Tv
 import com.quitr.snac.core.network.Api
 import com.quitr.snac.core.network.tv.TvNetworkDataSource
 import com.quitr.snac.core.network.tv.models.TvApiModel
@@ -25,6 +28,10 @@ internal class DefaultTvRepository @Inject constructor(
     private val networkDataSource: TvNetworkDataSource,
     @Named("IO") private val dispatcher: CoroutineDispatcher,
 ) : TvRepository {
+    override suspend fun getDetails(id: Int, language: String): Result<Tv> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getTrending(
         page: Int,
         language: String,
@@ -110,8 +117,3 @@ internal class DefaultTvRepository @Inject constructor(
         }.flow.flowOn(dispatcher)
     }
 }
-
-internal fun TvApiModel.toShow() =
-    Show(id, name, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Tv)
-
-internal fun List<TvApiModel>.toShows() = map { tvApiModel -> tvApiModel.toShow() }
