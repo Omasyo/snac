@@ -13,7 +13,11 @@ import com.quitr.snac.feature.discover.section.SectionRoute
 import com.quitr.snac.feature.movie.MovieDetailsRoute
 import com.quitr.snac.feature.movie.MovieCastRoute
 import com.quitr.snac.feature.movie.MovieCrewRoute
+import com.quitr.snac.feature.people.PersonCastRoute
+import com.quitr.snac.feature.people.PersonCrewRoute
 import com.quitr.snac.feature.people.PersonDetailsRoute
+import com.quitr.snac.feature.tv.TvCastRoute
+import com.quitr.snac.feature.tv.TvCrewRoute
 import com.quitr.snac.feature.tv.TvDetailsRoute
 
 @Composable
@@ -57,17 +61,11 @@ fun SnacNavHost(
                 onPersonCardTap = onPersonCardTap,
                 onCastExpand = {
                     navController.navigate(
-                        SnacRoutes.MovieCast.route(
-                            movieId
-                        )
+                        SnacRoutes.MovieCast.route(movieId)
                     )
                 },
                 onCrewExpand = {
-                    navController.navigate(
-                        SnacRoutes.MovieCrew.route(
-                            movieId
-                        )
-                    )
+                    navController.navigate(SnacRoutes.MovieCrew.route(movieId))
                 },
                 onBackPressed = { navController.popBackStack() },
             )
@@ -80,7 +78,8 @@ fun SnacNavHost(
         ) {
             MovieCastRoute(
                 onPersonCardTapped = onPersonCardTap,
-                onBackPressed = { navController.popBackStack() })
+                onBackPressed = { navController.popBackStack() }
+            )
         }
         composable(
             SnacRoutes.MovieCrew.route,
@@ -90,26 +89,50 @@ fun SnacNavHost(
         ) {
             MovieCrewRoute(
                 onPersonCardTapped = onPersonCardTap,
-                onBackPressed = { navController.popBackStack() })
+                onBackPressed = { navController.popBackStack() }
+            )
         }
-        
+
         composable(
             SnacRoutes.Tv.route, arguments = listOf(navArgument(SnacRoutes.Tv.tvId) {
                 type = NavType.IntType
             })
-        ) {backStackEntry ->
+        ) { backStackEntry ->
             val tvId = checkNotNull(backStackEntry.arguments?.getInt(SnacRoutes.Tv.tvId))
-            
-            TvDetailsRoute(
-                onMovieCardTap = onMovieCardTap,
+
+            TvDetailsRoute(onMovieCardTap = onMovieCardTap,
                 onTvCardTap = onTvCardTap,
                 onPersonCardTap = onPersonCardTap,
-                onEpisodeCardTap = {showId, seasonNumber, episodeNumber ->  },
-                onSeasonCardTap = {showId, seasonNumber ->  },
+                onEpisodeCardTap = { showId, seasonNumber, episodeNumber -> },
+                onSeasonCardTap = { showId, seasonNumber -> },
                 onSeasonsExpand = { /*TODO*/ },
-                onCastExpand = { /*TODO*/ },
-                onCrewExpand = { /*TODO*/ },
-                onBackPressed = { /*TODO*/ })
+                onCastExpand = {
+                    navController.navigate(
+                        SnacRoutes.TvCast.route(tvId)
+                    )
+                },
+                onCrewExpand = {
+                    navController.navigate(
+                        SnacRoutes.TvCrew.route(tvId)
+                    )
+                },
+                onBackPressed = { navController.popBackStack() })
+        }
+        composable(
+            SnacRoutes.TvCast.route, arguments = listOf(navArgument(SnacRoutes.TvCast.tvId) {
+                type = NavType.IntType
+            })
+        ) {
+            TvCastRoute(onPersonCardTapped = onPersonCardTap,
+                onBackPressed = { navController.popBackStack() })
+        }
+        composable(
+            SnacRoutes.TvCrew.route, arguments = listOf(navArgument(SnacRoutes.TvCrew.tvId) {
+                type = NavType.IntType
+            })
+        ) {
+            TvCrewRoute(onPersonCardTapped = onPersonCardTap,
+                onBackPressed = { navController.popBackStack() })
         }
 
         composable(
@@ -124,16 +147,33 @@ fun SnacNavHost(
                 onMovieCardTap = onMovieCardTap,
                 onTvCardTap = onTvCardTap,
                 onActingCreditsExpand = {
+                    navController.navigate(SnacRoutes.PersonCast.route(personId))
                 },
                 onOtherCreditsExpand = {
-//                    navController.navigate(
-//                        SnacRoutes.MovieCrew.route(
-//                            movieId
-//                        )
-//                    )
+                    navController.navigate(SnacRoutes.PersonCast.route(personId))
                 },
                 onBackPressed = { navController.popBackStack() },
             )
+        }
+        composable(
+            SnacRoutes.PersonCast.route,
+            arguments = listOf(navArgument(SnacRoutes.PersonCast.personId) {
+                type = NavType.IntType
+            })
+        ) {
+            PersonCastRoute(onMovieCardTap = onMovieCardTap,
+                onTvCardTap = onTvCardTap,
+                onBackPressed = { navController.popBackStack() })
+        }
+        composable(
+            SnacRoutes.PersonCrew.route,
+            arguments = listOf(navArgument(SnacRoutes.PersonCrew.personId) {
+                type = NavType.IntType
+            })
+        ) {
+            PersonCrewRoute(onMovieCardTap = onMovieCardTap,
+                onTvCardTap = onTvCardTap,
+                onBackPressed = { navController.popBackStack() })
         }
     }
 }

@@ -7,7 +7,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quitr.snac.core.common.R
 import com.quitr.snac.core.model.NavigationRoute
-import com.quitr.snac.core.ui.show.CreditsScreen
+import com.quitr.snac.core.ui.show.ShowCreditsScreen
 
 
  object MovieCrewRoute : NavigationRoute() {
@@ -31,7 +31,7 @@ fun MovieCrewRoute(
 ) {
     val state = viewModel.movieDetailsUiState.collectAsState().value
     if (state is MovieDetailsUiState.Success) {
-        CreditsScreen(
+        ShowCreditsScreen(
             modifier,
             title = stringResource(R.string.crew),
             onPersonCardTap = onPersonCardTapped,

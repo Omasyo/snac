@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.movie
+package com.quitr.snac.feature.tv
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -9,33 +9,33 @@ import com.quitr.snac.core.common.R
 import com.quitr.snac.core.model.NavigationRoute
 import com.quitr.snac.core.ui.show.ShowCreditsScreen
 
-object MovieCastRoute : NavigationRoute() {
-    const val movieId = "movieId"
+object TvCastRoute : NavigationRoute() {
+    const val tvId = "tvId"
 
-    override val root = "movie/cast"
+    override val root = "tv/cast"
 
-    override val requiredArguments: List<String> = listOf(movieId)
+    override val requiredArguments: List<String> = listOf(tvId)
 
     fun route(id: Int) = route(
-        mapOf(movieId to id)
+        mapOf(tvId to id)
     )
 }
 
 @Composable
-fun MovieCastRoute(
+fun TvCastRoute(
     modifier: Modifier = Modifier,
     onPersonCardTapped: (id: Int) -> Unit,
     onBackPressed: () -> Unit,
-    viewModel: MovieDetailsViewModel = hiltViewModel()
+    viewModel: TvDetailsViewModel = hiltViewModel()
 ) {
-    val state = viewModel.movieDetailsUiState.collectAsState().value
-    if (state is MovieDetailsUiState.Success) {
+    val state = viewModel.tvDetailsUiState.collectAsState().value
+    if (state is TvScreenUiState.Success) {
         ShowCreditsScreen(
             modifier,
             title = stringResource(R.string.cast),
             onPersonCardTap = onPersonCardTapped,
             onBackPressed = onBackPressed,
-            people = state.movie.cast
+            people = state.tv.cast
         )
     }
 }

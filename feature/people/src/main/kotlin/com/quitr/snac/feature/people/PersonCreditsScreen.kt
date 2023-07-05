@@ -1,8 +1,8 @@
-package com.quitr.snac.core.ui.show
+package com.quitr.snac.feature.people
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -15,20 +15,22 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.quitr.snac.core.model.Person
-import com.quitr.snac.core.ui.card.PersonCard
-import com.quitr.snac.core.ui.utils.plus
+import com.quitr.snac.core.model.Credit
+import com.quitr.snac.core.model.ShowType
+import com.quitr.snac.core.ui.card.CreditCard
 import com.quitr.snac.core.ui.theme.SnacIcons
+import com.quitr.snac.core.ui.utils.plus
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreditsScreen(
+fun PersonCreditsScreen(
     modifier: Modifier = Modifier,
     title: String,
-    onPersonCardTap: (id: Int) -> Unit,
+    onMovieCardTap: (id: Int) -> Unit,
+    onTvCardTap: (id: Int) -> Unit,
     onBackPressed: () -> Unit,
-    people: List<Person>,
+    credits: List<Credit>,
 ) {
     Scaffold(modifier, topBar = {
         TopAppBar(navigationIcon = {
@@ -45,15 +47,22 @@ fun CreditsScreen(
             horizontalArrangement = Arrangement.spacedBy(8f.dp),
             verticalArrangement = Arrangement.spacedBy(16f.dp),
         ) {
-            items(people, key = { person -> person.id }) { person ->
-                PersonCard(
-                    Modifier.aspectRatio(3f / 5f),
-                    name = person.name,
-                    photoUrl = person.photoUrl,
-                    role = person.role,
-                    onClick = {
-                        onPersonCardTap(person.id)
-                    })
+            items(credits, key = { credit -> credit.id }) { credit ->
+                with(credit) {
+                    CreditCard(
+                        Modifier.size(120f.dp, 200f.dp),
+                        title = credit.title,
+                        role = role,
+                        rating = rating,
+                        posterUrl = posterUrl,
+                        onClick = {
+                            when (showType) {
+                                ShowType.Movie -> onMovieCardTap(showId)
+                                ShowType.Tv -> onTvCardTap(showId)
+                            }
+                        }
+                    )
+                }
             }
         }
     }

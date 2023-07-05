@@ -6,7 +6,11 @@ import com.quitr.snac.feature.discover.section.SectionRoute
 import com.quitr.snac.feature.movie.MovieCastRoute
 import com.quitr.snac.feature.movie.MovieCrewRoute
 import com.quitr.snac.feature.movie.MovieDetailsRoute
+import com.quitr.snac.feature.people.PersonCastRoute
+import com.quitr.snac.feature.people.PersonCrewRoute
 import com.quitr.snac.feature.people.PersonDetailsRoute
+import com.quitr.snac.feature.tv.TvCastRoute
+import com.quitr.snac.feature.tv.TvCrewRoute
 import com.quitr.snac.feature.tv.TvDetailsRoute
 
 object SnacRoutes {
@@ -26,6 +30,10 @@ object SnacRoutes {
     val MovieCrew = MovieCrewRoute
 
     val Tv = TvDetailsRoute
+    val TvCast = TvCastRoute
+    val TvCrew = TvCrewRoute
 
     val Person = PersonDetailsRoute
+    val PersonCast = PersonCastRoute
+    val PersonCrew = PersonCrewRoute
 }

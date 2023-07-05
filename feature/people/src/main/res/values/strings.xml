@@ -6,4 +6,6 @@
     <string name="biography">Biography</string>
     <string name="starred_in">Starred in</string>
     <string name="others">Others</string>
+    <string name="acting_roles">Acting Roles</string>
+    <string name="other_roles">Other Roles</string>
 </resources>
