@@ -13,7 +13,7 @@ import com.quitr.snac.core.ui.show.ShowCreditsScreen
  object TvCrewRoute : NavigationRoute() {
     const val tvId = "tvId"
 
-    override val root = "tv/cast"
+    override val root = "tv/crew"
 
     override val requiredArguments: List<String> = listOf(tvId)
 
