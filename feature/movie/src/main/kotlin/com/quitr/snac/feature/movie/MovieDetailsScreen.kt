@@ -49,8 +49,7 @@ internal fun MovieDetailsScreen(
                     .padding(top = 36f.dp)
             ) {
                 Text(
-                    uiState.error.message ?: "", style =
-                    MaterialTheme.typography.headlineMedium
+                    uiState.error.message ?: "", style = MaterialTheme.typography.headlineMedium
                 )
             }
         }
@@ -131,28 +130,25 @@ internal fun MovieDetailsScreen(
                                     info = stringResource(R.string.release_date),
                                     detail = releaseDate
                                 )
-                                AboutDetails(
-                                    info = stringResource(R.string.runtime),
-                                    detail = pluralStringResource(
-                                        R.plurals.minutes_short,
-                                        runtime,
-                                        runtime
+                                if (runtime != 0) {
+                                    AboutDetails(
+                                        info = stringResource(R.string.runtime),
+                                        detail = pluralStringResource(
+                                            R.plurals.minutes_short, runtime, runtime
+                                        )
                                     )
-                                )
+                                }
                                 AboutDetails(
-                                    info = stringResource(R.string.status),
-                                    detail = status
+                                    info = stringResource(R.string.status), detail = status
                                 )
                                 if (budget.isNotEmpty()) {
                                     AboutDetails(
-                                        info = stringResource(R.string.budget),
-                                        detail = budget
+                                        info = stringResource(R.string.budget), detail = budget
                                     )
                                 }
                                 if (revenue.isNotEmpty()) {
                                     AboutDetails(
-                                        info = stringResource(R.string.revenue),
-                                        detail = revenue
+                                        info = stringResource(R.string.revenue), detail = revenue
                                     )
                                 }
 //                                AboutDetails(
@@ -162,17 +158,13 @@ internal fun MovieDetailsScreen(
 //                    AboutDetails(info = "Country of Origin", detail = movie)
                                 AboutDetails(
                                     info = pluralStringResource(
-                                        R.plurals.production_companies,
-                                        productionCompanies.size
-                                    ),
-                                    details = productionCompanies
+                                        R.plurals.production_companies, productionCompanies.size
+                                    ), details = productionCompanies
                                 )
                                 AboutDetails(
                                     info = pluralStringResource(
-                                        R.plurals.production_countries,
-                                        productionCountries.size
-                                    ),
-                                    details = productionCompanies
+                                        R.plurals.production_countries, productionCountries.size
+                                    ), details = productionCompanies
                                 )
 
                             }
@@ -211,14 +203,12 @@ internal fun MovieDetailsScreen(
 @Composable
 private fun MovieScreenPreview() {
     SnacTheme {
-        MovieDetailsScreen(
-            uiState = MovieDetailsUiState.Loading,
+        MovieDetailsScreen(uiState = MovieDetailsUiState.Loading,
             onMovieCardTap = {},
             onTvCardTap = {},
             onPersonCardTap = {},
             onCastExpand = {},
             onCrewExpand = {},
-            onBackPressed = {}
-        )
+            onBackPressed = {})
     }
 }

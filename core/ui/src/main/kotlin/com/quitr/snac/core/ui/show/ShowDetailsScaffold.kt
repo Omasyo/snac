@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -75,9 +76,9 @@ fun ShowDetailsScaffold(
                     placeholder = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
                     error = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
                     contentDescription = stringResource(CommonR.string.backdrop_description, title),
-                    contentScale = ContentScale.FillWidth,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .height(220f.dp)
+                        .aspectRatio(16f/9f)
                         .fillMaxWidth()
                         .drawWithCache {
                             val gradient = Brush.verticalGradient(
@@ -197,7 +198,7 @@ fun Tags(keywords: List<Keyword>, modifier: Modifier) {
                         .clip(MaterialTheme.shapes.small)
                         .background(
                             MaterialTheme.colorScheme.surfaceVariant.copy(
-                                0.3f
+                                0.4f
                             )
                         )
                         .clickable { }

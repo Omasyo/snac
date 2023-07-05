@@ -10,7 +10,7 @@ fun SeasonApiModel.toSeason() = Season(
     overview = overview,
     seasonNumber = seasonNumber,
     episodeCount = episodeCount,
-    airDate = airDate ?: "",
+    airDate = airDate?.getYear() ?: "",
     voteAverage = voteAverage.formatTo1dp(),
     posterUrl = Api.BasePosterPath + posterPath
 )

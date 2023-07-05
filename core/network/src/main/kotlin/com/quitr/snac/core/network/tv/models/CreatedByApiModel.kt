@@ -10,5 +10,5 @@ data class CreatedByApiModel(
     @SerialName("gender") val gender: Int,
     @SerialName("id") val id: Int,
     @SerialName("name") val name: String,
-    @SerialName("profile_path") val profilePath: String
+    @SerialName("profile_path") val profilePath: String?
 )

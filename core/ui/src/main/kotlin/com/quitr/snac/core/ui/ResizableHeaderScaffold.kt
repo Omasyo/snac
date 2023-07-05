@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.ui.theme.SnacIcons
 
@@ -61,7 +62,7 @@ fun ResizableHeaderScaffold(
                     AnimatedVisibility(
                         visible = !fadeTitle || isCollapsed, enter = fadeIn(), exit = fadeOut()
                     ) {
-                        Text(title)
+                        Text(title, maxLines = 1, overflow = TextOverflow.Ellipsis)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(

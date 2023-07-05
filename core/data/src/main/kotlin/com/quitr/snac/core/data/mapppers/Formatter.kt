@@ -19,7 +19,12 @@ internal fun Int.formatToUsd(): String = when (this) {
     }
 }
 
+internal fun String.getYear() : String {
+    val date = SimpleDateFormat("yyyy-MM-dd").parse(this)
+    return SimpleDateFormat("yyyy").format(date)
+}
+
 internal fun String.formatDate() : String {
-    val date = SimpleDateFormat("yyyy-MM-dd").parse("2023-05-31")
+    val date = SimpleDateFormat("yyyy-MM-dd").parse(this)
     return SimpleDateFormat("dd MMM yyyy").format(date)
 }

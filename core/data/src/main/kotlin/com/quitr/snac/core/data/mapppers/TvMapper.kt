@@ -11,7 +11,7 @@ import com.quitr.snac.core.network.tv.models.TvDetailsApiModel
 
 
 internal fun TvApiModel.toShow() =
-    Show(id, name, voteAverage.toString(), Api.BasePosterPath + posterPath, ShowType.Tv)
+    Show(id, name, voteAverage.formatTo1dp(), Api.BasePosterPath + posterPath, ShowType.Tv)
 
 internal fun List<TvApiModel>.toShows() = map { tvApiModel -> tvApiModel.toShow() }
 

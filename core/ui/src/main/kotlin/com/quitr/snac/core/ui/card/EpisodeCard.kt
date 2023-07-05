@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.common.R
@@ -37,13 +38,16 @@ fun EpisodeCard(
             ) {
                 Text(
                     title,
-                    style = MaterialTheme.typography.titleMedium
-//                            Modifier.align(Alignment.Center)
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.titleMedium,
                 )
                 Spacer(Modifier.width(8f.dp))
                 Text(
                     "S${season.format()} E${episode.format()}",
-                    style = MaterialTheme.typography.titleSmall
+                    maxLines = 1,
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.weight(1f)
                 )
             }
         },
@@ -54,12 +58,13 @@ fun EpisodeCard(
         Text(
             description,
             Modifier.padding(8f.dp),
+            overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.bodyMedium
         )
     }
 }
 
-fun Int.format() : String = String.format("%02d", this)
+fun Int.format(): String = String.format("%02d", this)
 
 @Preview(device = "spec:parent=pixel_5,orientation=landscape")
 @Composable
@@ -79,5 +84,6 @@ fun EpisodeCardPreview() {
     }
 }
 
-private const val Description = "Strange things are afoot in Hawkins, Indiana, where a young boy's" +
-        "sudden disappearance unearths a young girl with otherworldly powers."
+private const val Description =
+    "Strange things are afoot in Hawkins, Indiana, where a young boy's" +
+            "sudden disappearance unearths a young girl with otherworldly powers."

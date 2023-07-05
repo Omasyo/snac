@@ -235,12 +235,14 @@ internal fun TvDetailsScreen(
                                     info = stringResource(R.string.aired_episodes),
                                     detail = episodeCount.toString()
                                 )
-                                AboutDetails(
-                                    info = stringResource(R.string.runtime),
-                                    detail = pluralStringResource(
-                                        R.plurals.minutes_short, runtime, runtime
+                                if(runtime != 0) {
+                                    AboutDetails(
+                                        info = stringResource(R.string.runtime),
+                                        detail = pluralStringResource(
+                                            R.plurals.minutes_short, runtime, runtime
+                                        )
                                     )
-                                )
+                                }
                                 AboutDetails(
                                     info = stringResource(R.string.show_type), detail = type
                                 )
