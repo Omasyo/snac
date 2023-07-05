@@ -25,6 +25,7 @@ import com.quitr.snac.core.ui.show.Overview
 import com.quitr.snac.core.ui.show.ShowDetailsPlaceholder
 import com.quitr.snac.core.ui.show.ShowDetailsScaffold
 import com.quitr.snac.core.ui.show.ShowSection
+import com.quitr.snac.core.ui.show.Tagline
 import com.quitr.snac.core.ui.show.Tags
 import com.quitr.snac.core.ui.show.separator
 import com.quitr.snac.core.ui.theme.SnacTheme
@@ -73,12 +74,9 @@ internal fun MovieDetailsScreen(
                     if (tagline.isNotBlank()) {
                         separator()
                         item {
-                            Column(Modifier.padding(horizontal = 16f.dp)) {
-                                Text(
-                                    tagline,
-                                    style = MaterialTheme.typography.titleMedium.copy(fontStyle = FontStyle.Italic)
-                                )
-                            }
+                            Tagline(
+                                tagline, modifier = Modifier.padding(horizontal = 16f.dp)
+                            )
                         }
                     }
                     if (keywords.isNotEmpty()) {

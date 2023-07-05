@@ -33,6 +33,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -179,6 +180,15 @@ fun AboutDetails(
     detail: String,
     infoRatio: Float = 0.4f
 ) = AboutDetails(modifier, info, listOf(detail), infoRatio)
+
+@Composable
+fun Tagline(tagline: String, modifier: Modifier) {
+    Text(
+        tagline,
+        style = MaterialTheme.typography.titleMedium.copy(fontStyle = FontStyle.Italic),
+        modifier = modifier
+    )
+}
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

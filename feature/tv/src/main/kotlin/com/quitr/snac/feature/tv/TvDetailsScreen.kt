@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerSnapDistance
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -34,6 +35,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.common.R
+import com.quitr.snac.core.model.Season
 import com.quitr.snac.core.ui.card.EpisodeCard
 import com.quitr.snac.core.ui.card.SeasonCard
 import com.quitr.snac.core.ui.carousel.PersonCarousel
@@ -43,6 +45,7 @@ import com.quitr.snac.core.ui.show.Overview
 import com.quitr.snac.core.ui.show.ShowDetailsPlaceholder
 import com.quitr.snac.core.ui.show.ShowDetailsScaffold
 import com.quitr.snac.core.ui.show.ShowSection
+import com.quitr.snac.core.ui.show.Tagline
 import com.quitr.snac.core.ui.show.Tags
 import com.quitr.snac.core.ui.show.separator
 import com.quitr.snac.core.ui.theme.SnacIcons
@@ -142,50 +145,12 @@ internal fun TvDetailsScreen(
                         )
                     }
                     item {
-                        val state = rememberPagerState()
-
-                        Column {
-                            Row(
-                                Modifier
-                                    .clickable(onClick = onSeasonsExpand)
-                                    .padding(horizontal = 16f.dp, vertical = 4f.dp)
-                                    .fillMaxWidth()
-                                    .height(40f.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                Text(
-                                    stringResource(R.string.seasons),
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                Spacer(Modifier.weight(1f))
-                                Icon(SnacIcons.ArrowForward, contentDescription = null)
-                            }
-                            HorizontalPager(
-                                state = state,
-                                pageCount = seasons.size,
-                                contentPadding = PaddingValues(horizontal = 16f.dp),
-                                pageSpacing = 32f.dp,
-                                modifier = Modifier.height(176f.dp),
-                                key = { seasons[it].id },
-                                flingBehavior = PagerDefaults.flingBehavior(
-                                    state = state,
-                                    lowVelocityAnimationSpec = tween(
-                                        easing = LinearOutSlowInEasing,
-                                        durationMillis = 700
-                                    )
-                                )
-                            ) { index ->
-                                val season = seasons[index]
-                                SeasonCard(
-                                    title = season.name,
-                                    season = season.seasonNumber,
-                                    airDate = season.airDate,
-                                    episodeCount = season.episodeCount,
-                                    description = season.overview,
-                                    posterUrl = season.posterUrl,
-                                    onClick = { onSeasonCardTap(id, season.seasonNumber) })
-                            }
-                        }
+                        SeasonCarousel(
+                            seasons = seasons,
+                            tvId = id,
+                            onExpand = onSeasonsExpand,
+                            onSeasonCardTap = onSeasonCardTap
+                        )
                     }
                     separator()
                     item {
@@ -295,13 +260,58 @@ internal fun TvDetailsScreen(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Tagline(tagline: String, modifier: Modifier) {
-    Text(
-        tagline,
-        style = MaterialTheme.typography.titleMedium.copy(fontStyle = FontStyle.Italic),
-        modifier = modifier
-    )
+private fun SeasonCarousel(
+    modifier: Modifier = Modifier,
+    seasons: List<Season>,
+    tvId: Int,
+    onExpand: () -> Unit,
+    onSeasonCardTap: (id: Int, seasonNumber: Int) -> Unit,
+    pagerState: PagerState = rememberPagerState(initialPage = seasons.lastIndex)
+) {
+    Column(modifier) {
+        Row(
+            Modifier
+                .clickable(onClick = onExpand)
+                .padding(horizontal = 16f.dp, vertical = 4f.dp)
+                .fillMaxWidth()
+                .height(40f.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                stringResource(R.string.seasons),
+                style = MaterialTheme.typography.titleMedium
+            )
+            Spacer(Modifier.weight(1f))
+            Icon(SnacIcons.ArrowForward, contentDescription = null)
+        }
+        HorizontalPager(
+            state = pagerState,
+            pageCount = seasons.size,
+            contentPadding = PaddingValues(horizontal = 16f.dp),
+            pageSpacing = 32f.dp,
+            modifier = Modifier.height(176f.dp),
+            key = { seasons[it].id },
+            flingBehavior = PagerDefaults.flingBehavior(
+                state = pagerState,
+                lowVelocityAnimationSpec = tween(
+                    easing = LinearOutSlowInEasing,
+                    durationMillis = 700
+                )
+            )
+        ) { index ->
+            val season = seasons[index]
+            SeasonCard(
+                title = season.name,
+                season = season.seasonNumber,
+                airDate = season.airDate,
+                episodeCount = season.episodeCount,
+                description = season.overview,
+                posterUrl = season.posterUrl,
+                onClick = { onSeasonCardTap(tvId, season.seasonNumber) })
+        }
+    }
 }
 
 @Preview(
