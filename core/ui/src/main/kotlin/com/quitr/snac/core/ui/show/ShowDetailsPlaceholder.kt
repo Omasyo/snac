@@ -26,10 +26,9 @@ import com.quitr.snac.core.ui.ResizableHeaderScaffold
 import com.quitr.snac.core.ui.utils.fadePlaceholder
 
 @OptIn(ExperimentalLayoutApi::class)
-@Preview
 @Composable
 fun ShowDetailsPlaceholder(
-    modifier: Modifier = Modifier, onBackPressed: () -> Unit = {}
+    modifier: Modifier = Modifier, onBackPressed: () -> Unit
 ) {
     ResizableHeaderScaffold(
         modifier,

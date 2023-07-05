@@ -16,6 +16,8 @@ import com.quitr.snac.feature.movie.MovieCrewRoute
 import com.quitr.snac.feature.people.PersonCastRoute
 import com.quitr.snac.feature.people.PersonCrewRoute
 import com.quitr.snac.feature.people.PersonDetailsRoute
+import com.quitr.snac.feature.tv.EpisodeDetailsRoute
+import com.quitr.snac.feature.tv.SeasonScreenViewModel
 import com.quitr.snac.feature.tv.TvCastRoute
 import com.quitr.snac.feature.tv.TvCrewRoute
 import com.quitr.snac.feature.tv.TvDetailsRoute
@@ -103,7 +105,11 @@ fun SnacNavHost(
             TvDetailsRoute(onMovieCardTap = onMovieCardTap,
                 onTvCardTap = onTvCardTap,
                 onPersonCardTap = onPersonCardTap,
-                onEpisodeCardTap = { showId, seasonNumber, episodeNumber -> },
+                onEpisodeCardTap = { showId, seasonNumber, episodeNumber ->
+                                   navController.navigate(
+                                       SnacRoutes.TvEpisode.route(showId, seasonNumber, episodeNumber)
+                                   )
+                },
                 onSeasonCardTap = { showId, seasonNumber -> },
                 onSeasonsExpand = { /*TODO*/ },
                 onCastExpand = {
@@ -117,6 +123,25 @@ fun SnacNavHost(
                     )
                 },
                 onBackPressed = { navController.popBackStack() })
+        }
+        composable(
+            SnacRoutes.TvEpisode.route, arguments = listOf(
+                navArgument(SnacRoutes.TvEpisode.tvId) {
+                    type = NavType.IntType
+                },
+                navArgument(SnacRoutes.TvEpisode.seasonNumber) {
+                    type = NavType.IntType
+                }, navArgument(SnacRoutes.TvEpisode.episodeNumber) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            EpisodeDetailsRoute(
+                onPersonCardTap = onPersonCardTap,
+                onGuestStarExpand = {},
+                onCrewExpand = {},
+                onBackPressed = { navBarController.popBackStack() },
+            )
         }
         composable(
             SnacRoutes.TvCast.route, arguments = listOf(navArgument(SnacRoutes.TvCast.tvId) {

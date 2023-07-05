@@ -1,16 +1,11 @@
 package com.quitr.snac.feature.tv
 
 import android.content.res.Configuration
-import androidx.compose.animation.core.FastOutLinearInEasing
-import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -20,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerDefaults
-import androidx.compose.foundation.pager.PagerSnapDistance
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Icon
@@ -31,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.common.R
@@ -79,7 +72,6 @@ internal fun TvDetailsScreen(
                 )
             }
         }
-
         TvScreenUiState.Loading -> ShowDetailsPlaceholder(onBackPressed = onBackPressed)
         is TvScreenUiState.Success -> {
 
@@ -128,7 +120,7 @@ internal fun TvDetailsScreen(
                                     season = episode.seasonNumber,
                                     episode = episode.episodeNumber,
                                     description = episode.overview,
-                                    posterUrl = episode.posterUrl,
+                                    posterUrl = episode.stillUrl,
                                     onClick = {
                                         onEpisodeCardTap(
                                             id,

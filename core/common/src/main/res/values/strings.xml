@@ -34,6 +34,7 @@
     <string name="show_type">Show Type</string>
     <string name="origin_country">Country of Origin</string>
     <string name="upcoming_episode">Upcoming Episode</string>
+    <string name="guest_stars">Guest Star</string>
 
     <plurals name="production_companies">
         <item quantity="one">Production Company</item>

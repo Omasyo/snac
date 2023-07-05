@@ -5,3 +5,7 @@ plugins {
 android {
     namespace = "com.quitr.snac.feature.tv"
 }
+
+dependencies {
+    implementation(libs.coil.compose)
+}

@@ -2,6 +2,8 @@ package com.quitr.snac.core.network.tv
 
 
 import com.quitr.snac.core.network.createClient
+import com.quitr.snac.core.network.tv.models.EpisodeApiModel
+import com.quitr.snac.core.network.tv.models.SeasonDetailsApiModel
 import com.quitr.snac.core.network.tv.models.TvDetailsApiModel
 import com.quitr.snac.core.network.tv.models.TvListApiModel
 import javax.inject.Inject
@@ -34,11 +36,28 @@ class DefaultTvNetworkDataSource @Inject constructor(private val client: HttpCli
     override suspend fun getOnTheAir(page: Int, language: String, timezone: String) =
         getTvList("on_the_air", page, language, timezone)
 
-    override suspend fun getPopular(page: Int, language: String, timezone: String) =
-        getTvList("popular", page, language, timezone)
+    override suspend fun getPopular(page: Int, language: String) =
+        getTvList("popular", page, language, "")
 
-    override suspend fun getTopRated(page: Int, language: String, timezone: String) =
-        getTvList("top_rated", page, language, timezone)
+    override suspend fun getTopRated(page: Int, language: String) =
+        getTvList("top_rated", page, language, "")
+
+    override suspend fun getSeasonDetails(
+        id: Int,
+        seasonNumber: Int,
+        language: String
+    ): SeasonDetailsApiModel = client.get("/3/tv/$id/season/$seasonNumber") {
+        parameter("language", language)
+    }.body()
+
+    override suspend fun getEpisodeDetails(
+        id: Int,
+        seasonNumber: Int,
+        episodeNumber: Int,
+        language: String
+    ): EpisodeApiModel = client.get("/3/tv/$id/season/$seasonNumber/episode/$episodeNumber") {
+        parameter("language", language)
+    }.body()
 
     private suspend inline fun getTvList(
         path: String,
@@ -49,5 +68,6 @@ class DefaultTvNetworkDataSource @Inject constructor(private val client: HttpCli
         client.get("/3/tv/$path") {
             parameter("page", page.toString())
             parameter("language", language)
+            parameter("timezone", timezone)
         }.body()
 }

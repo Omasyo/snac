@@ -78,5 +78,6 @@ internal class DefaultMovieNetworkDataSource @Inject constructor(private val cli
         client.get("/3/movie/$path") {
             parameter("page", page.toString())
             parameter("language", language)
+            parameter("region", region)
         }.body()
 }

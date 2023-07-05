@@ -2,6 +2,8 @@ package com.quitr.snac.core.data.repository.tv
 
 import androidx.paging.PagingData
 import com.quitr.snac.core.data.TimeWindow
+import com.quitr.snac.core.model.EpisodeDetails
+import com.quitr.snac.core.model.SeasonWithEpisodes
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.Tv
 import kotlinx.coroutines.flow.Flow
@@ -24,44 +26,53 @@ interface TvRepository {
     suspend fun getAiringToday(
         page: Int,
         language: String = "",
-        region: String = ""
+        timezone: String = ""
     ): Result<List<Show>>
 
     fun getAiringTodayStream(
         language: String = "",
-        region: String = ""
+        timezone: String = ""
     ): Flow<PagingData<Show>>
 
     suspend fun getOnTheAir(
         page: Int,
         language: String = "",
-        region: String = ""
+        timezone: String = ""
     ): Result<List<Show>>
 
     fun getOnTheAirStream(
         language: String = "",
-        region: String = ""
+        timezone: String = ""
     ): Flow<PagingData<Show>>
 
     suspend fun getPopular(
         page: Int,
         language: String = "",
-        region: String = ""
     ): Result<List<Show>>
 
     fun getPopularStream(
         language: String = "",
-        region: String = ""
     ): Flow<PagingData<Show>>
 
     suspend fun getTopRated(
         page: Int,
         language: String = "",
-        region: String = ""
     ): Result<List<Show>>
 
     fun getTopRatedStream(
         language: String = "",
-        region: String = ""
     ): Flow<PagingData<Show>>
+
+    suspend fun getSeasonDetails(
+        id: Int,
+        seasonNumber: Int,
+        language: String = ""
+    ): Result<SeasonWithEpisodes>
+
+    suspend fun getEpisodeDetails(
+        id: Int,
+        seasonNumber: Int,
+        episodeNumber: Int,
+        language: String = ""
+    ): Result<EpisodeDetails>
 }

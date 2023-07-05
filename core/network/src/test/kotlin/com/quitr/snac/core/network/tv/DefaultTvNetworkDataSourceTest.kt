@@ -3,9 +3,11 @@ package com.quitr.snac.core.network.tv
 import android.content.Context
 import com.quitr.snac.core.network.createClient
 import com.quitr.snac.core.network.tv.fake.AiringTodayResponse
+import com.quitr.snac.core.network.tv.fake.EpisodeDetailsResponse
 import com.quitr.snac.core.network.tv.fake.TvDetailsResponse
 import com.quitr.snac.core.network.tv.fake.OnTheAirResponse
 import com.quitr.snac.core.network.tv.fake.PopularResponse
+import com.quitr.snac.core.network.tv.fake.SeasonDetailsResponse
 import com.quitr.snac.core.network.tv.fake.TopRatedResponse
 import com.quitr.snac.core.network.tv.fake.TrendingResponse
 import io.ktor.client.HttpClient
@@ -38,6 +40,8 @@ class DefaultTvNetworkDataSourceTest {
                     "/3/tv/on_the_air" -> OnTheAirResponse
                     "/3/tv/popular" -> PopularResponse
                     "/3/tv/top_rated" -> TopRatedResponse
+                    "/3/tv/51964/season/1" -> SeasonDetailsResponse
+                    "/3/tv/51964/season/1/episode/2" -> EpisodeDetailsResponse
                     else -> throw Exception("Invalid url path")
                 }
             )
@@ -97,7 +101,6 @@ class DefaultTvNetworkDataSourceTest {
         val res = DefaultTvNetworkDataSource(client).getPopular(
             1,
             "",
-            ""
         )
         assertEquals(res.page, 1)
         assertEquals("The Witcher", res.results.last().name)
@@ -108,9 +111,28 @@ class DefaultTvNetworkDataSourceTest {
         val res = DefaultTvNetworkDataSource(client).getTopRated(
             1,
             "",
-            ""
         )
         assertEquals(res.page, 1)
         assertEquals("Breaking Bad", res.results.first().name)
+    }
+
+    @Test
+    fun getSeasonDetails() = runTest {
+        val res = DefaultTvNetworkDataSource(client).getSeasonDetails(
+            51964, 1, ""
+        )
+        assertEquals(res.id, 51964)
+        assertEquals(res.episodes.size, 3)
+        assertEquals(res.name, "Season 1")
+    }
+
+    @Test
+    fun getEpisodeDetails() = runTest {
+        val res = DefaultTvNetworkDataSource(client).getEpisodeDetails(
+            51964, 1, 2, ""
+        )
+        assertEquals(res.name, "Fifteen Million Merits")
+        assertEquals(res.seasonNumber, 1)
+        assertEquals(res.episodeNumber, 2)
     }
 }

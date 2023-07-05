@@ -9,7 +9,7 @@ import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.model.Tv
 
-private val People = List(15) {
+internal val People = List(15) {
     Person(it, "John Cook", "Firefighter", "")
 }
 
@@ -29,7 +29,7 @@ private val Episode = Episode(
     overview = "pretium",
     episodeNumber = 2399,
     seasonNumber = 4254,
-    posterUrl = "https://search.yahoo.com/search?p=autem",
+    stillUrl = "https://search.yahoo.com/search?p=autem",
     runtime = 8223,
     voteAverage = "constituto",
     voteCount = 1314
