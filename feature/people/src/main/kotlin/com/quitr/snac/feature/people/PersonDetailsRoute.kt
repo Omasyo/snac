@@ -7,13 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quitr.snac.core.model.NavigationRoute
 
-object PersonDetailsRoute : NavigationRoute() {
-    const val personId = "personId"
+object PersonDetailsRoute : NavigationRoute("person/%s") {
+    const val personId = "person-id"
 
     override val requiredArguments: List<String>
         get() = listOf(personId)
-    override val format: String
-        get() = "person/%s"
+//    override val format: String
+//        get() = "person/%s"
 
 //    override val root: String
 //        get() = "person"

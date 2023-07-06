@@ -44,6 +44,7 @@ import com.quitr.snac.core.ui.utils.fadePlaceholder
 
 @Composable
 fun EpisodeDetailsScreen(
+    modifier: Modifier = Modifier,
     onPersonCardTap: (id: Int) -> Unit,
     onGuestStarExpand: () -> Unit,
     onCrewExpand: () -> Unit,
@@ -52,6 +53,7 @@ fun EpisodeDetailsScreen(
 ) {
         with(episode) {
                 ResizableHeaderScaffold(
+                    modifier = modifier,
                     title = name,
                     onBackPressed = onBackPressed,
                     expandedContent = {

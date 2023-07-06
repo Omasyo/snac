@@ -10,29 +10,14 @@ import com.quitr.snac.core.model.NavigationRoute
 import com.quitr.snac.core.ui.show.ShowCreditsScreen
 
 
-object EpisodeCrewRoute : NavigationRoute() {
-    const val tvId = "tvId"
-    const val seasonNumber = "season_number"
-    const val episodeNumber = "episode_number"
-
-//    override val root = "tv/episode/crew"
-
+object EpisodeCrewRoute : NavigationRoute("tv/%s/season/%s/episode/%s/crew") {
     override val requiredArguments: List<String> = listOf(
         tvId,
         seasonNumber,
         episodeNumber
     )
-    override val format: String
-        get() = "tv/%s/season/%s/episode/%s/crew"
-
-//    fun route(id: Int, seasonNo: Int, episodeNo: Int) = route(
-//        mapOf(
-//            tvId to id,
-//            seasonNumber to seasonNo,
-//            episodeNumber to episodeNo,
-//        )
-//    )
 }
+
 @Composable
 fun EpisodeCrewRoute(
     modifier: Modifier = Modifier,

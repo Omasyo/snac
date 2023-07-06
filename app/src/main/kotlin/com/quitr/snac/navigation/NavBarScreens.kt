@@ -12,6 +12,6 @@ enum class NavBarScreens(
     @StringRes val label: Int,
     val route: String
 ) {
-    Discover(SnacIcons.HomeFilled, SnacIcons.HomeOutlined, R.string.discover, DiscoverRoute.route),
+    Discover(SnacIcons.HomeFilled, SnacIcons.HomeOutlined, R.string.discover, "discover"),
     Library(SnacIcons.LibraryFilled, SnacIcons.LibraryOutlined, R.string.library, "Library")
 }

@@ -7,18 +7,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quitr.snac.core.model.NavigationRoute
 
-object PersonCastRoute : NavigationRoute() {
-    const val personId = "personId"
-
-//    override val root = "person/acting_roles"
+object PersonCastRoute : NavigationRoute("person/%s/acting-roles") {
+    const val personId = "person-id"
 
     override val requiredArguments: List<String> = listOf(personId)
-    override val format: String
-        get() = "person/%s/acting_roles"
 
-//    fun route(id: Int) = route(
-//        mapOf(personId to id)
-//    )
 }
 
 @Composable

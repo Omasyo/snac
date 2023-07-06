@@ -1,13 +1,12 @@
 package com.quitr.snac.core.model
 
-abstract class NavigationRoute {
+abstract class NavigationRoute(val format: String) {
     protected open val requiredArguments: List<String> = listOf()
     protected open val optionalArguments: List<String> = listOf()
 //    protected abstract val root: String
 
 //    val arguments get() = requiredArguments + optionalArguments
 
-    protected abstract val format: String
 
     open val route: String get() = format.format(*(
             requiredArguments + optionalArguments

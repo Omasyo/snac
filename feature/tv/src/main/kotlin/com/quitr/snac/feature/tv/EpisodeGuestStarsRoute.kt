@@ -9,7 +9,7 @@ import com.quitr.snac.core.common.R
 import com.quitr.snac.core.model.NavigationRoute
 import com.quitr.snac.core.ui.show.ShowCreditsScreen
 
-object EpisodeGuestStarsRoute : NavigationRoute() {
+object EpisodeGuestStarsRoute : NavigationRoute("tv/%s/season/%s/episode/%s/guests") {
     const val tvId = "tvId"
     const val seasonNumber = "season_number"
     const val episodeNumber = "episode_number"
@@ -21,9 +21,6 @@ object EpisodeGuestStarsRoute : NavigationRoute() {
         seasonNumber,
         episodeNumber
     )
-    override val format: String
-        get() = "tv/%s/season/%s/episode/%s/guests"
-
 //    fun route(id: Int, seasonNo: Int, episodeNo: Int) = route(
 //        mapOf(
 //            tvId to id,
