@@ -29,6 +29,7 @@ import coil.request.ImageRequest
 import com.quitr.snac.core.common.R
 import com.quitr.snac.core.model.EpisodeDetails
 import com.quitr.snac.core.ui.ResizableHeaderScaffold
+import com.quitr.snac.core.ui.card.format
 import com.quitr.snac.core.ui.carousel.PersonCarousel
 import com.quitr.snac.core.ui.show.Overview
 import com.quitr.snac.core.ui.show.separator
@@ -91,6 +92,11 @@ internal fun EpisodeDetailsScreen(
                             ) {
                                 with(MaterialTheme.typography) {
                                     Text(name, style = titleLarge)
+
+                                    Text(
+                                        "S${seasonNumber.format()} E${episodeNumber.format()}",
+                                        style = MaterialTheme.typography.titleSmall,
+                                    )
 
                                     Text(
                                         listOf(

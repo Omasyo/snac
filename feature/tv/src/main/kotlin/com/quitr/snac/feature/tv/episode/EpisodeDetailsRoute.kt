@@ -16,14 +16,15 @@ import com.quitr.snac.feature.tv.season.SeasonScreenViewModel
 @Composable
 internal fun EpisodeDetailsRoute(
     modifier: Modifier = Modifier,
+    episodeNumber: Int,
     onPersonCardTap: (id: Int) -> Unit,
     onGuestStarExpand: () -> Unit,
     onCrewExpand: () -> Unit,
     onBackPressed: () -> Unit,
     viewModel: SeasonScreenViewModel = hiltViewModel(),
 ) {
-    when (val uiState = viewModel.seasonScreenUiState.collectAsState().value) {
-        is SeasonScreenUiState.Error -> {
+    when (val uiState = viewModel.getEpisode(episodeNumber).collectAsState().value) {
+        is EpisodeScreenUiState.Error -> {
             Column(
                 modifier
                     .fillMaxWidth()
@@ -36,15 +37,15 @@ internal fun EpisodeDetailsRoute(
             }
         }
 
-        SeasonScreenUiState.Loading -> EpisodeScreenPlaceholder(onBackPressed = onBackPressed)
-        is SeasonScreenUiState.Success -> {
+        EpisodeScreenUiState.Loading -> EpisodeScreenPlaceholder(onBackPressed = onBackPressed)
+        is EpisodeScreenUiState.Success -> {
             EpisodeDetailsScreen(
                 modifier = modifier,
                 onPersonCardTap = onPersonCardTap,
                 onGuestStarExpand = onGuestStarExpand,
                 onCrewExpand = onCrewExpand,
                 onBackPressed = onBackPressed,
-                episode = uiState.season.episodes.first()
+                episode = uiState.episode
             )
         }
     }

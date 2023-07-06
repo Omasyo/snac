@@ -55,6 +55,7 @@ fun NavGraphBuilder.episodeDetailsRoute(
     val episodeNumber = checkNotNull(backStackEntry.arguments?.getInt(EpisodeNumberArg))
 
     EpisodeDetailsRoute(
+        episodeNumber = episodeNumber,
         onPersonCardTap = onPersonCardTap,
         onGuestStarExpand = { onGuestStarExpand(tvId, seasonNumber, episodeNumber) },
         onCrewExpand = { onCrewExpand(tvId, seasonNumber, episodeNumber) },

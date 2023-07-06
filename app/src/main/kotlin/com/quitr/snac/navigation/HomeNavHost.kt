@@ -18,7 +18,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.quitr.snac.feature.discover.discover.DiscoverRoute
 import com.quitr.snac.feature.discover.discover.discoverRoute
 import com.quitr.snac.feature.discover.section.navigateToSection
 import com.quitr.snac.feature.movie.navigateToMovieDetails

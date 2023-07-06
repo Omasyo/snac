@@ -11,7 +11,7 @@ import com.quitr.snac.feature.tv.season.SeasonScreenUiState
 import com.quitr.snac.feature.tv.season.SeasonScreenViewModel
 
 @Composable
-fun EpisodeCrewRoute(
+internal fun EpisodeCrewRoute(
     modifier: Modifier = Modifier,
     onPersonCardTap: (id: Int) -> Unit,
     onBackPressed: () -> Unit,

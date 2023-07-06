@@ -22,7 +22,7 @@ private object PersonCastRoute : NavigationRoute("person/%s/acting-roles") {
 
 }
 
-fun NavController.navigateToPerson(personId: Int) = navigate(PersonDetailsRoute.route(personId))
+fun NavController.navigateToPersonDetails(personId: Int) = navigate(PersonDetailsRoute.route(personId))
 
 fun NavController.navigateToPersonCast(personId: Int) = navigate(PersonCastRoute.route(personId))
 
