@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.tv
+package com.quitr.snac.feature.tv.details
 
 import android.content.res.Configuration
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -43,6 +43,7 @@ import com.quitr.snac.core.ui.show.Tags
 import com.quitr.snac.core.ui.show.separator
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
+import com.quitr.snac.feature.tv.fake.FakeTv
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

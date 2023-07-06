@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.movie
+package com.quitr.snac.feature.movie.fake
 
 import com.quitr.snac.core.model.Genre
 import com.quitr.snac.core.model.Keyword
@@ -11,7 +11,7 @@ private val People = List(15) {
     Person(it, "John Cook", "Firefighter", "")
 }
 
-private val shows = List(30) {
+private val Shows = List(30) {
     Show(
         it,
         "Son of Sango: The Return From The Evil Forest",
@@ -47,11 +47,11 @@ internal val FakeMovie = Movie(
         "Monkey Massacre Productions"
     ),
     productionCountries = listOf("United States of America", "New Zealand"),
-    recommendations = shows,
+    recommendations = Shows,
     releaseDate = "15 July 2016",
     revenue = "220",
     runtime = 45,
-    similar = shows,
+    similar = Shows,
     spokenLanguages = listOf(),
     status = "Released",
     tagline = "It's how you wear the mask that matters",

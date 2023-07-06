@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.tv
+package com.quitr.snac.feature.tv.episode
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -6,35 +6,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quitr.snac.core.common.R
-import com.quitr.snac.core.model.NavigationRoute
 import com.quitr.snac.core.ui.show.ShowCreditsScreen
+import com.quitr.snac.feature.tv.season.SeasonScreenUiState
+import com.quitr.snac.feature.tv.season.SeasonScreenViewModel
 
-
-object EpisodeCrewRoute : NavigationRoute() {
-    const val tvId = "tvId"
-    const val seasonNumber = "season_number"
-    const val episodeNumber = "episode_number"
-
-    override val root = "tv/episode/crew"
-
-    override val requiredArguments: List<String> = listOf(
-        tvId,
-        seasonNumber,
-        episodeNumber
-    )
-
-    fun route(id: Int, seasonNo: Int, episodeNo: Int) = route(
-        mapOf(
-            tvId to id,
-            seasonNumber to seasonNo,
-            episodeNumber to episodeNo,
-        )
-    )
-}
 @Composable
-fun EpisodeCrewRoute(
+internal fun EpisodeCrewRoute(
     modifier: Modifier = Modifier,
-    onPersonCardTapped: (id: Int) -> Unit,
+    onPersonCardTap: (id: Int) -> Unit,
     onBackPressed: () -> Unit,
     viewModel: SeasonScreenViewModel = hiltViewModel()
 ) {
@@ -43,7 +22,7 @@ fun EpisodeCrewRoute(
         ShowCreditsScreen(
             modifier,
             title = stringResource(R.string.crew),
-            onPersonCardTap = onPersonCardTapped,
+            onPersonCardTap = onPersonCardTap,
             onBackPressed = onBackPressed,
             people = state.season.episodes.first().crew
         )

@@ -40,7 +40,7 @@ import kotlinx.coroutines.flow.flow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShowGridScreen(
+internal fun ShowGridScreen(
     modifier: Modifier = Modifier,
     title: String,
     onMovieCardTap: (id: Int) -> Unit,
@@ -107,7 +107,7 @@ fun ShowGridScreen(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun GridScreenPlaceholder(modifier: Modifier = Modifier) {
+private fun GridScreenPlaceholder(modifier: Modifier = Modifier) {
 
     //TODO use arrangement: https://issuetracker.google.com/issues/268365538
     FlowRow(

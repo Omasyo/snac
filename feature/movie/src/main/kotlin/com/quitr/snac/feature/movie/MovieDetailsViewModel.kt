@@ -11,11 +11,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieDetailsViewModel @Inject constructor(
+internal class MovieDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     movieRepository: MovieRepository,
 ) : ViewModel() {
-    private val id = checkNotNull(savedStateHandle.get<Int>(MovieDetailsRoute.movieId))
+    private val id = checkNotNull(savedStateHandle.get<Int>(MovieIdArg))
 
     private val _movieDetailsUiState =
         MutableStateFlow<MovieDetailsUiState>(MovieDetailsUiState.Loading)

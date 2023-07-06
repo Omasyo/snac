@@ -5,22 +5,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.quitr.snac.core.model.NavigationRoute
-
-object PersonCastRoute : NavigationRoute() {
-    const val personId = "personId"
-
-    override val root = "person/acting_roles"
-
-    override val requiredArguments: List<String> = listOf(personId)
-
-    fun route(id: Int) = route(
-        mapOf(personId to id)
-    )
-}
 
 @Composable
-fun PersonCastRoute(
+internal fun PersonCastRoute(
     modifier: Modifier = Modifier,
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,

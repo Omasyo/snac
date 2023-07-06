@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.tv
+package com.quitr.snac.feature.tv.fake
 
 import com.quitr.snac.core.model.Episode
 import com.quitr.snac.core.model.Genre

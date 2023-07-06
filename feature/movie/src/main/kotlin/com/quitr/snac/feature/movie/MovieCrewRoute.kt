@@ -6,26 +6,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quitr.snac.core.common.R
-import com.quitr.snac.core.model.NavigationRoute
 import com.quitr.snac.core.ui.show.ShowCreditsScreen
 
 
- object MovieCrewRoute : NavigationRoute() {
-    const val movieId = "movieId"
-
-    override val root = "movie/cast"
-
-    override val requiredArguments: List<String> = listOf(movieId)
-
-    fun route(id: Int) = route(
-        mapOf(movieId to id)
-    )
-}
-
 @Composable
-fun MovieCrewRoute(
+internal fun MovieCrewRoute(
     modifier: Modifier = Modifier,
-    onPersonCardTapped: (id: Int) -> Unit,
+    onPersonCardTap: (id: Int) -> Unit,
     onBackPressed: () -> Unit,
     viewModel: MovieDetailsViewModel = hiltViewModel()
 ) {
@@ -34,7 +21,7 @@ fun MovieCrewRoute(
         ShowCreditsScreen(
             modifier,
             title = stringResource(R.string.crew),
-            onPersonCardTap = onPersonCardTapped,
+            onPersonCardTap = onPersonCardTap,
             onBackPressed = onBackPressed,
             people = state.movie.crew
         )

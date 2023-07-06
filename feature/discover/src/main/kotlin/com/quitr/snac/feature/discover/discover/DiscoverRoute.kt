@@ -5,16 +5,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.quitr.snac.core.model.NavigationRoute
 import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.core.ui.carousel.ShowCarouselUiState
 
-object DiscoverRoute : NavigationRoute() {
-    override val root: String = "discover"
-}
-
 @Composable
-fun DiscoverRoute(
+internal fun DiscoverRoute(
     modifier: Modifier = Modifier,
     onCarouselExpand: (SectionType) -> Unit,
     onMovieCardClicked: (id: Int) -> Unit,

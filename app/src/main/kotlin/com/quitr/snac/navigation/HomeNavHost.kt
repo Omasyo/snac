@@ -18,7 +18,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.quitr.snac.feature.discover.discover.DiscoverRoute
+import com.quitr.snac.feature.discover.discover.discoverRoute
+import com.quitr.snac.feature.discover.section.navigateToSection
+import com.quitr.snac.feature.movie.navigateToMovieDetails
+import com.quitr.snac.feature.tv.navigateToTvRoute
 
 @Composable
 fun HomeNavHost(
@@ -60,26 +63,22 @@ fun HomeNavHost(
     ) { innerPadding ->
         NavHost(
             navController = navBarController,
-            startDestination = DiscoverRoute.route,
+            startDestination = "discover",
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(
-                SnacRoutes.Discover.route,
-            ) {
-                DiscoverRoute(
+            discoverRoute(
+
                     onCarouselExpand = { sectionType ->
-                        rootNavController.navigate(SnacRoutes.Section.route(sectionType))
+                        rootNavController.navigateToSection(sectionType)
                     },
                     onTvCardClicked = { id ->
-                        rootNavController.navigate(SnacRoutes.Tv.route(id))
+                        rootNavController.navigateToTvRoute(id)
                     },
                     onMovieCardClicked = { id ->
-                        rootNavController.navigate(
-                            SnacRoutes.Movie.route(id)
-                        )
+                        rootNavController.navigateToMovieDetails(id)
                     },
                 )
-            }
+
 
             composable("Library") {
                 Box(Modifier.fillMaxSize()) {
