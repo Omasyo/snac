@@ -21,7 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.quitr.snac.feature.discover.discover.DiscoverRoute
 import com.quitr.snac.feature.discover.discover.discoverRoute
 import com.quitr.snac.feature.discover.section.navigateToSection
-import com.quitr.snac.feature.movie.navigateToMovie
+import com.quitr.snac.feature.movie.navigateToMovieDetails
 import com.quitr.snac.feature.tv.navigateToTvRoute
 
 @Composable
@@ -76,7 +76,7 @@ fun HomeNavHost(
                         rootNavController.navigateToTvRoute(id)
                     },
                     onMovieCardClicked = { id ->
-                        rootNavController.navigateToMovie(id)
+                        rootNavController.navigateToMovieDetails(id)
                     },
                 )
 

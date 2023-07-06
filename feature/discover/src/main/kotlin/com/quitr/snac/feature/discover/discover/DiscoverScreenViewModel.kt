@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DiscoverScreenViewModel @Inject constructor(
+internal class DiscoverScreenViewModel @Inject constructor(
     private val movieRepository: MovieRepository,
     private val tvRepository: TvRepository
 ) : ViewModel() {

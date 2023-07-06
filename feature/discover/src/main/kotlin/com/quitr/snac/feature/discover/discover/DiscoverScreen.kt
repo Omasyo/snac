@@ -41,7 +41,8 @@ internal fun DiscoverScreen(
         ) {
             items(SectionType.values(), { it.name }) { sectionType ->
                 AnimatedContent(
-                    targetState = showCarouselUiStates[sectionType] ?: ShowCarouselUiState.Error
+                    targetState = showCarouselUiStates[sectionType] ?: ShowCarouselUiState.Error,
+                    label = "$sectionType show carousel"
                 ) { uiState ->
                     when (uiState) {
                         ShowCarouselUiState.Error -> SectionError(

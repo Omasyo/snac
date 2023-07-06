@@ -28,18 +28,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.quitr.snac.core.model.Credit
-import com.quitr.snac.core.model.Gender
-import com.quitr.snac.core.model.Person
-import com.quitr.snac.core.model.PersonDetails
 import com.quitr.snac.core.model.ShowType
-import com.quitr.snac.core.ui.show.AboutDetails
 import com.quitr.snac.core.ui.ResizableHeaderScaffold
+import com.quitr.snac.core.ui.show.AboutDetails
 import com.quitr.snac.core.ui.show.separator
 import com.quitr.snac.core.common.R as CommonR
 
 @Composable
-fun PeopleScreen(
+internal fun PeopleScreen(
     modifier: Modifier = Modifier,
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,
@@ -206,35 +202,3 @@ fun PeopleScreen(
         }
     }
 }
-
-val Credits = List(15) {
-    Credit(
-        id = "$it",
-        role = "FisherMan",
-        title = "Call of Hunger",
-        rating = "10.0",
-        posterUrl = "https://duckduckgo.com/?q=arcu",
-        showType = ShowType.Tv,
-        relevance = 2.3,
-        showId = 6152
-    )
-}
-
-val Person = PersonDetails(
-    id = 7399,
-    actingCredits = Credits,
-    adult = false,
-    alsoKnownAs = listOf(),
-    biography = "After reuniting with Gwen Stacy, Brooklyn’s full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters the Spider Society, a team of Spider-People charged with protecting the Multiverse’s very existence. But when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders and must set out on his own to save those he loves most.",
-    birthday = "27 November 1940",
-    deathday = "27 November 1940",
-    gender = Gender.Female,
-    homepage = "nec",
-    imdbId = "agam",
-    knownForDepartment = "Actor",
-    name = "Marsha Byrd",
-    otherCredits = Credits,
-    placeOfBirth = "Amasiri, Afikpo North, Ebonyi",
-    popularity = 0.1,
-    profilePath = "dicunt"
-)

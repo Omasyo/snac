@@ -5,40 +5,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
-import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import com.quitr.snac.core.model.NavigationRoute
-
-object PersonCastRoute : NavigationRoute("person/%s/acting-roles") {
-    override val requiredArguments: List<String> = listOf(personId)
-
-}
-
-
-fun NavController.navigateToPersonCast(personId: Int) =
-    navigate(PersonCastRoute.route(personId))
-
-fun NavGraphBuilder.personCastRoute(
-    onMovieCardTap: (id: Int) -> Unit,
-    onTvCardTap: (id: Int) -> Unit,
-    onBackPressed: () -> Unit,
-) = composable(
-    route = PersonCastRoute.route,
-    arguments = listOf(navArgument(personId) {
-        type = NavType.IntType
-    })
-) {
-    PersonCastRoute(
-        onMovieCardTap = onMovieCardTap,
-        onTvCardTap = onTvCardTap,
-        onBackPressed = onBackPressed)
-}
 
 @Composable
-fun PersonCastRoute(
+internal fun PersonCastRoute(
     modifier: Modifier = Modifier,
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,

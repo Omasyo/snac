@@ -1,19 +1,14 @@
-package com.quitr.snac.feature.tv
+package com.quitr.snac.feature.tv.episode
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,9 +36,10 @@ import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.utils.InlineText
 import com.quitr.snac.core.ui.utils.append
 import com.quitr.snac.core.ui.utils.fadePlaceholder
+import com.quitr.snac.feature.tv.fake.FakeEpisode
 
 @Composable
-fun EpisodeDetailsScreen(
+internal fun EpisodeDetailsScreen(
     modifier: Modifier = Modifier,
     onPersonCardTap: (id: Int) -> Unit,
     onGuestStarExpand: () -> Unit,

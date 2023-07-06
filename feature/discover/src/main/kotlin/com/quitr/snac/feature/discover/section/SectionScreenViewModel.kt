@@ -9,13 +9,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SectionScreenViewModel @Inject constructor(
+internal class SectionScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     movieRepository: MovieRepository,
     tvRepository: TvRepository
 ) : ViewModel() {
 
-    val sectionType: SectionType = checkNotNull(savedStateHandle.get<SectionType>(SectionRoute.sectionType))
+    val sectionType: SectionType = checkNotNull(savedStateHandle.get<SectionType>(SectionTypeArg))
 
     val shows  = when (sectionType) {
         SectionType.MovieTrending -> { movieRepository.getTrendingStream() }

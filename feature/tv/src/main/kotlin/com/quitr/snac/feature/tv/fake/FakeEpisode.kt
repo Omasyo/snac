@@ -1,6 +1,7 @@
-package com.quitr.snac.feature.tv
+package com.quitr.snac.feature.tv.fake
 
 import com.quitr.snac.core.model.EpisodeDetails
+import com.quitr.snac.feature.tv.fake.People
 
 val FakeEpisode = EpisodeDetails(
     id = 4121,

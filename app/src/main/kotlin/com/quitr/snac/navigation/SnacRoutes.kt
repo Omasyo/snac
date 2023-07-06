@@ -1,18 +1,6 @@
 package com.quitr.snac.navigation
 
 import com.quitr.snac.core.model.NavigationRoute
-import com.quitr.snac.feature.discover.discover.DiscoverRoute
-import com.quitr.snac.feature.movie.MovieCrewRoute
-import com.quitr.snac.feature.movie.MovieDetailsRoute
-import com.quitr.snac.feature.people.PersonCastRoute
-import com.quitr.snac.feature.people.PersonCrewRoute
-import com.quitr.snac.feature.people.PersonDetailsRoute
-import com.quitr.snac.feature.tv.EpisodeDetailsRoute
-import com.quitr.snac.feature.tv.EpisodeCrewRoute
-import com.quitr.snac.feature.tv.EpisodeGuestStarsRoute
-import com.quitr.snac.feature.tv.TvCastRoute
-import com.quitr.snac.feature.tv.TvCrewRoute
-import com.quitr.snac.feature.tv.TvDetailsRoute
 
 object SnacRoutes {
     val Root = object : NavigationRoute("root") {

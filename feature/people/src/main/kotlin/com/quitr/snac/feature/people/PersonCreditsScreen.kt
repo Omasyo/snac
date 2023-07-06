@@ -21,10 +21,9 @@ import com.quitr.snac.core.ui.card.CreditCard
 import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.utils.plus
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PersonCreditsScreen(
+internal fun PersonCreditsScreen(
     modifier: Modifier = Modifier,
     title: String,
     onMovieCardTap: (id: Int) -> Unit,
@@ -32,15 +31,17 @@ fun PersonCreditsScreen(
     onBackPressed: () -> Unit,
     credits: List<Credit>,
 ) {
-    Scaffold(modifier, topBar = {
-        TopAppBar(navigationIcon = {
-            IconButton(onClick = onBackPressed) {
-                Icon(SnacIcons.ArrowBack, null)
-            }
-        }, title = {
-            Text(title)
-        })
-    }) { innerPadding ->
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopAppBar(navigationIcon = {
+                IconButton(onClick = onBackPressed) {
+                    Icon(SnacIcons.ArrowBack, null)
+                }
+            }, title = {
+                Text(title)
+            })
+        }) { innerPadding ->
         LazyVerticalGrid(
             columns = GridCells.Adaptive(96f.dp),
             contentPadding = innerPadding + PaddingValues(16f.dp),

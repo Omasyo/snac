@@ -10,25 +10,24 @@ import com.quitr.snac.feature.discover.section.sectionRoute
 import com.quitr.snac.feature.movie.movieCastRoute
 import com.quitr.snac.feature.movie.movieCrewRoute
 import com.quitr.snac.feature.movie.movieDetailsRoute
-import com.quitr.snac.feature.movie.navigateToMovie
+import com.quitr.snac.feature.movie.navigateToMovieDetails
 import com.quitr.snac.feature.movie.navigateToMovieCast
 import com.quitr.snac.feature.movie.navigateToMovieCrew
 import com.quitr.snac.feature.people.navigateToPerson
 import com.quitr.snac.feature.people.personCastRoute
 import com.quitr.snac.feature.people.personCrewRoute
-import com.quitr.snac.feature.people.personRoute
-import com.quitr.snac.feature.tv.episodeCrewRoute
-import com.quitr.snac.feature.tv.episodeDetailsRoute
-import com.quitr.snac.feature.tv.episodeGuestsRoute
-import com.quitr.snac.feature.tv.navigateToEpisodeCrew
-import com.quitr.snac.feature.tv.navigateToEpisodeDetails
-import com.quitr.snac.feature.tv.navigateToEpisodeGuests
+import com.quitr.snac.feature.people.personDetailsRoute
+import com.quitr.snac.feature.tv.episode.episodeCrewRoute
+import com.quitr.snac.feature.tv.episode.episodeDetailsRoute
+import com.quitr.snac.feature.tv.episode.episodeGuestsRoute
+import com.quitr.snac.feature.tv.episode.navigateToEpisodeCrew
+import com.quitr.snac.feature.tv.episode.navigateToEpisodeDetails
+import com.quitr.snac.feature.tv.episode.navigateToEpisodeGuests
 import com.quitr.snac.feature.tv.navigateToTvRoute
 import com.quitr.snac.feature.tv.navigateTvCast
 import com.quitr.snac.feature.tv.navigateTvCrew
 import com.quitr.snac.feature.tv.tvCastRoute
 import com.quitr.snac.feature.tv.tvCrewRoute
-import com.quitr.snac.feature.tv.tvId
 import com.quitr.snac.feature.tv.tvRoute
 
 @Composable
@@ -37,7 +36,7 @@ fun SnacNavHost(
     navController: NavHostController = rememberNavController(),
     navBarController: NavHostController = rememberNavController(),
 ) {
-    val onMovieCardTap = { id: Int -> navController.navigateToMovie(id) }
+    val onMovieCardTap = { id: Int -> navController.navigateToMovieDetails(id) }
     val onTvCardTap = { id: Int -> navController.navigateToTvRoute(id) }
     val onPersonCardTap = { id: Int -> navController.navigateToPerson(id) }
 
@@ -111,7 +110,7 @@ fun SnacNavHost(
             onBackPressed = navController::popBackStack
         )
         
-        personRoute(
+        personDetailsRoute(
             onMovieCardTap = onMovieCardTap,
             onTvCardTap = onTvCardTap,
             onActingCreditsExpand = { personId ->

@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.movie
+package com.quitr.snac.feature.tv.details
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -10,20 +10,20 @@ import com.quitr.snac.core.ui.show.ShowCreditsScreen
 
 
 @Composable
-internal fun MovieCrewRoute(
+internal fun TvCrewRoute(
     modifier: Modifier = Modifier,
     onPersonCardTap: (id: Int) -> Unit,
     onBackPressed: () -> Unit,
-    viewModel: MovieDetailsViewModel = hiltViewModel()
+    viewModel: TvDetailsViewModel = hiltViewModel()
 ) {
-    val state = viewModel.movieDetailsUiState.collectAsState().value
-    if (state is MovieDetailsUiState.Success) {
+    val state = viewModel.tvDetailsUiState.collectAsState().value
+    if (state is TvScreenUiState.Success) {
         ShowCreditsScreen(
             modifier,
             title = stringResource(R.string.crew),
             onPersonCardTap = onPersonCardTap,
             onBackPressed = onBackPressed,
-            people = state.movie.crew
+            people = state.tv.crew
         )
     }
 }

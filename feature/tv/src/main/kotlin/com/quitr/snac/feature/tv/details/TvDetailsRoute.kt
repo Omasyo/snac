@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.movie
+package com.quitr.snac.feature.tv.details
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -7,25 +7,31 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-internal fun MovieDetailsRoute(
+internal fun TvDetailsRoute(
     modifier: Modifier = Modifier,
     onMovieCardTap: (id: Int) -> Unit,
     onTvCardTap: (id: Int) -> Unit,
     onPersonCardTap: (id: Int) -> Unit,
+    onEpisodeCardTap: (showId: Int, seasonNumber: Int, episodeNumber: Int) -> Unit,
+    onSeasonCardTap: (showId: Int, seasonNumber: Int) -> Unit,
+    onSeasonsExpand: () -> Unit,
     onCastExpand: () -> Unit,
     onCrewExpand: () -> Unit,
     onBackPressed: () -> Unit,
-    viewModel: MovieDetailsViewModel = hiltViewModel()
+    viewModel: TvDetailsViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.movieDetailsUiState.collectAsState()
-    MovieDetailsScreen(
+    val uiState by viewModel.tvDetailsUiState.collectAsState()
+    TvDetailsScreen(
         modifier = modifier,
         onMovieCardTap = onMovieCardTap,
         onTvCardTap = onTvCardTap,
         onPersonCardTap = onPersonCardTap,
-        onBackPressed = onBackPressed,
+        onEpisodeCardTap = onEpisodeCardTap,
+        onSeasonCardTap = onSeasonCardTap,
+        onSeasonsExpand = onSeasonsExpand,
         onCastExpand = onCastExpand,
         onCrewExpand = onCrewExpand,
+        onBackPressed = onBackPressed,
         uiState = uiState
     )
 }

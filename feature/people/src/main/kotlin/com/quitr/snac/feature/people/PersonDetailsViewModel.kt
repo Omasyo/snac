@@ -11,11 +11,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PersonDetailsViewModel @Inject constructor(
+internal class PersonDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     peopleRepository: PeopleRepository,
 ) : ViewModel() {
-    private val id = checkNotNull(savedStateHandle.get<Int>(personId))
+    private val id = checkNotNull(savedStateHandle.get<Int>(PersonIdArg))
 
 
     private val _personDetailsUiState =

@@ -13,7 +13,7 @@ import com.quitr.snac.core.ui.card.CreditCard
 import com.quitr.snac.core.ui.carousel.Carousel
 
 @Composable
-fun CreditCarousel(
+internal fun CreditCarousel(
     modifier: Modifier = Modifier,
     category: String,
     credits: List<Credit>,
