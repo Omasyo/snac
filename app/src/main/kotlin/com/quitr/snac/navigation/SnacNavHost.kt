@@ -17,7 +17,8 @@ import com.quitr.snac.feature.people.PersonCastRoute
 import com.quitr.snac.feature.people.PersonCrewRoute
 import com.quitr.snac.feature.people.PersonDetailsRoute
 import com.quitr.snac.feature.tv.EpisodeDetailsRoute
-import com.quitr.snac.feature.tv.SeasonScreenViewModel
+import com.quitr.snac.feature.tv.EpisodeCrewRoute
+import com.quitr.snac.feature.tv.EpisodeGuestStarsRoute
 import com.quitr.snac.feature.tv.TvCastRoute
 import com.quitr.snac.feature.tv.TvCrewRoute
 import com.quitr.snac.feature.tv.TvDetailsRoute
@@ -106,9 +107,9 @@ fun SnacNavHost(
                 onTvCardTap = onTvCardTap,
                 onPersonCardTap = onPersonCardTap,
                 onEpisodeCardTap = { showId, seasonNumber, episodeNumber ->
-                                   navController.navigate(
-                                       SnacRoutes.TvEpisode.route(showId, seasonNumber, episodeNumber)
-                                   )
+                    navController.navigate(
+                        SnacRoutes.TvEpisode.route(showId, seasonNumber, episodeNumber)
+                    )
                 },
                 onSeasonCardTap = { showId, seasonNumber -> },
                 onSeasonsExpand = { /*TODO*/ },
@@ -135,14 +136,56 @@ fun SnacNavHost(
                     type = NavType.IntType
                 }
             )
-        ) {
+        ) { backStackEntry ->
+            val tvId = checkNotNull(backStackEntry.arguments?.getInt(SnacRoutes.Tv.tvId))
+            val seasonNumber = checkNotNull(backStackEntry.arguments?.getInt(SnacRoutes.TvEpisode.seasonNumber))
+            val episodeNumber = checkNotNull(backStackEntry.arguments?.getInt(SnacRoutes.TvEpisode.episodeNumber))
+
             EpisodeDetailsRoute(
                 onPersonCardTap = onPersonCardTap,
-                onGuestStarExpand = {},
-                onCrewExpand = {},
+                onGuestStarExpand = {
+                    navController.navigate(SnacRoutes.TvEpisodeGuests.route(tvId, seasonNumber, episodeNumber))
+                },
+                onCrewExpand = {
+                    navController.navigate(SnacRoutes.TvEpisodeCrew.route(tvId, seasonNumber, episodeNumber))
+                },
                 onBackPressed = { navBarController.popBackStack() },
             )
         }
+
+        composable(
+            SnacRoutes.TvEpisodeCrew.route, arguments = listOf(
+                navArgument(SnacRoutes.TvEpisodeCrew.tvId) {
+                    type = NavType.IntType
+                },
+                navArgument(SnacRoutes.TvEpisodeCrew.seasonNumber) {
+                    type = NavType.IntType
+                }, navArgument(SnacRoutes.TvEpisodeCrew.episodeNumber) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            EpisodeCrewRoute(
+                onPersonCardTapped = onPersonCardTap,
+                onBackPressed = { navController.popBackStack() })
+        }
+        composable(
+            SnacRoutes.TvEpisodeGuests.route, arguments = listOf(
+                navArgument(SnacRoutes.TvEpisodeGuests.tvId) {
+                    type = NavType.IntType
+                },
+                navArgument(SnacRoutes.TvEpisodeGuests.seasonNumber) {
+                    type = NavType.IntType
+                }, navArgument(SnacRoutes.TvEpisodeGuests.episodeNumber) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            EpisodeGuestStarsRoute(
+                onPersonCardTapped = onPersonCardTap,
+                onBackPressed = { navController.popBackStack() })
+        }
+
         composable(
             SnacRoutes.TvCast.route, arguments = listOf(navArgument(SnacRoutes.TvCast.tvId) {
                 type = NavType.IntType
