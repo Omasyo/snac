@@ -14,21 +14,23 @@ object EpisodeGuestStarsRoute : NavigationRoute() {
     const val seasonNumber = "season_number"
     const val episodeNumber = "episode_number"
 
-    override val root = "tv/episode/guests"
+//    override val root = "tv/episode/guests"
 
     override val requiredArguments: List<String> = listOf(
         tvId,
         seasonNumber,
         episodeNumber
     )
+    override val format: String
+        get() = "tv/%s/season/%s/episode/%s/guests"
 
-    fun route(id: Int, seasonNo: Int, episodeNo: Int) = route(
-        mapOf(
-            tvId to id,
-            seasonNumber to seasonNo,
-            episodeNumber to episodeNo,
-        )
-    )
+//    fun route(id: Int, seasonNo: Int, episodeNo: Int) = route(
+//        mapOf(
+//            tvId to id,
+//            seasonNumber to seasonNo,
+//            episodeNumber to episodeNo,
+//        )
+//    )
 }
 
 @Composable

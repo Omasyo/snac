@@ -12,13 +12,15 @@ object TvDetailsRoute : NavigationRoute() {
 
     override val requiredArguments: List<String>
         get() = listOf(tvId)
+    override val format: String
+        get() = "tv/%s"
 
-    override val root: String
-        get() = "tv"
+//    override val root: String
+//        get() = "tv"
 
-    fun route(id: Int) = route(
-        mapOf(tvId to id)
-    )
+//    fun route(id: Int) = route(
+//        mapOf(tvId to id)
+//    )
 }
 
 @Composable

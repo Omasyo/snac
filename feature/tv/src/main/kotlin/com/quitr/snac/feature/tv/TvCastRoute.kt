@@ -12,13 +12,15 @@ import com.quitr.snac.core.ui.show.ShowCreditsScreen
 object TvCastRoute : NavigationRoute() {
     const val tvId = "tvId"
 
-    override val root = "tv/cast"
+//    override val root = "tv/cast"
 
     override val requiredArguments: List<String> = listOf(tvId)
+    override val format: String
+        get() = "tv/%s/cast"
 
-    fun route(id: Int) = route(
-        mapOf(tvId to id)
-    )
+//    fun route(id: Int) = route(
+//        mapOf(tvId to id)
+//    )
 }
 
 @Composable

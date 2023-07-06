@@ -10,13 +10,15 @@ import com.quitr.snac.core.model.NavigationRoute
 object PersonCrewRoute : NavigationRoute() {
     const val personId = "personId"
 
-    override val root = "person/other_roles"
+//    override val root = "person/other_roles"
 
     override val requiredArguments: List<String> = listOf(personId)
+    override val format: String
+        get() = "person/%s/other_roles"
 
-    fun route(id: Int) = route(
-        mapOf(personId to id)
-    )
+//    fun route(id: Int) = route(
+//        mapOf(personId to id)
+//    )
 }
 
 @Composable

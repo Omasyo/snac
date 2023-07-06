@@ -10,7 +10,7 @@ import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.core.ui.carousel.ShowCarouselUiState
 
 object DiscoverRoute : NavigationRoute() {
-    override val root: String = "discover"
+    override val format: String = "discover"
 }
 
 @Composable

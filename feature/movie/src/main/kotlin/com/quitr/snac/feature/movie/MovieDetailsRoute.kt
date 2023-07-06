@@ -13,12 +13,15 @@ object MovieDetailsRoute : NavigationRoute() {
     override val requiredArguments: List<String>
         get() = listOf(movieId)
 
-    override val root: String
-        get() = "movie"
 
-    fun route(id: Int) = route(
-        mapOf(movieId to id)
-    )
+//    override val root: String
+//        get() = "movie"
+    override val format: String
+        get() = "movie/%s"
+
+//    fun route(id: Int) = route(
+//        mapOf(movieId to id)
+//    )
 }
 
 @Composable

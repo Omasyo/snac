@@ -13,13 +13,15 @@ import com.quitr.snac.core.ui.show.ShowCreditsScreen
  object MovieCrewRoute : NavigationRoute() {
     const val movieId = "movieId"
 
-    override val root = "movie/cast"
+//    override val root = "movie/cast"
 
     override val requiredArguments: List<String> = listOf(movieId)
+     override val format: String
+         get() = "movie/%s/crew"
 
-    fun route(id: Int) = route(
-        mapOf(movieId to id)
-    )
+//     fun route(id: Int) = route(
+//        mapOf(movieId to id)
+//    )
 }
 
 @Composable

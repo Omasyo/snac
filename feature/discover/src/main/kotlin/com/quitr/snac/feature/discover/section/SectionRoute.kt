@@ -11,13 +11,15 @@ import com.quitr.snac.feature.discover.discover.title
 object SectionRoute : NavigationRoute() {
     const val sectionType = "section-type"
 
-    override val root = "section"
+//    override val root = "section"
 
     override val requiredArguments: List<String> = listOf(sectionType)
+    override val format: String
+        get() = "section/%s"
 
-    fun route(type: SectionType) = route(
-        mapOf(sectionType to type)
-    )
+//    fun route(type: SectionType) = route(
+//        mapOf(sectionType to type)
+//    )
 }
 
 @Composable

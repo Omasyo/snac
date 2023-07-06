@@ -18,7 +18,9 @@ import com.quitr.snac.feature.tv.TvDetailsRoute
 
 object SnacRoutes {
     val Root = object : NavigationRoute() {
-        override val root: String
+        //        override val root: String
+//            get() = "root"
+        override val format: String
             get() = "root"
 
     }

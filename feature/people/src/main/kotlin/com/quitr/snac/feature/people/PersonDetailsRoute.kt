@@ -12,13 +12,15 @@ object PersonDetailsRoute : NavigationRoute() {
 
     override val requiredArguments: List<String>
         get() = listOf(personId)
+    override val format: String
+        get() = "person/%s"
 
-    override val root: String
-        get() = "person"
+//    override val root: String
+//        get() = "person"
 
-    fun route(id: Int) = route(
-        mapOf(personId to id)
-    )
+//    fun route(id: Int) = route(
+//        mapOf(personId to id)
+//    )
 }
 
 @Composable
