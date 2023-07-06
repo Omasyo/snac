@@ -14,7 +14,7 @@ import androidx.navigation.navArgument
 import com.quitr.snac.core.model.NavigationRoute
 
 const val tvId = "tv-id"
-const val seasonNumber = "season-number"
+const val seasonNumberArg = "season-number"
 const val episodeNumber = "episode-number"
 
 object TvDetailsRoute : NavigationRoute("tv/%s") {

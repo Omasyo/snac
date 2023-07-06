@@ -7,7 +7,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -16,11 +15,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.quitr.snac.core.model.EpisodeDetails
 import com.quitr.snac.core.model.NavigationRoute
 
 object EpisodeDetailsRoute : NavigationRoute("tv/%s/season/%s/episode/%s") {
-    override val requiredArguments: List<String> = listOf(tvId, seasonNumber, episodeNumber)
+    override val requiredArguments: List<String> = listOf(tvId, seasonNumberArg, episodeNumber)
 }
 
 fun NavController.navigateToEpisodeDetails(showId: Int, seasonNumber: Int, episodeNumber: Int) =
@@ -35,12 +33,12 @@ fun NavGraphBuilder.episodeDetailsRoute(
     route = EpisodeDetailsRoute.route,
     arguments = listOf(
         navArgument(tvId) { type = NavType.IntType },
-        navArgument(seasonNumber) { type = NavType.IntType },
+        navArgument(seasonNumberArg) { type = NavType.IntType },
         navArgument(episodeNumber) { type = NavType.IntType }
     )
 ) { backStackEntry ->
     val tvId = checkNotNull(backStackEntry.arguments?.getInt(tvId))
-    val seasonNumber = checkNotNull(backStackEntry.arguments?.getInt(seasonNumber))
+    val seasonNumber = checkNotNull(backStackEntry.arguments?.getInt(seasonNumberArg))
     val episodeNumber = checkNotNull(backStackEntry.arguments?.getInt(episodeNumber))
 
     EpisodeDetailsRoute(
@@ -50,7 +48,6 @@ fun NavGraphBuilder.episodeDetailsRoute(
         onBackPressed = onBackPressed
     )
 }
-
 
 @Composable
 fun EpisodeDetailsRoute(

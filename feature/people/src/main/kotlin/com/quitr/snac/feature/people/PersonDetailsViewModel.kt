@@ -15,7 +15,7 @@ class PersonDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     peopleRepository: PeopleRepository,
 ) : ViewModel() {
-    private val id = checkNotNull(savedStateHandle.get<Int>(PersonDetailsRoute.personId))
+    private val id = checkNotNull(savedStateHandle.get<Int>(personId))
 
 
     private val _personDetailsUiState =

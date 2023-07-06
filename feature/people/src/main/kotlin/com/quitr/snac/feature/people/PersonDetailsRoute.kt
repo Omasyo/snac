@@ -5,23 +5,47 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
+import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.quitr.snac.core.model.NavigationRoute
 
-object PersonDetailsRoute : NavigationRoute("person/%s") {
-    const val personId = "person-id"
+const val personId = "person-id"
 
+object PersonDetailsRoute : NavigationRoute("person/%s") {
     override val requiredArguments: List<String>
         get() = listOf(personId)
-//    override val format: String
-//        get() = "person/%s"
-
-//    override val root: String
-//        get() = "person"
-
-//    fun route(id: Int) = route(
-//        mapOf(personId to id)
-//    )
 }
+
+
+fun NavController.navigateToPerson(personId: Int) =
+    navigate(PersonDetailsRoute.route(personId))
+
+fun NavGraphBuilder.personRoute(
+    onMovieCardTap: (id: Int) -> Unit,
+    onTvCardTap: (id: Int) -> Unit,
+    onActingCreditsExpand: (id: Int) -> Unit,
+    onOtherCreditsExpand: (id: Int) -> Unit,
+    onBackPressed: () -> Unit,
+) = composable(
+    route = PersonDetailsRoute.route,
+    arguments = listOf(navArgument(personId) {
+        type = NavType.IntType
+    })
+) {backStackEntry ->
+    val personId =
+        checkNotNull(backStackEntry.arguments?.getInt(personId))
+
+   PersonDetailsRoute(
+       onMovieCardTap = onMovieCardTap,
+       onTvCardTap = onTvCardTap,
+       onActingCreditsExpand = { onActingCreditsExpand(personId) },
+       onOtherCreditsExpand = { onOtherCreditsExpand(personId) },
+       onBackPressed = onBackPressed)
+}
+
 
 @Composable
 fun PersonDetailsRoute(

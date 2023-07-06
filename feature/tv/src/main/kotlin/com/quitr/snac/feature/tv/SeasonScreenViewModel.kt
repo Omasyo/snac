@@ -15,8 +15,8 @@ class SeasonScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     tvRepository: TvRepository
 ) : ViewModel() {
-    private val id = checkNotNull(savedStateHandle.get<Int>(EpisodeDetailsRoute.tvId))
-    private val seasonNumber = checkNotNull(savedStateHandle.get<Int>(EpisodeDetailsRoute.seasonNumber))
+    private val id = checkNotNull(savedStateHandle.get<Int>(tvId))
+    private val seasonNumber = checkNotNull(savedStateHandle.get<Int>(seasonNumberArg))
 
     private val _seasonScreenUiState =
         MutableStateFlow<SeasonScreenUiState>(SeasonScreenUiState.Loading)

@@ -5,35 +5,49 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
+import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.quitr.snac.core.common.R
 import com.quitr.snac.core.model.NavigationRoute
 import com.quitr.snac.core.ui.show.ShowCreditsScreen
 
-object EpisodeGuestStarsRoute : NavigationRoute("tv/%s/season/%s/episode/%s/guests") {
-    const val tvId = "tvId"
-    const val seasonNumber = "season_number"
-    const val episodeNumber = "episode_number"
-
-//    override val root = "tv/episode/guests"
+object EpisodeGuestsRoute : NavigationRoute("tv/%s/season/%s/episode/%s/guests") {
 
     override val requiredArguments: List<String> = listOf(
         tvId,
-        seasonNumber,
+        seasonNumberArg,
         episodeNumber
     )
-//    fun route(id: Int, seasonNo: Int, episodeNo: Int) = route(
-//        mapOf(
-//            tvId to id,
-//            seasonNumber to seasonNo,
-//            episodeNumber to episodeNo,
-//        )
-//    )
+}
+
+
+fun NavController.navigateToEpisodeGuests(showId: Int, seasonNumber: Int, episodeNumber: Int) =
+    navigate(EpisodeDetailsRoute.route(showId, seasonNumber, episodeNumber))
+
+fun NavGraphBuilder.episodeGuestsRoute(
+    onPersonCardTap: (personId: Int) -> Unit,
+    onBackPressed: () -> Unit,
+) = composable(
+    route = EpisodeGuestsRoute.route,
+    arguments = listOf(
+        navArgument(tvId) { type = NavType.IntType },
+        navArgument(seasonNumberArg) { type = NavType.IntType },
+        navArgument(episodeNumber) { type = NavType.IntType }
+    )
+) {
+    EpisodeGuestStarsRoute(
+        onPersonCardTap = onPersonCardTap,
+        onBackPressed = onBackPressed
+    )
 }
 
 @Composable
 fun EpisodeGuestStarsRoute(
     modifier: Modifier = Modifier,
-    onPersonCardTapped: (id: Int) -> Unit,
+    onPersonCardTap: (id: Int) -> Unit,
     onBackPressed: () -> Unit,
     viewModel: SeasonScreenViewModel = hiltViewModel()
 ) {
@@ -42,7 +56,7 @@ fun EpisodeGuestStarsRoute(
         ShowCreditsScreen(
             modifier,
             title = stringResource(R.string.guest_stars),
-            onPersonCardTap = onPersonCardTapped,
+            onPersonCardTap = onPersonCardTap,
             onBackPressed = onBackPressed,
             people = state.season.episodes.first().guestStars
         )

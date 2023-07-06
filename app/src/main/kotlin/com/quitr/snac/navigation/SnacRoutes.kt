@@ -30,14 +30,14 @@ object SnacRoutes {
 //    val MovieCast = MovieCastRoute
 //    val MovieCrew = MovieCrewRoute
 
-    val Tv = TvDetailsRoute
-    val TvCast = TvCastRoute
-    val TvCrew = TvCrewRoute
-    val TvEpisode = EpisodeDetailsRoute
-    val TvEpisodeCrew = EpisodeCrewRoute
-    val TvEpisodeGuests = EpisodeGuestStarsRoute
-
-    val Person = PersonDetailsRoute
-    val PersonCast = PersonCastRoute
-    val PersonCrew = PersonCrewRoute
+//    val Tv = TvDetailsRoute
+//    val TvCast = TvCastRoute
+//    val TvCrew = TvCrewRoute
+//    val TvEpisode = EpisodeDetailsRoute
+//    val TvEpisodeCrew = EpisodeCrewRoute
+//    val TvEpisodeGuests = EpisodeGuestStarsRoute
+//
+//    val Person = PersonDetailsRoute
+//    val PersonCast = PersonCastRoute
+//    val PersonCrew = PersonCrewRoute
 }
