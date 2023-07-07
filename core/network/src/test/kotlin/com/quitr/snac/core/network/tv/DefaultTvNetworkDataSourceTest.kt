@@ -4,12 +4,12 @@ import android.content.Context
 import com.quitr.snac.core.network.createClient
 import com.quitr.snac.core.network.tv.fake.AiringTodayResponse
 import com.quitr.snac.core.network.tv.fake.EpisodeDetailsResponse
-import com.quitr.snac.core.network.tv.fake.TvDetailsResponse
 import com.quitr.snac.core.network.tv.fake.OnTheAirResponse
 import com.quitr.snac.core.network.tv.fake.PopularResponse
 import com.quitr.snac.core.network.tv.fake.SeasonDetailsResponse
 import com.quitr.snac.core.network.tv.fake.TopRatedResponse
 import com.quitr.snac.core.network.tv.fake.TrendingResponse
+import com.quitr.snac.core.network.tv.fake.TvDetailsResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond

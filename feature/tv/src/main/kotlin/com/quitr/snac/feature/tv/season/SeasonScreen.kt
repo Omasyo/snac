@@ -14,15 +14,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.quitr.snac.core.model.Season
-import com.quitr.snac.core.ui.theme.SnacIcons
-import com.quitr.snac.core.ui.utils.plus
 import com.quitr.snac.core.common.R
+import com.quitr.snac.core.model.Season
 import com.quitr.snac.core.ui.card.SeasonCard
+import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.theme.SnacTheme
+import com.quitr.snac.core.ui.utils.plus
 import com.quitr.snac.feature.tv.fake.FakeTv
 
 @OptIn(ExperimentalMaterial3Api::class)

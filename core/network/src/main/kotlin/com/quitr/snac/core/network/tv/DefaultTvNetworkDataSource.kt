@@ -1,17 +1,15 @@
 package com.quitr.snac.core.network.tv
 
 
-import com.quitr.snac.core.network.createClient
 import com.quitr.snac.core.network.tv.models.EpisodeApiModel
 import com.quitr.snac.core.network.tv.models.SeasonDetailsApiModel
 import com.quitr.snac.core.network.tv.models.TvDetailsApiModel
 import com.quitr.snac.core.network.tv.models.TvListApiModel
-import javax.inject.Inject
-
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
+import javax.inject.Inject
 
 class DefaultTvNetworkDataSource @Inject constructor(private val client: HttpClient) :
     TvNetworkDataSource {

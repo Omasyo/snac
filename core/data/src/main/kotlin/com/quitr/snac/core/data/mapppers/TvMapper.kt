@@ -1,7 +1,5 @@
 package com.quitr.snac.core.data.mapppers
 
-import com.quitr.snac.core.model.Episode
-
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.model.Tv

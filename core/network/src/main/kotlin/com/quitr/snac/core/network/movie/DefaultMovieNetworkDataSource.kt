@@ -1,8 +1,7 @@
 package com.quitr.snac.core.network.movie
 
-import com.quitr.snac.core.network.movie.models.MovieListApiModel
 import com.quitr.snac.core.network.movie.models.MovieDetailsApiModel
-import com.quitr.snac.core.network.movie.models.RecommendationsApiModel
+import com.quitr.snac.core.network.movie.models.MovieListApiModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

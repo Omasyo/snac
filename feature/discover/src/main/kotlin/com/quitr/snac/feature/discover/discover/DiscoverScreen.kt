@@ -17,9 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.model.SectionType
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
-import com.quitr.snac.core.ui.carousel.ShowCarousel
 import com.quitr.snac.core.ui.carousel.SectionError
 import com.quitr.snac.core.ui.carousel.SectionPlaceholder
+import com.quitr.snac.core.ui.carousel.ShowCarousel
 import com.quitr.snac.core.ui.carousel.ShowCarouselUiState
 import com.quitr.snac.core.ui.theme.SnacTheme
 import com.quitr.snac.feature.discover.R

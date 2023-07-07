@@ -3,7 +3,6 @@ package com.quitr.snac
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.quitr.snac.core.ui.theme.SnacTheme

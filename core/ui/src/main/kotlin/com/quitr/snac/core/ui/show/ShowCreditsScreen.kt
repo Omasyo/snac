@@ -17,8 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.quitr.snac.core.model.Person
 import com.quitr.snac.core.ui.card.PersonCard
-import com.quitr.snac.core.ui.utils.plus
 import com.quitr.snac.core.ui.theme.SnacIcons
+import com.quitr.snac.core.ui.utils.plus
 
 
 @OptIn(ExperimentalMaterial3Api::class)

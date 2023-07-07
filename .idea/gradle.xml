@@ -18,7 +18,7 @@
         </compositeConfiguration>
         <option name="testRunner" value="GRADLE" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
+        <option name="gradleJvm" value="Embedded JDK" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -36,6 +36,7 @@
             <option value="$PROJECT_DIR$/feature/discover" />
             <option value="$PROJECT_DIR$/feature/movie" />
             <option value="$PROJECT_DIR$/feature/people" />
+            <option value="$PROJECT_DIR$/feature/search" />
             <option value="$PROJECT_DIR$/feature/tv" />
           </set>
         </option>

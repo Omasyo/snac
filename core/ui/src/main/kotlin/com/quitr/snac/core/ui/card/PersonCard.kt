@@ -19,8 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.quitr.snac.core.common.R as CommonR
 import com.quitr.snac.core.ui.theme.SnacTheme
+import com.quitr.snac.core.common.R as CommonR
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

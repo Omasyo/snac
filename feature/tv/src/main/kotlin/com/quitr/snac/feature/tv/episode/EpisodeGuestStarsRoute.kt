@@ -7,7 +7,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quitr.snac.core.common.R
 import com.quitr.snac.core.ui.show.ShowCreditsScreen
-import com.quitr.snac.feature.tv.season.SeasonScreenUiState
 import com.quitr.snac.feature.tv.season.SeasonScreenViewModel
 
 

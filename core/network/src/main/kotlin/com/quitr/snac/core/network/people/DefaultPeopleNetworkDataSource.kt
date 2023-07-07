@@ -1,6 +1,5 @@
 package com.quitr.snac.core.network.people
 
-import com.quitr.snac.core.network.createClient
 import com.quitr.snac.core.network.people.models.PersonApiModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

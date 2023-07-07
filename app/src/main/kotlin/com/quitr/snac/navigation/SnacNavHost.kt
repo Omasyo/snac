@@ -10,12 +10,12 @@ import com.quitr.snac.feature.discover.section.sectionRoute
 import com.quitr.snac.feature.movie.movieCastRoute
 import com.quitr.snac.feature.movie.movieCrewRoute
 import com.quitr.snac.feature.movie.movieDetailsRoute
-import com.quitr.snac.feature.movie.navigateToMovieDetails
 import com.quitr.snac.feature.movie.navigateToMovieCast
 import com.quitr.snac.feature.movie.navigateToMovieCrew
-import com.quitr.snac.feature.people.navigateToPersonDetails
+import com.quitr.snac.feature.movie.navigateToMovieDetails
 import com.quitr.snac.feature.people.navigateToPersonCast
 import com.quitr.snac.feature.people.navigateToPersonCrew
+import com.quitr.snac.feature.people.navigateToPersonDetails
 import com.quitr.snac.feature.people.personCastRoute
 import com.quitr.snac.feature.people.personCrewRoute
 import com.quitr.snac.feature.people.personDetailsRoute
@@ -26,10 +26,10 @@ import com.quitr.snac.feature.tv.episodeRoute
 import com.quitr.snac.feature.tv.navigateToEpisodeCrew
 import com.quitr.snac.feature.tv.navigateToEpisodeDetails
 import com.quitr.snac.feature.tv.navigateToEpisodeGuests
-import com.quitr.snac.feature.tv.navigateToTvRoute
 import com.quitr.snac.feature.tv.navigateToTvCast
 import com.quitr.snac.feature.tv.navigateToTvCrew
 import com.quitr.snac.feature.tv.navigateToTvEpisodes
+import com.quitr.snac.feature.tv.navigateToTvRoute
 import com.quitr.snac.feature.tv.navigateToTvSeasons
 import com.quitr.snac.feature.tv.tvCastRoute
 import com.quitr.snac.feature.tv.tvCrewRoute

@@ -3,7 +3,6 @@ package com.quitr.snac.core.data.mapppers
 import com.quitr.snac.core.model.Person
 import com.quitr.snac.core.network.Api
 import com.quitr.snac.core.network.tv.models.CastApiModel
-import com.quitr.snac.core.network.tv.models.JobApiModel
 import com.quitr.snac.core.network.tv.models.RoleApiModel
 
 private fun List<RoleApiModel>.toNames() = map { it.character }

@@ -2,7 +2,6 @@ package com.quitr.snac.core.data.mapppers
 
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 
 internal fun Double.formatTo1dp() = "%.1f".format(this)
 

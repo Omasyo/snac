@@ -40,10 +40,10 @@ import coil.request.ImageRequest
 import com.quitr.snac.core.common.R
 import com.quitr.snac.core.model.Genre
 import com.quitr.snac.core.model.Keyword
-import com.quitr.snac.core.ui.utils.InlineText
 import com.quitr.snac.core.ui.ResizableHeaderScaffold
-import com.quitr.snac.core.ui.utils.append
 import com.quitr.snac.core.ui.theme.SnacIcons
+import com.quitr.snac.core.ui.utils.InlineText
+import com.quitr.snac.core.ui.utils.append
 import com.quitr.snac.core.common.R as CommonR
 
 @Composable
