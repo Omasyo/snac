@@ -5,10 +5,17 @@
         <item quantity="other">%1$s mins</item>
     </plurals>
 
-    <string name="season">Season %1$s</string>
-    <string name="episode">Episode %1$s</string>
-    <string name="seasons">Seasons</string>
-    <string name="episodes">Episodes</string>
+    <string name="season_id">Season %1$s</string>
+    <string name="episode_id">Episode %1$s</string>
+
+    <plurals name="seasons">
+        <item quantity="one">Season</item>
+        <item quantity="other">Seasons</item>
+    </plurals>
+    <plurals name="episodes">
+        <item quantity="one">Episode</item>
+        <item quantity="other">Episodes</item>
+    </plurals>
 
     <string name="movie">Movie</string>
     <string name="tv">Tv</string>

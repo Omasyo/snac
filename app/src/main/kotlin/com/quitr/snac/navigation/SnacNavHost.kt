@@ -22,15 +22,19 @@ import com.quitr.snac.feature.people.personDetailsRoute
 import com.quitr.snac.feature.tv.episodeCrewRoute
 import com.quitr.snac.feature.tv.episodeDetailsRoute
 import com.quitr.snac.feature.tv.episodeGuestsRoute
+import com.quitr.snac.feature.tv.episodeRoute
 import com.quitr.snac.feature.tv.navigateToEpisodeCrew
 import com.quitr.snac.feature.tv.navigateToEpisodeDetails
 import com.quitr.snac.feature.tv.navigateToEpisodeGuests
 import com.quitr.snac.feature.tv.navigateToTvRoute
-import com.quitr.snac.feature.tv.navigateTvCast
-import com.quitr.snac.feature.tv.navigateTvCrew
+import com.quitr.snac.feature.tv.navigateToTvCast
+import com.quitr.snac.feature.tv.navigateToTvCrew
+import com.quitr.snac.feature.tv.navigateToTvEpisodes
+import com.quitr.snac.feature.tv.navigateToTvSeasons
 import com.quitr.snac.feature.tv.tvCastRoute
 import com.quitr.snac.feature.tv.tvCrewRoute
 import com.quitr.snac.feature.tv.tvRoute
+import com.quitr.snac.feature.tv.tvSeasonRoute
 
 @Composable
 fun SnacNavHost(
@@ -78,10 +82,10 @@ fun SnacNavHost(
             onEpisodeCardTap = { tvId, seasonNumber, episodeNumber ->
                 navController.navigateToEpisodeDetails(tvId, seasonNumber, episodeNumber)
             },
-            onSeasonCardTap = { showId, seasonNumber -> },
-            onSeasonsExpand = { /*TODO*/ },
-            onCastExpand = { tvId -> navController.navigateTvCast(tvId) },
-            onCrewExpand = { tvId -> navController.navigateTvCrew(tvId) },
+            onSeasonCardTap = { tvId, seasonNumber -> navController.navigateToTvEpisodes(tvId, seasonNumber) },
+            onSeasonsExpand = { tvId -> navController.navigateToTvSeasons(tvId) },
+            onCastExpand = { tvId -> navController.navigateToTvCast(tvId) },
+            onCrewExpand = { tvId -> navController.navigateToTvCrew(tvId) },
             onBackPressed = navController::popBackStack
         )
         tvCastRoute(
@@ -92,7 +96,17 @@ fun SnacNavHost(
             onPersonCardTap = onPersonCardTap,
             onBackPressed = navController::popBackStack
         )
+        tvSeasonRoute(
+            onSeasonCardTap = { tvId, seasonNumber -> navController.navigateToTvEpisodes(tvId, seasonNumber) },
+            onBackPressed = navController::popBackStack
+        )
 
+        episodeRoute(
+            onEpisodeTap = { tvId, seasonNumber, episodeNumber ->
+                           navController.navigateToEpisodeDetails(tvId,seasonNumber, episodeNumber)
+            },
+            onBackPressed = navController::popBackStack
+        )
         episodeDetailsRoute(
             onPersonCardTap = onPersonCardTap,
             onGuestStarExpand = { tvId, seasonNumber, episodeNumber ->

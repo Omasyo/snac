@@ -273,7 +273,7 @@ private fun SeasonCarousel(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                stringResource(R.string.seasons),
+                pluralStringResource(R.plurals.seasons, seasons.size),
                 style = MaterialTheme.typography.titleMedium
             )
             Spacer(Modifier.weight(1f))
@@ -302,7 +302,8 @@ private fun SeasonCarousel(
                 episodeCount = season.episodeCount,
                 description = season.overview,
                 posterUrl = season.posterUrl,
-                onClick = { onSeasonCardTap(tvId, season.seasonNumber) })
+                onClick = { onSeasonCardTap(tvId, season.seasonNumber) }
+            )
         }
     }
 }

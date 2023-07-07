@@ -10,7 +10,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.quitr.snac.feature.tv.season.SeasonScreenUiState
 import com.quitr.snac.feature.tv.season.SeasonScreenViewModel
 
 @Composable
@@ -24,7 +23,7 @@ internal fun EpisodeDetailsRoute(
     viewModel: SeasonScreenViewModel = hiltViewModel(),
 ) {
     when (val uiState = viewModel.getEpisode(episodeNumber).collectAsState().value) {
-        is EpisodeScreenUiState.Error -> {
+        is EpisodeDetailScreenUiState.Error -> {
             Column(
                 modifier
                     .fillMaxWidth()
@@ -37,8 +36,8 @@ internal fun EpisodeDetailsRoute(
             }
         }
 
-        EpisodeScreenUiState.Loading -> EpisodeScreenPlaceholder(onBackPressed = onBackPressed)
-        is EpisodeScreenUiState.Success -> {
+        EpisodeDetailScreenUiState.Loading -> EpisodeScreenPlaceholder(onBackPressed = onBackPressed)
+        is EpisodeDetailScreenUiState.Success -> {
             EpisodeDetailsScreen(
                 modifier = modifier,
                 onPersonCardTap = onPersonCardTap,

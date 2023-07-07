@@ -16,7 +16,7 @@ internal class TvDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     tvRepository: TvRepository
 ) : ViewModel() {
-    private val id = checkNotNull(savedStateHandle.get<Int>(TvIdArg))
+    val id = checkNotNull(savedStateHandle.get<Int>(TvIdArg))
 
     private val _tvDetailsUiState =
         MutableStateFlow<TvScreenUiState>(TvScreenUiState.Loading)

@@ -1,17 +1,16 @@
 package com.quitr.snac.feature.tv.season
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quitr.snac.core.data.repository.tv.TvRepository
 import com.quitr.snac.feature.tv.SeasonNumberArg
 import com.quitr.snac.feature.tv.TvIdArg
-import com.quitr.snac.feature.tv.episode.EpisodeScreenUiState
+import com.quitr.snac.feature.tv.episode.EpisodeDetailScreenUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,16 +19,16 @@ internal class SeasonScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     tvRepository: TvRepository
 ) : ViewModel() {
-    private val id = checkNotNull(savedStateHandle.get<Int>(TvIdArg))
+    val tvId = checkNotNull(savedStateHandle.get<Int>(TvIdArg))
     private val seasonNumber = checkNotNull(savedStateHandle.get<Int>(SeasonNumberArg))
 
     private val _seasonScreenUiState =
         MutableStateFlow<SeasonScreenUiState>(SeasonScreenUiState.Loading)
     val seasonScreenUiState: StateFlow<SeasonScreenUiState> = _seasonScreenUiState
 
-    fun getEpisode(episodeNumber: Int): StateFlow<EpisodeScreenUiState> {
-        val episodeScreenUiState =
-            MutableStateFlow<EpisodeScreenUiState>(EpisodeScreenUiState.Loading)
+    fun getEpisode(episodeNumber: Int): StateFlow<EpisodeDetailScreenUiState> {
+        val episodeDetailScreenUiState =
+            MutableStateFlow<EpisodeDetailScreenUiState>(EpisodeDetailScreenUiState.Loading)
         viewModelScope.launch {
             seasonScreenUiState.collect { seasonScreenUiState ->
                 if (seasonScreenUiState is SeasonScreenUiState.Success) {
@@ -38,18 +37,23 @@ internal class SeasonScreenViewModel @Inject constructor(
                             episodeDetails.episodeNumber == episodeNumber
                         }
 
-                    episodeScreenUiState.value =
-                        if (episode != null) EpisodeScreenUiState.Success(episode) else
-                            EpisodeScreenUiState.Error("Episode does not exist")
+                    Log.d(
+                        "TAG",
+                        "getEpisode: No Bullshit epNo $episodeNumber episode $episode season ${seasonScreenUiState.season}"
+                    )
+
+                    episodeDetailScreenUiState.value =
+                        if (episode != null) EpisodeDetailScreenUiState.Success(episode) else
+                            EpisodeDetailScreenUiState.Error("Episode does not exist")
                 }
             }
         }
-        return episodeScreenUiState
+        return episodeDetailScreenUiState
     }
 
     init {
         viewModelScope.launch {
-            _seasonScreenUiState.value = tvRepository.getSeasonDetails(id, seasonNumber)
+            _seasonScreenUiState.value = tvRepository.getSeasonDetails(tvId, seasonNumber)
                 .fold({ SeasonScreenUiState.Success(it) }) {
                     SeasonScreenUiState.Error(it.message ?: "")
                 }

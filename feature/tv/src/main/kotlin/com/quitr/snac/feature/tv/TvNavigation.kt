@@ -10,6 +10,7 @@ import com.quitr.snac.core.model.NavigationRoute
 import com.quitr.snac.feature.tv.details.TvCastRoute
 import com.quitr.snac.feature.tv.details.TvCrewRoute
 import com.quitr.snac.feature.tv.details.TvDetailsRoute
+import com.quitr.snac.feature.tv.season.SeasonRoute
 
 internal const val TvIdArg = "tv-id"
 internal const val SeasonNumberArg = "season-number"
@@ -28,14 +29,23 @@ private object TvCrewRoute : NavigationRoute("tv/%s/crew") {
     override val requiredArguments: List<String> = listOf(TvIdArg)
 }
 
+private object SeasonRoute : NavigationRoute("tv/%s/season") {
+    override val requiredArguments: List<String> = listOf(TvIdArg)
+}
+
 fun NavController.navigateToTvRoute(tvId: Int, navOptions: NavOptions? = null) =
     navigate(TvDetailsRoute.route(tvId), navOptions)
 
-fun NavController.navigateTvCast(showId: Int, navOptions: NavOptions? = null) =
+fun NavController.navigateToTvCast(showId: Int, navOptions: NavOptions? = null) =
     navigate(TvCastRoute.route(showId), navOptions)
 
-fun NavController.navigateTvCrew(showId: Int, navOptions: NavOptions? = null) =
+fun NavController.navigateToTvCrew(showId: Int, navOptions: NavOptions? = null) =
     navigate(TvCrewRoute.route(showId), navOptions)
+
+fun NavController.navigateToTvSeasons(
+    showId: Int,
+    navOptions: NavOptions? = null
+) = navigate(SeasonRoute.route(showId), navOptions)
 
 fun NavGraphBuilder.tvRoute(
     onMovieCardTap: (id: Int) -> Unit,
@@ -83,7 +93,6 @@ fun NavGraphBuilder.tvCastRoute(
     )
 }
 
-
 fun NavGraphBuilder.tvCrewRoute(
     onPersonCardTap: (personId: Int) -> Unit,
     onBackPressed: () -> Unit,
@@ -95,6 +104,21 @@ fun NavGraphBuilder.tvCrewRoute(
 ) {
     TvCrewRoute(
         onPersonCardTap = onPersonCardTap,
+        onBackPressed = onBackPressed
+    )
+}
+
+fun NavGraphBuilder.tvSeasonRoute(
+    onSeasonCardTap: (showId: Int, seasonNumber: Int) -> Unit,
+    onBackPressed: () -> Unit
+) = composable(
+    route = SeasonRoute.route,
+    arguments = listOf(
+        navArgument(TvIdArg) { type = NavType.IntType },
+    )
+) {
+    SeasonRoute(
+        onSeasonCardTap = onSeasonCardTap,
         onBackPressed = onBackPressed
     )
 }

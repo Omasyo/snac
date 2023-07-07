@@ -76,7 +76,8 @@ internal fun ShowGridScreen(
                 ) {
                     items(pagingItems.itemCount, pagingItems.itemKey { show -> show.id }) {
                         val show = pagingItems[it]!!
-                        ShowCard(Modifier.aspectRatio(3f / 5f),
+                        ShowCard(
+                            Modifier.aspectRatio(3f / 5f),
                             title = show.title,
                             posterUrl = show.posterUrl,
                             rating = show.rating,

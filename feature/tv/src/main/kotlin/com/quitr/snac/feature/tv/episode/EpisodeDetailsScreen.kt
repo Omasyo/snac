@@ -37,7 +37,7 @@ import com.quitr.snac.core.ui.theme.SnacIcons
 import com.quitr.snac.core.ui.utils.InlineText
 import com.quitr.snac.core.ui.utils.append
 import com.quitr.snac.core.ui.utils.fadePlaceholder
-import com.quitr.snac.feature.tv.fake.FakeEpisode
+import com.quitr.snac.feature.tv.fake.FakeEpisodeDetails
 
 @Composable
 internal fun EpisodeDetailsScreen(
@@ -130,7 +130,7 @@ internal fun EpisodeDetailsScreen(
                     if(guestStars.isNotEmpty()) {
                         item {
                             PersonCarousel(
-                                category = stringResource(R.string.cast),
+                                category = stringResource(R.string.guest_stars),
                                 people = guestStars,
                                 onExpand = onGuestStarExpand,
                                 onPersonClicked = onPersonCardTap
@@ -264,6 +264,6 @@ private fun EpisodeScreenPreview() {
         onGuestStarExpand = { /*TODO*/ },
         onCrewExpand = { /*TODO*/ },
         onBackPressed = {},
-        episode = FakeEpisode
+        episode = FakeEpisodeDetails
     )
 }

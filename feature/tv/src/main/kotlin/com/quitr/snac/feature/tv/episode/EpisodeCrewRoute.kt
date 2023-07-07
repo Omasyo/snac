@@ -13,18 +13,19 @@ import com.quitr.snac.feature.tv.season.SeasonScreenViewModel
 @Composable
 internal fun EpisodeCrewRoute(
     modifier: Modifier = Modifier,
+    episodeNumber: Int,
     onPersonCardTap: (id: Int) -> Unit,
     onBackPressed: () -> Unit,
     viewModel: SeasonScreenViewModel = hiltViewModel()
 ) {
-    val state = viewModel.seasonScreenUiState.collectAsState().value
-    if (state is SeasonScreenUiState.Success) {
+    val state = viewModel.getEpisode(episodeNumber).collectAsState().value
+    if (state is EpisodeDetailScreenUiState.Success) {
         ShowCreditsScreen(
             modifier,
             title = stringResource(R.string.crew),
             onPersonCardTap = onPersonCardTap,
             onBackPressed = onBackPressed,
-            people = state.season.episodes.first().crew
+            people = state.episode.crew
         )
     }
 }
