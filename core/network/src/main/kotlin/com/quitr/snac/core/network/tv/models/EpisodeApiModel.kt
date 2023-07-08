@@ -7,9 +7,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class EpisodeApiModel(
     @SerialName("air_date") val airDate: String,
-    @SerialName("crew") val crew: List<TCrewApiModel>? = null,
+    @SerialName("crew") val crew: List<EpisodeCrewApiModel>? = null,
     @SerialName("episode_number") val episodeNumber: Int,
-    @SerialName("guest_stars") val guestStars: List<GuestStar>? = null,
+    @SerialName("guest_stars") val guestStars: List<EpisodeGuestApiModel>? = null,
     @SerialName("id") val id: Int,
     @SerialName("name") val name: String,
     @SerialName("overview") val overview: String,

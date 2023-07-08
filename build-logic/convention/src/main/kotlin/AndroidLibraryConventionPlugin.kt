@@ -3,6 +3,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
@@ -35,9 +36,9 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                         jvmTarget = "17"
                     }
                 }
-//                tasks.withType<Test> {
-//                    useJUnitPlatform()
-//                }
+                tasks.withType<Test> {
+                    useJUnitPlatform()
+                }
 
                 val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
                 dependencies{
@@ -47,9 +48,9 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                     "androidTestImplementation"(libs.findLibrary("androidx.junit.ktx").get())
                     "androidTestImplementation"(libs.findLibrary("androidx.test.runner").get())
 
-//                    "testImplementation"(libs.findLibrary("junit.jupiter").get())
-//                    "testImplementation"(libs.findLibrary("mockk").get())
-//                    "testImplementation"(libs.findLibrary("kotlinx.coroutines.test").get())
+                    "testImplementation"(libs.findLibrary("junit.jupiter").get())
+                    "testImplementation"(libs.findLibrary("mockk").get())
+                    "testImplementation"(libs.findLibrary("kotlinx.coroutines.test").get())
                 }
             }
         }

@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TCrewApiModel(
+data class EpisodeCrewApiModel(
     @SerialName("adult") val adult: Boolean,
     @SerialName("department") val department: String,
     @SerialName("gender") val gender: Int,
