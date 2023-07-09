@@ -1,5 +1,12 @@
-package com.quitr.snac.core.data.mapppers
+package com.quitr.snac.core.data.mapppers.tv
 
+import com.quitr.snac.core.data.mapppers.combineSimilar
+import com.quitr.snac.core.data.mapppers.formatDate
+import com.quitr.snac.core.data.mapppers.formatTo1dp
+import com.quitr.snac.core.data.mapppers.toGenres
+import com.quitr.snac.core.data.mapppers.toKeywords
+import com.quitr.snac.core.data.mapppers.toNames
+import com.quitr.snac.core.data.mapppers.toSeasons
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.model.Tv

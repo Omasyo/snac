@@ -6,6 +6,8 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.PeopleAlt
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ArrowForward
+import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.CollectionsBookmark
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.runtime.Composable
@@ -21,6 +23,7 @@ object SnacIcons {
     val ArrowForward = Icons.Outlined.ArrowForward
     val ArrowBack = Icons.Outlined.ArrowBack
     val People = Icons.Filled.PeopleAlt
+    val Clear = Icons.Outlined.Clear
 
     val Star: Painter
         @Composable get() = painterResource(R.drawable.star)

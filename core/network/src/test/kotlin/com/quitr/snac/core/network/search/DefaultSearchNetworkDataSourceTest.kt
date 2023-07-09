@@ -2,8 +2,8 @@ package com.quitr.snac.core.network.search
 
 import android.content.Context
 import com.quitr.snac.core.network.createClient
-import com.quitr.snac.core.network.people.fake.PersonDetailsResponse
 import com.quitr.snac.core.network.search.fake.SearchResponse
+import com.quitr.snac.core.network.search.models.SearchPersonApiModel
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond

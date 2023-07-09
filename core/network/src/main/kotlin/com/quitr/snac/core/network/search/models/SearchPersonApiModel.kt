@@ -1,4 +1,4 @@
-package com.quitr.snac.core.network.search
+package com.quitr.snac.core.network.search.models
 
 
 import kotlinx.serialization.SerialName

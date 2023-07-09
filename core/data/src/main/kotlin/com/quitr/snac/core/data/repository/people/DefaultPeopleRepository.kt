@@ -14,8 +14,7 @@ private const val TAG = "DefaultPeopleRepository"
 class DefaultPeopleRepository @Inject constructor(
     private val networkDataSource: PeopleNetworkDataSource,
     @Named("IO") private val dispatcher: CoroutineDispatcher,
-) :
-    PeopleRepository {
+) : PeopleRepository {
     override suspend fun getDetails(id: Int, language: String): Result<PersonDetails> =
         withContext(dispatcher) {
             try {

@@ -1,5 +1,6 @@
 package com.quitr.snac.core.data.mapppers
 
+import com.quitr.snac.core.data.mapppers.tv.toEpisodes
 import com.quitr.snac.core.model.Season
 import com.quitr.snac.core.model.SeasonWithEpisodes
 import com.quitr.snac.core.network.Api

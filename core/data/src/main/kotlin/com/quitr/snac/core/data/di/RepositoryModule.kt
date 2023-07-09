@@ -4,6 +4,8 @@ import com.quitr.snac.core.data.repository.movie.DefaultMovieRepository
 import com.quitr.snac.core.data.repository.movie.MovieRepository
 import com.quitr.snac.core.data.repository.people.DefaultPeopleRepository
 import com.quitr.snac.core.data.repository.people.PeopleRepository
+import com.quitr.snac.core.data.repository.search.DefaultSearchRepository
+import com.quitr.snac.core.data.repository.search.SearchRepository
 import com.quitr.snac.core.data.repository.tv.DefaultTvRepository
 import com.quitr.snac.core.data.repository.tv.TvRepository
 import dagger.Binds
@@ -22,4 +24,7 @@ private interface RepositoryModule{
 
     @Binds
     fun bindPeopleRepository(peopleRepository: DefaultPeopleRepository) : PeopleRepository
+
+    @Binds
+    fun bindSearchRepository(searchRepository: DefaultSearchRepository) : SearchRepository
 }

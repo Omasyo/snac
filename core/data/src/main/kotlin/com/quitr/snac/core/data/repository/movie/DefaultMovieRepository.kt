@@ -5,9 +5,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.quitr.snac.core.data.TimeWindow
-import com.quitr.snac.core.data.mapppers.toMovie
-import com.quitr.snac.core.data.mapppers.toShows
-import com.quitr.snac.core.data.pager.show.ShowPagingSource
+import com.quitr.snac.core.data.mapppers.movie.toMovie
+import com.quitr.snac.core.data.mapppers.movie.toShows
+import com.quitr.snac.core.data.pager.show.CustomPagingSource
 import com.quitr.snac.core.model.Movie
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.network.movie.MovieNetworkDataSource
@@ -126,7 +126,7 @@ internal class DefaultMovieRepository @Inject constructor(
                 pageSize = 20, enablePlaceholders = false
             )
         ) {
-            ShowPagingSource(
+            CustomPagingSource(
                 provider = { provider(it).results },
                 mapper = List<MovieApiModel>::toShows
             )

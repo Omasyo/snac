@@ -52,6 +52,7 @@ android {
 dependencies {
     implementation(project(":core:model"))
     implementation(project(":core:ui"))
+    implementation(project(":feature:search"))
     implementation(project(":feature:discover"))
     implementation(project(":feature:movie"))
     implementation(project(":feature:people"))

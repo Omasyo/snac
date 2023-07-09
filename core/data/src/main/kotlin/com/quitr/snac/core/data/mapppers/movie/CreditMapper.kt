@@ -1,5 +1,6 @@
-package com.quitr.snac.core.data.mapppers
+package com.quitr.snac.core.data.mapppers.movie
 
+import com.quitr.snac.core.data.mapppers.formatTo1dp
 import com.quitr.snac.core.model.Credit
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.network.Api

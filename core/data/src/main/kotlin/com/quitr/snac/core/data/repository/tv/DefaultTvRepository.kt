@@ -5,11 +5,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.quitr.snac.core.data.TimeWindow
-import com.quitr.snac.core.data.mapppers.toEpisodeDetails
+import com.quitr.snac.core.data.mapppers.tv.toEpisodeDetails
 import com.quitr.snac.core.data.mapppers.toSeasonWithEpisodes
-import com.quitr.snac.core.data.mapppers.toShows
-import com.quitr.snac.core.data.mapppers.toTv
-import com.quitr.snac.core.data.pager.show.ShowPagingSource
+import com.quitr.snac.core.data.mapppers.movie.toShows
+import com.quitr.snac.core.data.mapppers.tv.toShows
+import com.quitr.snac.core.data.mapppers.tv.toTv
+import com.quitr.snac.core.data.pager.show.CustomPagingSource
 import com.quitr.snac.core.model.EpisodeDetails
 import com.quitr.snac.core.model.SeasonWithEpisodes
 import com.quitr.snac.core.model.Show
@@ -160,7 +161,7 @@ internal class DefaultTvRepository @Inject constructor(
                 pageSize = 20, enablePlaceholders = false
             )
         ) {
-            ShowPagingSource(
+            CustomPagingSource(
                 provider = { provider(it).results },
                 mapper = List<TvApiModel>::toShows
             )

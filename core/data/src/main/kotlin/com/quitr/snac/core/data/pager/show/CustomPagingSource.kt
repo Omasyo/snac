@@ -3,7 +3,7 @@ package com.quitr.snac.core.data.pager.show
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 
-class ShowPagingSource<T, R : Any>(
+class CustomPagingSource<T, R : Any>(
     val provider: suspend (page: Int) -> List<T>,
     val mapper: List<T>.() -> List<R>,
 ) : PagingSource<Int, R>() {

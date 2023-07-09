@@ -1,5 +1,8 @@
-package com.quitr.snac.core.data.mapppers
+package com.quitr.snac.core.data.mapppers.tv
 
+import com.quitr.snac.core.data.mapppers.combineSimilar
+import com.quitr.snac.core.data.mapppers.formatDate
+import com.quitr.snac.core.data.mapppers.formatTo1dp
 import com.quitr.snac.core.model.Episode
 import com.quitr.snac.core.model.EpisodeDetails
 import com.quitr.snac.core.network.Api

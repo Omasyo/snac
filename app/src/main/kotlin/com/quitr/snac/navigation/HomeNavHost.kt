@@ -21,6 +21,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.quitr.snac.feature.discover.discover.discoverRoute
 import com.quitr.snac.feature.discover.section.navigateToSection
 import com.quitr.snac.feature.movie.navigateToMovieDetails
+import com.quitr.snac.feature.people.navigateToPersonDetails
+import com.quitr.snac.feature.search.SearchViewModel
+import com.quitr.snac.feature.search.SnacSearch
+import com.quitr.snac.feature.search.SnacSearchBar
 import com.quitr.snac.feature.tv.navigateToTvRoute
 
 @Composable
@@ -31,6 +35,14 @@ fun HomeNavHost(
 ) {
     Scaffold(
         modifier,
+        topBar = {
+            SnacSearch(
+                onMovieCardTap = { id -> rootNavController.navigateToMovieDetails(id) },
+                onTvCardTap = { id -> rootNavController.navigateToTvRoute(id) },
+                onPersonCardTap = { id -> rootNavController.navigateToPersonDetails(id) },
+                onBackPressed = { /*TODO*/ }
+            )
+        },
         bottomBar = {
             NavigationBar {
                 val navBackStackEntry by navBarController.currentBackStackEntryAsState()
@@ -68,16 +80,16 @@ fun HomeNavHost(
         ) {
             discoverRoute(
 
-                    onCarouselExpand = { sectionType ->
-                        rootNavController.navigateToSection(sectionType)
-                    },
-                    onTvCardClicked = { id ->
-                        rootNavController.navigateToTvRoute(id)
-                    },
-                    onMovieCardClicked = { id ->
-                        rootNavController.navigateToMovieDetails(id)
-                    },
-                )
+                onCarouselExpand = { sectionType ->
+                    rootNavController.navigateToSection(sectionType)
+                },
+                onTvCardClicked = { id ->
+                    rootNavController.navigateToTvRoute(id)
+                },
+                onMovieCardClicked = { id ->
+                    rootNavController.navigateToMovieDetails(id)
+                },
+            )
 
 
             composable("Library") {

@@ -1,5 +1,6 @@
 package com.quitr.snac.core.data.mapppers
 
+import com.quitr.snac.core.data.mapppers.movie.toCredit
 import com.quitr.snac.core.model.Gender
 import com.quitr.snac.core.model.Person
 import com.quitr.snac.core.model.PersonDetails
