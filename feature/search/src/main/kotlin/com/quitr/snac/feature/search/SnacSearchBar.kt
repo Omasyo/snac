@@ -71,7 +71,7 @@ fun SnacSearch(
         onTvCardTap = onTvCardTap,
         onPersonCardTap = onPersonCardTap,
         onBackPressed = onBackPressed,
-        pagingItems = viewModel.searchAll().collectAsLazyPagingItems()
+        pagingItems = viewModel.searchResults.collectAsLazyPagingItems()
     )
 }
 
