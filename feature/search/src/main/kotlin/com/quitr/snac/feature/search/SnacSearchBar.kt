@@ -54,7 +54,6 @@ fun SnacSearch(
     onMovieCardTap: (Int) -> Unit,
     onTvCardTap: (Int) -> Unit,
     onPersonCardTap: (Int) -> Unit,
-    onBackPressed: () -> Unit,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
 
@@ -65,7 +64,7 @@ fun SnacSearch(
             .zIndex(1f),
         queryProvider = { viewModel.query.value },
         onQueryChange = viewModel::updateQuery,
-        active = true,//viewModel.active.value,
+        active = viewModel.active.value,
         onActiveChange = viewModel::updateActiveStatus,
         onClear = { /*TODO*/ },
         onMovieCardTap = onMovieCardTap,
@@ -123,13 +122,6 @@ fun SnacSearchBar(
                 }
             }
         ) {
-
-            Box(
-                Modifier
-                    .background(Color(0xFF000000 + Random.nextLong(0xFFFFFF)))
-                    .fillMaxSize()
-                    .clickable { onTvCardTap(2) }) {
-
                 when (pagingItems.loadState.refresh) {
                     is LoadState.Error -> { /*TODO*/
                     }
@@ -147,7 +139,6 @@ fun SnacSearchBar(
                             horizontalArrangement = Arrangement.spacedBy(8f.dp),
                             verticalArrangement = Arrangement.spacedBy(16f.dp),
                         ) {
-
                             items(
                                 pagingItems.itemCount,
                                 pagingItems.itemKey { it.toString() + it.hashCode() }) {
@@ -182,20 +173,19 @@ fun SnacSearchBar(
                                 }
                             }
 
-//                            if (pagingItems.loadState.append == LoadState.Loading) {
-//                                item {
-//                                    Box(Modifier.aspectRatio(3f / 5f)) {
-//                                        CircularProgressIndicator(
-//                                            modifier = Modifier
-//                                                .fillMaxWidth()
-//                                                .wrapContentWidth(Alignment.CenterHorizontally)
-//                                        )
-//                                    }
-//                                }
-//                            }
+                            if (pagingItems.loadState.append == LoadState.Loading) {
+                                item {
+                                    Box(Modifier.aspectRatio(3f / 5f)) {
+                                        CircularProgressIndicator(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .wrapContentWidth(Alignment.CenterHorizontally)
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
-                }
             }
         }
     }

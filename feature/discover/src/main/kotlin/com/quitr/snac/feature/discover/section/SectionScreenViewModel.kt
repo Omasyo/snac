@@ -2,6 +2,8 @@ package com.quitr.snac.feature.discover.section
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.quitr.snac.core.data.repository.movie.MovieRepository
 import com.quitr.snac.core.data.repository.tv.TvRepository
 import com.quitr.snac.core.model.SectionType
@@ -28,5 +30,5 @@ internal class SectionScreenViewModel @Inject constructor(
         SectionType.TvTrending -> { tvRepository.getTrendingStream() }
         SectionType.TvPopular -> { tvRepository.getPopularStream() }
         SectionType.TvTopRated -> { tvRepository.getTopRatedStream() }
-    }
+    }.cachedIn(viewModelScope)
 }

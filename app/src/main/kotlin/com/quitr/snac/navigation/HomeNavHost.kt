@@ -39,8 +39,7 @@ fun HomeNavHost(
             SnacSearch(
                 onMovieCardTap = { id -> rootNavController.navigateToMovieDetails(id) },
                 onTvCardTap = { id -> rootNavController.navigateToTvRoute(id) },
-                onPersonCardTap = { id -> rootNavController.navigateToPersonDetails(id) },
-                onBackPressed = { /*TODO*/ }
+                onPersonCardTap = { id -> rootNavController.navigateToPersonDetails(id) }
             )
         },
         bottomBar = {
