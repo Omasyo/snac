@@ -1,7 +1,14 @@
 package com.quitr.snac.feature.search
 
-import android.util.Log
-import androidx.compose.foundation.background
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.with
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,43 +19,29 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemKey
 import com.quitr.snac.core.model.Person
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.ui.card.PersonCard
 import com.quitr.snac.core.ui.card.ShowCard
 import com.quitr.snac.core.ui.theme.SnacIcons
-import com.quitr.snac.core.ui.theme.SnacTheme
-import com.quitr.snac.core.ui.utils.plus
-import com.quitr.snac.feature.search.fake.FakeResults
-import com.quitr.snac.feature.search.fake.FakeShow
-import kotlinx.coroutines.flow.flow
-import kotlin.random.Random
 
 @Composable
 fun SnacSearch(
@@ -61,8 +54,11 @@ fun SnacSearch(
 ) {
 
     SnacSearchBar(
-        modifier = modifier.fillMaxWidth(),
-        query = viewModel.query.value,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(bottom = 8f.dp)
+            .zIndex(1f),
+        queryProvider = { viewModel.query.value },
         onQueryChange = viewModel::updateQuery,
         active = viewModel.active.value,
         onActiveChange = viewModel::updateActiveStatus,
@@ -70,16 +66,15 @@ fun SnacSearch(
         onMovieCardTap = onMovieCardTap,
         onTvCardTap = onTvCardTap,
         onPersonCardTap = onPersonCardTap,
-        onBackPressed = onBackPressed,
         pagingItems = viewModel.searchResults.collectAsLazyPagingItems()
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun SnacSearchBar(
     modifier: Modifier = Modifier,
-    query: String,
+    queryProvider: () -> String,
     onQueryChange: (String) -> Unit,
     active: Boolean,
     onActiveChange: (Boolean) -> Unit,
@@ -88,21 +83,34 @@ fun SnacSearchBar(
     onMovieCardTap: (Int) -> Unit,
     onTvCardTap: (Int) -> Unit,
     onPersonCardTap: (Int) -> Unit,
-    onBackPressed: () -> Unit,
     pagingItems: LazyPagingItems<Any>
 ) {
     Box(modifier) {
         SearchBar(
             modifier = Modifier.align(Alignment.Center),
-            query = query,
+            query = queryProvider(),
             onQueryChange = onQueryChange,
             onSearch = {},
             active = active,
             onActiveChange = onActiveChange,
             leadingIcon = {
-                IconButton(onClick = onBackPressed) {
-                    Icon(SnacIcons.ArrowBack, contentDescription = null)
+                AnimatedContent(
+                    targetState = active,
+                    contentAlignment = Alignment.Center,
+                    transitionSpec = {
+                        fadeIn(animationSpec = tween(150, 150)) with
+                                fadeOut(animationSpec = tween(150))
+                    }
+                ) { active ->
+                    when {
+                        active -> IconButton(onClick = { onActiveChange(false) }) {
+                            Icon(SnacIcons.ArrowBack, contentDescription = null)
+                        }
+
+                        else -> Icon(SnacIcons.Search, contentDescription = null)
+                    }
                 }
+
             },
             trailingIcon = {
                 IconButton(onClick = onClear) {
@@ -112,13 +120,19 @@ fun SnacSearchBar(
         ) {
 
             when (pagingItems.loadState.refresh) {
-                is LoadState.Error -> { /*TODO*/ }
-                LoadState.Loading -> {
-                    CircularProgressIndicator()
+                is LoadState.Error -> { /*TODO*/
                 }
+
+                LoadState.Loading -> {
+                    Box(Modifier.fillMaxSize()) {
+                        CircularProgressIndicator(Modifier.align(Alignment.Center))
+                    }
+                }
+
                 is LoadState.NotLoading -> {
 
                     LazyVerticalGrid(
+                        modifier = Modifier.fillMaxSize(),
                         columns = GridCells.Adaptive(96f.dp),
                         contentPadding = PaddingValues(16f.dp),
                         horizontalArrangement = Arrangement.spacedBy(8f.dp),
@@ -134,8 +148,13 @@ fun SnacSearchBar(
                                     posterUrl = result.posterUrl,
                                     onClick = {
                                         when (result.showType) {
-                                            ShowType.Movie -> { onMovieCardTap(result.id) }
-                                            ShowType.Tv -> { onTvCardTap(result.id) }
+                                            ShowType.Movie -> {
+                                                onMovieCardTap(result.id)
+                                            }
+
+                                            ShowType.Tv -> {
+                                                onTvCardTap(result.id)
+                                            }
                                         }
                                     }
                                 )
@@ -145,8 +164,11 @@ fun SnacSearchBar(
                                     name = result.name,
                                     role = result.role,
                                     photoUrl = result.photoUrl,
-                                    onClick = { onPersonCardTap(result.id) }
+                                    onClick = {
+                                        onPersonCardTap(result.id)
+                                    }
                                 )
+
                                 else -> Text(result.toString(), fontSize = 20f.sp)
                             }
                         }

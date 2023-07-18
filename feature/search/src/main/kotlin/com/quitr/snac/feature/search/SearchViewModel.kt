@@ -38,7 +38,7 @@ class SearchViewModel @Inject constructor(
 
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            delay(2000)
+            delay(300)
             temp.value = newQuery
         }
     }

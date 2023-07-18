@@ -10,6 +10,7 @@ import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.CollectionsBookmark
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
@@ -24,6 +25,7 @@ object SnacIcons {
     val ArrowBack = Icons.Outlined.ArrowBack
     val People = Icons.Filled.PeopleAlt
     val Clear = Icons.Outlined.Clear
+    val Search = Icons.Outlined.Search
 
     val Star: Painter
         @Composable get() = painterResource(R.drawable.star)
