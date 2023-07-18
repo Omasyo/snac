@@ -9,6 +9,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.with
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -28,6 +30,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,12 +39,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import com.quitr.snac.core.model.Person
 import com.quitr.snac.core.model.Show
 import com.quitr.snac.core.model.ShowType
 import com.quitr.snac.core.ui.card.PersonCard
 import com.quitr.snac.core.ui.card.ShowCard
 import com.quitr.snac.core.ui.theme.SnacIcons
+import kotlin.random.Random
 
 @Composable
 fun SnacSearch(
@@ -60,7 +65,7 @@ fun SnacSearch(
             .zIndex(1f),
         queryProvider = { viewModel.query.value },
         onQueryChange = viewModel::updateQuery,
-        active = viewModel.active.value,
+        active = true,//viewModel.active.value,
         onActiveChange = viewModel::updateActiveStatus,
         onClear = { /*TODO*/ },
         onMovieCardTap = onMovieCardTap,
@@ -119,75 +124,79 @@ fun SnacSearchBar(
             }
         ) {
 
-            when (pagingItems.loadState.refresh) {
-                is LoadState.Error -> { /*TODO*/
-                }
+            Box(
+                Modifier
+                    .background(Color(0xFF000000 + Random.nextLong(0xFFFFFF)))
+                    .fillMaxSize()
+                    .clickable { onTvCardTap(2) }) {
 
-                LoadState.Loading -> {
-                    Box(Modifier.fillMaxSize()) {
-                        CircularProgressIndicator(Modifier.align(Alignment.Center))
+                when (pagingItems.loadState.refresh) {
+                    is LoadState.Error -> { /*TODO*/
                     }
-                }
+                    LoadState.Loading -> {
+                        Box(Modifier.fillMaxSize()) {
+                            CircularProgressIndicator(Modifier.align(Alignment.Center))
+                        }
+                    }
+                    is LoadState.NotLoading -> {
 
-                is LoadState.NotLoading -> {
+                        LazyVerticalGrid(
+                            modifier = Modifier.fillMaxSize(),
+                            columns = GridCells.Adaptive(96f.dp),
+                            contentPadding = PaddingValues(16f.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8f.dp),
+                            verticalArrangement = Arrangement.spacedBy(16f.dp),
+                        ) {
 
-                    LazyVerticalGrid(
-                        modifier = Modifier.fillMaxSize(),
-                        columns = GridCells.Adaptive(96f.dp),
-                        contentPadding = PaddingValues(16f.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8f.dp),
-                        verticalArrangement = Arrangement.spacedBy(16f.dp),
-                    ) {
+                            items(
+                                pagingItems.itemCount,
+                                pagingItems.itemKey { it.toString() + it.hashCode() }) {
+                                when (val result = pagingItems[it]!!) {
+                                    is Show -> ShowCard(
+                                        Modifier.aspectRatio(3f / 5f),
+                                        title = result.title,
+                                        rating = result.rating,
+                                        posterUrl = result.posterUrl,
+                                        onClick = {
+                                            when (result.showType) {
+                                                ShowType.Movie -> {
+                                                    onMovieCardTap(result.id)
+                                                }
 
-                        items(pagingItems.itemCount) {
-                            when (val result = pagingItems[it]!!) {
-                                is Show -> ShowCard(
-                                    Modifier.aspectRatio(3f / 5f),
-                                    title = result.title,
-                                    rating = result.rating,
-                                    posterUrl = result.posterUrl,
-                                    onClick = {
-                                        when (result.showType) {
-                                            ShowType.Movie -> {
-                                                onMovieCardTap(result.id)
-                                            }
-
-                                            ShowType.Tv -> {
-                                                onTvCardTap(result.id)
+                                                ShowType.Tv -> {
+                                                    onTvCardTap(result.id)
+                                                }
                                             }
                                         }
-                                    }
-                                )
-
-                                is Person -> PersonCard(
-                                    Modifier.aspectRatio(3f / 5f),
-                                    name = result.name,
-                                    role = result.role,
-                                    photoUrl = result.photoUrl,
-                                    onClick = {
-                                        onPersonCardTap(result.id)
-                                    }
-                                )
-
-                                else -> Text(result.toString(), fontSize = 20f.sp)
-                            }
-                        }
-
-                        if (pagingItems.loadState.append == LoadState.Loading) {
-                            item {
-                                Box(Modifier.aspectRatio(3f / 5f)) {
-                                    CircularProgressIndicator(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .wrapContentWidth(Alignment.CenterHorizontally)
                                     )
+
+                                    is Person -> PersonCard(
+                                        Modifier.aspectRatio(3f / 5f),
+                                        name = result.name,
+                                        role = result.role,
+                                        photoUrl = result.photoUrl,
+                                        onClick = { onPersonCardTap(result.id) }
+                                    )
+
+                                    else -> Text(result.toString(), fontSize = 20f.sp)
                                 }
                             }
+
+//                            if (pagingItems.loadState.append == LoadState.Loading) {
+//                                item {
+//                                    Box(Modifier.aspectRatio(3f / 5f)) {
+//                                        CircularProgressIndicator(
+//                                            modifier = Modifier
+//                                                .fillMaxWidth()
+//                                                .wrapContentWidth(Alignment.CenterHorizontally)
+//                                        )
+//                                    }
+//                                }
+//                            }
                         }
                     }
                 }
             }
-
         }
     }
 }

@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.quitr.snac.core.data.repository.people.PeopleRepository
 import com.quitr.snac.core.data.repository.search.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,7 +29,7 @@ class SearchViewModel @Inject constructor(
     private val _active = mutableStateOf(false)
     val active: State<Boolean> = _active
 
-    val searchResults get()  = searchRepository.searchAllStream(temp.value)
+    val searchResults get()  = searchRepository.searchAllStream(temp.value).cachedIn(viewModelScope)
 
     private var searchJob: Job? = null
 
