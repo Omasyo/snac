@@ -50,8 +50,13 @@ class SearchViewModel @Inject constructor(
         }
     }
 
+    fun clearQuery() = updateQuery("")
+
     fun updateActiveStatus(newStatus: Boolean) {
         _active.value = newStatus
+        if(!newStatus) {
+            clearQuery()
+        }
     }
 
      fun searchAll() =

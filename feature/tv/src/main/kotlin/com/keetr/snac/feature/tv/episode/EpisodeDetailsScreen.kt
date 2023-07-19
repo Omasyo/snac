@@ -99,10 +99,10 @@ internal fun EpisodeDetailsScreen(
                                     )
 
                                     Text(
-                                        listOf(
-                                            airDate,
-                                            pluralStringResource(R.plurals.minutes_short, runtime, runtime)
-                                        ).filter(
+                                        buildList {
+                                            if(airDate.isNotBlank()) add(airDate)
+                                            add(pluralStringResource(R.plurals.minutes_short, runtime, runtime))
+                                }.filter(
                                             String::isNotBlank
                                         )//TODO extract to string
                                             .joinToString(" • "),

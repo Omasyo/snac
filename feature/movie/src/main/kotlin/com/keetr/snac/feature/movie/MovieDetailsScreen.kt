@@ -90,13 +90,15 @@ internal fun MovieDetailsScreen(
                         }
                         separator()
                     }
-                    item {
-                        PersonCarousel(
-                            category = stringResource(R.string.cast),
-                            people = cast,
-                            onExpand = onCastExpand,
-                            onPersonClicked = onPersonCardTap
-                        )
+                    if (cast.isNotEmpty()) {
+                        item {
+                            PersonCarousel(
+                                category = stringResource(R.string.cast),
+                                people = cast,
+                                onExpand = onCastExpand,
+                                onPersonClicked = onPersonCardTap   
+                            )
+                        }
                     }
                     item { Spacer(Modifier.height(16f.dp)) }
                     if (crew.isNotEmpty()) {

@@ -26,6 +26,6 @@ fun SeasonDetailsApiModel.toSeasonWithEpisodes() = SeasonWithEpisodes(
     overview = overview,
     seasonNumber = seasonNumber,
     episodes = episodes.toEpisodes(),
-    airDate = airDate.formatDate(),
+    airDate = airDate?.formatDate() ?: "",
     posterUrl = Api.BasePosterPath + posterPath
 )

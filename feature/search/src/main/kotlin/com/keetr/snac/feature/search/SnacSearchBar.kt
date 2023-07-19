@@ -2,20 +2,11 @@ package com.keetr.snac.feature.search
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.Crossfade
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.SizeTransform
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.keyframes
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkOut
 import androidx.compose.animation.with
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -35,8 +26,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
@@ -51,7 +40,6 @@ import com.keetr.snac.core.model.ShowType
 import com.keetr.snac.core.ui.card.PersonCard
 import com.keetr.snac.core.ui.card.ShowCard
 import com.keetr.snac.core.ui.theme.SnacIcons
-import kotlin.random.Random
 
 @Composable
 fun SnacSearch(
@@ -71,7 +59,7 @@ fun SnacSearch(
         onQueryChange = viewModel::updateQuery,
         active = viewModel.active.value,
         onActiveChange = viewModel::updateActiveStatus,
-        onClear = { /*TODO*/ },
+        onClear = viewModel::clearQuery,
         onMovieCardTap = onMovieCardTap,
         onTvCardTap = onTvCardTap,
         onPersonCardTap = onPersonCardTap,

@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SeasonDetailsApiModel(
-    @SerialName("air_date") val airDate: String,
+    @SerialName("air_date") val airDate: String?,
     @SerialName("episodes") val episodes: List<EpisodeApiModel>,
     @SerialName("id") val id: Int,
     @SerialName("name") val name: String,

@@ -26,7 +26,7 @@ fun EpisodeApiModel.toEpisode() =
 fun EpisodeApiModel.toEpisodeDetails() =
     EpisodeDetails(
         id = id,
-        airDate = airDate.formatDate(),
+        airDate = airDate?.formatDate() ?: "",
         name = name,
         overview = overview,
         episodeNumber = episodeNumber,
