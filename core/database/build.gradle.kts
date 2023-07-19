@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.quitr.snac.core.database"
+    namespace = "com.keetr.snac.core.database"
 }
 
 dependencies {

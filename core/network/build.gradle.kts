@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.quitr.snac.core.network"
+    namespace = "com.keetr.snac.core.network"
 }
 
 dependencies {

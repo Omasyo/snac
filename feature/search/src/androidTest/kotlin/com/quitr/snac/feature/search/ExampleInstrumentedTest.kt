@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.search
+package com.keetr.snac.feature.search
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -17,6 +17,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.quitr.snac.feature.search.test", appContext.packageName)
+        assertEquals("com.keetr.snac.feature.search.test", appContext.packageName)
     }
 }

@@ -1,4 +1,4 @@
-package com.quitr.snac.feature.people
+package com.keetr.snac.feature.people
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.quitr.snac.feature.people.test", appContext.packageName)
+        assertEquals("com.keetr.snac.feature.people.test", appContext.packageName)
     }
 }

@@ -1,0 +1,29 @@
+package com.keetr.snac.feature.tv.details
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.keetr.snac.core.common.R
+import com.keetr.snac.core.ui.show.ShowCreditsScreen
+
+
+@Composable
+internal fun TvCrewRoute(
+    modifier: Modifier = Modifier,
+    onPersonCardTap: (id: Int) -> Unit,
+    onBackPressed: () -> Unit,
+    viewModel: TvDetailsViewModel = hiltViewModel()
+) {
+    val state = viewModel.tvDetailsUiState.collectAsState().value
+    if (state is TvScreenUiState.Success) {
+        ShowCreditsScreen(
+            modifier,
+            title = stringResource(R.string.crew),
+            onPersonCardTap = onPersonCardTap,
+            onBackPressed = onBackPressed,
+            people = state.tv.crew
+        )
+    }
+}

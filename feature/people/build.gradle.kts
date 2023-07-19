@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.quitr.snac.feature.people"
+    namespace = "com.keetr.snac.feature.people"
 }
 
 dependencies {

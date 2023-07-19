@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "com.quitr.snac.core.common"
+    namespace = "com.keetr.snac.core.common"
 }

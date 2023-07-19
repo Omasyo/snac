@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "com.quitr.snac.feature.movie"
+    namespace = "com.keetr.snac.feature.movie"
 }

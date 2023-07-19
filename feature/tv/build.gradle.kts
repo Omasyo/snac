@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.quitr.snac.feature.tv"
+    namespace = "com.keetr.snac.feature.tv"
 }
 
 dependencies {

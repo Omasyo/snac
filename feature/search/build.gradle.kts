@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "com.quitr.snac.feature.search"
+    namespace = "com.keetr.snac.feature.search"
 }
