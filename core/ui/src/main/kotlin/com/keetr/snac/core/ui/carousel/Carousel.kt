@@ -1,5 +1,6 @@
 package com.keetr.snac.core.ui.carousel
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,16 +9,21 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.Button
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -110,13 +116,17 @@ fun SectionError(
             Spacer(Modifier.weight(1f))
             Icon(SnacIcons.ArrowForward, contentDescription = null)
         }
-        Box(
+        Column(
             Modifier
                 .height(200f.dp)
                 .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            OutlinedButton(onClick = onRetry, modifier = Modifier.align(Alignment.Center)) {
-                Text(text = "Retry")
+            Text("An error occured", style = MaterialTheme.typography.titleMedium)
+            Spacer(Modifier.height(8f.dp))
+            FilledTonalButton(onClick = onRetry) {
+                Text(text = "Retry", modifier = Modifier.padding(horizontal = 16f.dp))
             }
         }
     }

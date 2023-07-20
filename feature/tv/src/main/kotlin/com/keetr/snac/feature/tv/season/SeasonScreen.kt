@@ -33,15 +33,17 @@ internal fun SeasonScreen(
     onBackPressed: () -> Unit,
     seasons: List<Season>
 ) {
-    Scaffold(modifier, topBar = {
-        TopAppBar(navigationIcon = {
-            IconButton(onClick = onBackPressed) {
-                Icon(SnacIcons.ArrowBack, null)
-            }
-        }, title = {
-            Text(pluralStringResource(R.plurals.seasons, seasons.size))
-        })
-    }) { innerPadding ->
+    Scaffold(
+        modifier,
+        topBar = {
+            TopAppBar(navigationIcon = {
+                IconButton(onClick = onBackPressed) {
+                    Icon(SnacIcons.ArrowBack, null)
+                }
+            }, title = {
+                Text(pluralStringResource(R.plurals.seasons, seasons.size))
+            })
+        }) { innerPadding ->
         LazyColumn(
             contentPadding = innerPadding + PaddingValues(16f.dp),
             verticalArrangement = Arrangement.spacedBy(16f.dp),

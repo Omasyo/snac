@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class SeasonScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    tvRepository: TvRepository
+    private val tvRepository: TvRepository
 ) : ViewModel() {
     val tvId = checkNotNull(savedStateHandle.get<Int>(TvIdArg))
     private val seasonNumber = checkNotNull(savedStateHandle.get<Int>(SeasonNumberArg))
@@ -37,11 +37,6 @@ internal class SeasonScreenViewModel @Inject constructor(
                             episodeDetails.episodeNumber == episodeNumber
                         }
 
-                    Log.d(
-                        "TAG",
-                        "getEpisode: No Bullshit epNo $episodeNumber episode $episode season ${seasonScreenUiState.season}"
-                    )
-
                     episodeDetailScreenUiState.value =
                         if (episode != null) EpisodeDetailScreenUiState.Success(episode) else
                             EpisodeDetailScreenUiState.Error("Episode does not exist")
@@ -51,12 +46,17 @@ internal class SeasonScreenViewModel @Inject constructor(
         return episodeDetailScreenUiState
     }
 
-    init {
+    fun refresh() {
+        _seasonScreenUiState.value = SeasonScreenUiState.Loading
         viewModelScope.launch {
             _seasonScreenUiState.value = tvRepository.getSeasonDetails(tvId, seasonNumber)
                 .fold({ SeasonScreenUiState.Success(it) }) {
                     SeasonScreenUiState.Error(it.message ?: "")
                 }
         }
+    }
+
+    init {
+        refresh()
     }
 }

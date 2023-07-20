@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keetr.snac.core.common.R
 import com.keetr.snac.core.model.Season
+import com.keetr.snac.core.ui.ErrorScreen
 import com.keetr.snac.core.ui.card.EpisodeCard
 import com.keetr.snac.core.ui.card.SeasonCard
 import com.keetr.snac.core.ui.carousel.PersonCarousel
@@ -57,21 +58,13 @@ internal fun TvDetailsScreen(
     onSeasonsExpand: () -> Unit,
     onCastExpand: () -> Unit,
     onCrewExpand: () -> Unit,
+    onRetry: () -> Unit,
     onBackPressed: () -> Unit,
     uiState: TvScreenUiState,
 ) {
     when (uiState) {
         is TvScreenUiState.Error -> {
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(16f.dp)
-                    .padding(top = 36f.dp)
-            ) {
-                Text(
-                    uiState.message, style = MaterialTheme.typography.headlineMedium
-                )
-            }
+            ErrorScreen(onRetry = onRetry)
         }
         TvScreenUiState.Loading -> ShowDetailsPlaceholder(onBackPressed = onBackPressed)
         is TvScreenUiState.Success -> {
@@ -323,6 +316,8 @@ private fun TvScreenPreview() {
             onBackPressed = {},
             onSeasonsExpand = {},
             onEpisodeCardTap = { _, _, _ -> },
-            onSeasonCardTap = { _, _ -> })
+            onSeasonCardTap = { _, _ -> },
+            onRetry = {}
+        )
     }
 }

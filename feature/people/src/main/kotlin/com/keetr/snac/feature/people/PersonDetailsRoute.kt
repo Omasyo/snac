@@ -24,6 +24,7 @@ internal fun PersonDetailsRoute(
         onBackPressed = onBackPressed,
         onActingCreditsExpand = onActingCreditsExpand,
         onOtherCreditsExpand = onOtherCreditsExpand,
+        onRetry = viewModel::refresh,
         uiState = uiState
     )
 }

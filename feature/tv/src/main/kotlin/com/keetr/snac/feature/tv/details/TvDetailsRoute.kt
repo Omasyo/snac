@@ -32,6 +32,7 @@ internal fun TvDetailsRoute(
         onCastExpand = onCastExpand,
         onCrewExpand = onCrewExpand,
         onBackPressed = onBackPressed,
+        onRetry = viewModel::refresh,
         uiState = uiState
     )
 }

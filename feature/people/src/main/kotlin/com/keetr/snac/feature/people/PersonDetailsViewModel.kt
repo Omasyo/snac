@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class PersonDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    peopleRepository: PeopleRepository,
+    private val peopleRepository: PeopleRepository,
 ) : ViewModel() {
     private val id = checkNotNull(savedStateHandle.get<Int>(PersonIdArg))
 
@@ -22,12 +22,17 @@ internal class PersonDetailsViewModel @Inject constructor(
         MutableStateFlow<PersonDetailsUiState>(PersonDetailsUiState.Loading)
     val personDetailsUiState: StateFlow<PersonDetailsUiState> = _personDetailsUiState
 
-    init {
+    fun refresh() {
+        _personDetailsUiState.value = PersonDetailsUiState.Loading
         viewModelScope.launch {
             _personDetailsUiState.value =
                 peopleRepository.getDetails(id).fold({ PersonDetailsUiState.Success(it) }) {
                     PersonDetailsUiState.Error(it)
                 }
         }
+    }
+
+    init {
+        refresh()
     }
 }

@@ -36,7 +36,7 @@ internal fun DiscoverScreen(
 ) {
     Surface(modifier) {
         LazyColumn(
-            contentPadding = PaddingValues(vertical = 16f.dp),
+            contentPadding = PaddingValues(bottom = 16f.dp),
             verticalArrangement = Arrangement.spacedBy(16f.dp)
         ) {
             items(SectionType.values(), { it.name }) { sectionType ->

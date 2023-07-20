@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class TvDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    tvRepository: TvRepository
+    private val tvRepository: TvRepository
 ) : ViewModel() {
     val id = checkNotNull(savedStateHandle.get<Int>(TvIdArg))
 
@@ -22,12 +22,17 @@ internal class TvDetailsViewModel @Inject constructor(
         MutableStateFlow<TvScreenUiState>(TvScreenUiState.Loading)
     val tvDetailsUiState: StateFlow<TvScreenUiState> = _tvDetailsUiState
 
-    init {
+    fun refresh() {
+        _tvDetailsUiState.value = TvScreenUiState.Loading
         viewModelScope.launch {
             _tvDetailsUiState.value =
                 tvRepository.getDetails(id).fold({ TvScreenUiState.Success(it) }) {
                     TvScreenUiState.Error(it.message ?: "")
                 }
         }
+    }
+
+    init {
+        refresh()
     }
 }

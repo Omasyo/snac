@@ -12,6 +12,7 @@ import androidx.paging.cachedIn
 import com.keetr.snac.core.data.repository.people.PeopleRepository
 import com.keetr.snac.core.data.repository.search.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,6 +36,7 @@ class SearchViewModel @Inject constructor(
     private val _active = mutableStateOf(false)
     val active: State<Boolean> = _active
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val searchResults  = temp.flatMapLatest { newQuery -> searchRepository.searchAllStream(newQuery).cachedIn(viewModelScope) }
 
     private var searchJob: Job? = null
@@ -57,6 +59,12 @@ class SearchViewModel @Inject constructor(
         if(!newStatus) {
             clearQuery()
         }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun refresh() {
+//        temp.resetReplayCache()
+//        temp.value = _query.value
     }
 
      fun searchAll() =

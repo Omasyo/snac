@@ -26,6 +26,7 @@ internal fun MovieDetailsRoute(
         onBackPressed = onBackPressed,
         onCastExpand = onCastExpand,
         onCrewExpand = onCrewExpand,
+        onRetry = viewModel::refresh,
         uiState = uiState
     )
 }

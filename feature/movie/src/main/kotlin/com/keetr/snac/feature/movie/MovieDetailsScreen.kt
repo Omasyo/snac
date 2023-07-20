@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keetr.snac.core.common.R
+import com.keetr.snac.core.ui.ErrorScreen
 import com.keetr.snac.core.ui.carousel.PersonCarousel
 import com.keetr.snac.core.ui.carousel.ShowCarousel
 import com.keetr.snac.core.ui.show.AboutDetails
@@ -36,21 +37,13 @@ internal fun MovieDetailsScreen(
     onPersonCardTap: (id: Int) -> Unit,
     onCastExpand: () -> Unit,
     onCrewExpand: () -> Unit,
+    onRetry: () -> Unit,
     onBackPressed: () -> Unit,
     uiState: MovieDetailsUiState,
 ) {
     when (uiState) {
         is MovieDetailsUiState.Error -> {
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(16f.dp)
-                    .padding(top = 36f.dp)
-            ) {
-                Text(
-                    uiState.error.message ?: "", style = MaterialTheme.typography.headlineMedium
-                )
-            }
+            ErrorScreen(onRetry = onRetry)
         }
 
         MovieDetailsUiState.Loading -> ShowDetailsPlaceholder(onBackPressed = onBackPressed)
@@ -207,6 +200,7 @@ private fun MovieScreenPreview() {
             onPersonCardTap = {},
             onCastExpand = {},
             onCrewExpand = {},
+            onRetry = {},
             onBackPressed = {})
     }
 }

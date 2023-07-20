@@ -16,7 +16,6 @@ internal fun SeasonRoute(
     viewModel: TvDetailsViewModel = hiltViewModel()
 ) {
     val tvId = viewModel.id
-    Log.d("TAG", "SeasonRoute: tvId is $tvId")
     val state = viewModel.tvDetailsUiState.collectAsState().value
 
     if (state is TvScreenUiState.Success) {

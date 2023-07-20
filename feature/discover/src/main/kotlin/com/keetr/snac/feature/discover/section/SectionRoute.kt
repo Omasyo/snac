@@ -20,6 +20,7 @@ internal fun SectionRoute(
         onMovieCardTap = onMovieCardTap,
         onTvCardTap = onTvCardTap,
         onBackPressed = onBackPressed,
+        onRetry = viewModel::refresh,
         pagingItems = viewModel.shows.collectAsLazyPagingItems()
     )
 }

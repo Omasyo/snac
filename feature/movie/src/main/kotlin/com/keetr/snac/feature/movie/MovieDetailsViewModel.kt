@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class MovieDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    movieRepository: MovieRepository,
+    private val movieRepository: MovieRepository,
 ) : ViewModel() {
     private val id = checkNotNull(savedStateHandle.get<Int>(MovieIdArg))
 
@@ -21,12 +21,17 @@ internal class MovieDetailsViewModel @Inject constructor(
         MutableStateFlow<MovieDetailsUiState>(MovieDetailsUiState.Loading)
     val movieDetailsUiState: StateFlow<MovieDetailsUiState> = _movieDetailsUiState
 
-    init {
+    fun refresh(){
+        _movieDetailsUiState.value = MovieDetailsUiState.Loading
         viewModelScope.launch {
             _movieDetailsUiState.value =
                 movieRepository.getDetails(id).fold({ MovieDetailsUiState.Success(it) }) {
                     MovieDetailsUiState.Error(it)
                 }
         }
+    }
+
+    init {
+        refresh()
     }
 }

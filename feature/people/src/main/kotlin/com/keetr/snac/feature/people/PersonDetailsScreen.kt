@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.keetr.snac.core.model.ShowType
+import com.keetr.snac.core.ui.ErrorScreen
 import com.keetr.snac.core.ui.ResizableHeaderScaffold
 import com.keetr.snac.core.ui.show.AboutDetails
 import com.keetr.snac.core.ui.show.separator
@@ -41,6 +42,7 @@ internal fun PeopleScreen(
     onTvCardTap: (id: Int) -> Unit,
     onActingCreditsExpand: () -> Unit,
     onOtherCreditsExpand: () -> Unit,
+    onRetry: () -> Unit,
     onBackPressed: () -> Unit,
     uiState: PersonDetailsUiState
 ) {
@@ -51,20 +53,8 @@ internal fun PeopleScreen(
 
     when (uiState) {
         is PersonDetailsUiState.Error -> {
-            // TODO
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(16f.dp)
-                    .padding(top = 36f.dp)
-            ) {
-                Text(
-                    uiState.error.message ?: "", style =
-                    MaterialTheme.typography.headlineMedium
-                )
-            }
+            ErrorScreen(onRetry = onRetry)
         }
-
         PersonDetailsUiState.Loading -> PersonDetailsPlaceholder()
         is PersonDetailsUiState.Success -> with(uiState.person) {
             ResizableHeaderScaffold(

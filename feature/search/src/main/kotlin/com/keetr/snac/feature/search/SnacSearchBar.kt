@@ -38,6 +38,7 @@ import androidx.paging.compose.itemKey
 import com.keetr.snac.core.model.Person
 import com.keetr.snac.core.model.Show
 import com.keetr.snac.core.model.ShowType
+import com.keetr.snac.core.ui.ErrorScreen
 import com.keetr.snac.core.ui.SnacClapper
 import com.keetr.snac.core.ui.card.PersonCard
 import com.keetr.snac.core.ui.card.ShowCard
@@ -65,6 +66,7 @@ fun SnacSearch(
         onMovieCardTap = onMovieCardTap,
         onTvCardTap = onTvCardTap,
         onPersonCardTap = onPersonCardTap,
+        onRetry = viewModel::refresh,
         pagingItems = viewModel.searchResults.collectAsLazyPagingItems()
     )
 }
@@ -82,6 +84,7 @@ fun SnacSearchBar(
     onMovieCardTap: (Int) -> Unit,
     onTvCardTap: (Int) -> Unit,
     onPersonCardTap: (Int) -> Unit,
+    onRetry: () -> Unit,
     pagingItems: LazyPagingItems<Any>
 ) {
     Box(modifier) {
@@ -126,9 +129,8 @@ fun SnacSearchBar(
         ) {
             when (pagingItems.loadState.refresh) {
                 is LoadState.Error -> {
-                    Text((pagingItems.loadState.refresh as LoadState.Error).error.toString())
+                    ErrorScreen(onRetry = onRetry)
                 }
-
                 LoadState.Loading -> {
                     Box(Modifier.fillMaxSize()) {
                         SnacClapper(

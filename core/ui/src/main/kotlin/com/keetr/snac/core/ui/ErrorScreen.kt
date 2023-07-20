@@ -44,7 +44,7 @@ fun ErrorScreen(
                 Spacer(Modifier.height(16f.dp))
                 Text("An error occured", style = MaterialTheme.typography.headlineSmall)
                 Spacer(Modifier.height(8f.dp))
-                Button(onClick = { /*TODO*/ }) {
+                FilledTonalButton(onClick = onRetry) {
                     Text(text = "Retry", modifier = Modifier.padding(horizontal = 16f.dp))
                 }
             }

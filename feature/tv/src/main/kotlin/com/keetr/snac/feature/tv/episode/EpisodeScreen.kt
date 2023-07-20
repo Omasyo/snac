@@ -1,8 +1,12 @@
 package com.keetr.snac.feature.tv.episode
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -13,9 +17,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keetr.snac.core.ui.GridScreenPlaceholder
+import com.keetr.snac.core.ui.SnacClapper
 import com.keetr.snac.core.ui.card.ShowCard
 import com.keetr.snac.core.ui.theme.SnacIcons
 import com.keetr.snac.core.ui.utils.plus
@@ -33,7 +40,14 @@ internal fun EpisodeScreen(
 ) {
     when (uiState) {
         is SeasonScreenUiState.Error -> TODO()
-        SeasonScreenUiState.Loading -> {}
+        SeasonScreenUiState.Loading -> {
+            Box(Modifier.fillMaxSize()) {
+                GridScreenPlaceholder(
+                    Modifier
+                        .padding(horizontal = 12f.dp, vertical = 16f.dp)
+                )
+            }
+        }
         is SeasonScreenUiState.Success -> with(uiState.season) {
             Scaffold(
                 modifier,
