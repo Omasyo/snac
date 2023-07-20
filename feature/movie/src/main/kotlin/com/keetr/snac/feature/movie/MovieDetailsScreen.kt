@@ -96,7 +96,7 @@ internal fun MovieDetailsScreen(
                                 category = stringResource(R.string.cast),
                                 people = cast,
                                 onExpand = onCastExpand,
-                                onPersonClicked = onPersonCardTap   
+                                onPersonClicked = onPersonCardTap
                             )
                         }
                     }

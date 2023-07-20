@@ -22,6 +22,7 @@ class AndroidComposeConventionPlugin: Plugin<Project> {
             dependencies{
                 "implementation"(platform(libs.findLibrary("androidx.compose.bom").get()))
                 "implementation"(libs.findLibrary("androidx.compose.ui").get())
+                "implementation"(libs.findLibrary("androidx.compose.animation.graphics").get())
                 "implementation"(libs.findLibrary("androidx.compose.ui.tooling.preview").get())
                 "implementation"(libs.findLibrary("androidx.compose.material3").get())
 
