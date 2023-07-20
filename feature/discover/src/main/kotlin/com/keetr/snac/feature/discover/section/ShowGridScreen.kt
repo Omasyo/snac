@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -31,6 +32,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.keetr.snac.core.model.Show
 import com.keetr.snac.core.model.ShowType
+import com.keetr.snac.core.ui.SnacClapper
 import com.keetr.snac.core.ui.card.ShowCard
 import com.keetr.snac.core.ui.theme.SnacIcons
 import com.keetr.snac.core.ui.theme.SnacTheme
@@ -91,10 +93,9 @@ internal fun ShowGridScreen(
                     if (pagingItems.loadState.append == LoadState.Loading) {
                         item {
                             Box(Modifier.aspectRatio(3f / 5f)) {
-                                CircularProgressIndicator(
+                                SnacClapper(
                                     modifier = Modifier
-                                        .fillMaxWidth()
-                                        .wrapContentWidth(Alignment.CenterHorizontally)
+                                        .fillMaxSize()
                                 )
                             }
                         }

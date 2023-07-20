@@ -21,7 +21,7 @@ fun SearchResultApiModel.toSearchResult(): Any = when (this) {
     is SearchPersonApiModel -> Person(
         id = id,
         name = name,
-        role = knownForDepartment,
+        role = knownForDepartment ?: "None",
         photoUrl = Api.BaseProfilePath + profilePath
 
     )

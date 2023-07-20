@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -37,6 +38,7 @@ import androidx.paging.compose.itemKey
 import com.keetr.snac.core.model.Person
 import com.keetr.snac.core.model.Show
 import com.keetr.snac.core.model.ShowType
+import com.keetr.snac.core.ui.SnacClapper
 import com.keetr.snac.core.ui.card.PersonCard
 import com.keetr.snac.core.ui.card.ShowCard
 import com.keetr.snac.core.ui.theme.SnacIcons
@@ -123,17 +125,20 @@ fun SnacSearchBar(
             }
         ) {
             when (pagingItems.loadState.refresh) {
-                is LoadState.Error -> { /*TODO*/
+                is LoadState.Error -> {
+                    Text((pagingItems.loadState.refresh as LoadState.Error).error.toString())
                 }
 
                 LoadState.Loading -> {
                     Box(Modifier.fillMaxSize()) {
-                        CircularProgressIndicator(Modifier.align(Alignment.Center))
+                        SnacClapper(
+                            Modifier
+                                .size(200f.dp, 200f.dp)
+                                .align(Alignment.Center))
                     }
                 }
 
                 is LoadState.NotLoading -> {
-
                     LazyVerticalGrid(
                         modifier = Modifier.fillMaxSize(),
                         columns = GridCells.Adaptive(96f.dp),
@@ -178,10 +183,9 @@ fun SnacSearchBar(
                         if (pagingItems.loadState.append == LoadState.Loading) {
                             item {
                                 Box(Modifier.aspectRatio(3f / 5f)) {
-                                    CircularProgressIndicator(
+                                    SnacClapper(
                                         modifier = Modifier
-                                            .fillMaxWidth()
-                                            .wrapContentWidth(Alignment.CenterHorizontally)
+                                            .fillMaxSize()
                                     )
                                 }
                             }

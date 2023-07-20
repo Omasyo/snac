@@ -11,7 +11,7 @@ data class SearchPersonApiModel(
 //    @SerialName("gender") val gender: Int,
     @SerialName("id") val id: Int,
 //    @SerialName("known_for") val knownFor: List<KnownForXX>,
-    @SerialName("known_for_department") val knownForDepartment: String,
+    @SerialName("known_for_department") val knownForDepartment: String?,
     @SerialName("media_type") val mediaType: String,
     @SerialName("name") val name: String,
 //    @SerialName("original_name") val originalName: String,
