@@ -33,7 +33,7 @@ internal class DefaultMovieRepository @Inject constructor(
                 val result = networkDataSource.getDetails(id, language).toMovie()
                 Result.success(result)
             } catch (exception: Exception) {
-                Log.d(TAG, "getDetails: $exception")
+                Log.e(TAG, "getDetails: $exception")
                 Result.failure(exception)
             }
         }
@@ -46,7 +46,7 @@ internal class DefaultMovieRepository @Inject constructor(
                 networkDataSource.getTrending(page, timeWindow.text, language).results.toShows()
             Result.success(results)
         } catch (exception: Exception) {
-            Log.d(TAG, "getTrending: $exception")
+            Log.e(TAG, "getTrending: $exception")
             Result.failure(exception)
         }
     }
@@ -115,7 +115,7 @@ internal class DefaultMovieRepository @Inject constructor(
             val results = func(page, language, region).results.toShows()
             Result.success(results)
         } catch (exception: Exception) {
-            Log.d(TAG, "getList: $exception")
+            Log.e(TAG, "getList: $exception")
             Result.failure(exception)
         }
     }

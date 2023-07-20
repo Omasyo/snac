@@ -37,7 +37,7 @@ internal class DefaultTvRepository @Inject constructor(
                 val result = networkDataSource.getDetails(id, language)
                 Result.success(result.toTv())
             } catch (exception: Exception) {
-                Log.d(TAG, "getDetails: $exception")
+                Log.e(TAG, "getDetails: $exception")
                 Result.failure(exception)
             }
         }
@@ -51,7 +51,7 @@ internal class DefaultTvRepository @Inject constructor(
             val results = networkDataSource.getTrending(page, timeWindow.text, language).results
             Result.success(results.toShows())
         } catch (exception: Exception) {
-            Log.d(TAG, "getTrending: $exception")
+            Log.e(TAG, "getTrending: $exception")
             Result.failure(exception)
         }
     }
@@ -106,7 +106,7 @@ internal class DefaultTvRepository @Inject constructor(
             val result = networkDataSource.getSeasonDetails(id, seasonNumber, language)
             Result.success(result.toSeasonWithEpisodes())
         } catch (exception: Exception) {
-            Log.d(TAG, "getSeasonDetails: $exception")
+            Log.e(TAG, "getSeasonDetails: $exception")
             Result.failure(exception)
         }
     }
@@ -121,7 +121,7 @@ internal class DefaultTvRepository @Inject constructor(
             val result = networkDataSource.getEpisodeDetails(id, seasonNumber, episodeNumber, language)
             Result.success(result.toEpisodeDetails())
         } catch (exception: Exception) {
-            Log.d(TAG, "getEpisodeDetails: $exception")
+            Log.e(TAG, "getEpisodeDetails: $exception")
             Result.failure(exception)
         }
     }
@@ -135,7 +135,7 @@ internal class DefaultTvRepository @Inject constructor(
             val results = func(page, language).results
             Result.success(results.toShows())
         } catch (exception: Exception) {
-            Log.d(TAG, "getList: $exception")
+            Log.e(TAG, "getList: $exception")
             Result.failure(exception)
         }
     }
@@ -150,7 +150,7 @@ internal class DefaultTvRepository @Inject constructor(
             val results = func(page, language, region).results
             Result.success(results.toShows())
         } catch (exception: Exception) {
-            Log.d(TAG, "getList: $exception")
+            Log.e(TAG, "getList: $exception")
             Result.failure(exception)
         }
     }

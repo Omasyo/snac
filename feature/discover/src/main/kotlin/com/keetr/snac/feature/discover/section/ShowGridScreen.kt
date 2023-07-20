@@ -59,7 +59,7 @@ internal fun ShowGridScreen(
         })
     }) { innerPadding ->
         when (pagingItems.loadState.refresh) {
-            is LoadState.Error -> { ErrorScreen(onRetry = onRetry) }
+            is LoadState.Error -> { ErrorScreen(onRetry = onRetry, onBackPressed = onBackPressed) }
             LoadState.Loading -> {
                 GridScreenPlaceholder(
                     Modifier

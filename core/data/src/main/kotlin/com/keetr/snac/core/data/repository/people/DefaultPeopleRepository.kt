@@ -21,7 +21,7 @@ class DefaultPeopleRepository @Inject constructor(
                 val result = networkDataSource.getDetails(id, language).toPersonDetails()
                 Result.success(result)
             } catch (exception: Exception) {
-                Log.d(TAG, "getDetails: $exception")
+                Log.e(TAG, "getDetails: $exception")
                 Result.failure(exception)
             }
         }

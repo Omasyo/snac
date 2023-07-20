@@ -64,7 +64,7 @@ internal fun TvDetailsScreen(
 ) {
     when (uiState) {
         is TvScreenUiState.Error -> {
-            ErrorScreen(onRetry = onRetry)
+            ErrorScreen(onRetry = onRetry, onBackPressed = onBackPressed)
         }
         TvScreenUiState.Loading -> ShowDetailsPlaceholder(onBackPressed = onBackPressed)
         is TvScreenUiState.Success -> {

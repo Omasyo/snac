@@ -129,7 +129,7 @@ fun SnacSearchBar(
         ) {
             when (pagingItems.loadState.refresh) {
                 is LoadState.Error -> {
-                    ErrorScreen(onRetry = onRetry)
+
                 }
                 LoadState.Loading -> {
                     Box(Modifier.fillMaxSize()) {

@@ -32,7 +32,7 @@ class DefaultSearchRepository @Inject constructor(
                 networkDataSource.searchAll(query, page, language, adult).results.toSearchResults()
             Result.success(result)
         } catch (exception: Exception) {
-            Log.d(TAG, "searchAll: $exception")
+            Log.e(TAG, "searchAll: $exception")
             Result.failure(exception)
         }
     }

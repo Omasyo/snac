@@ -53,7 +53,7 @@ internal fun PeopleScreen(
 
     when (uiState) {
         is PersonDetailsUiState.Error -> {
-            ErrorScreen(onRetry = onRetry)
+            ErrorScreen(onRetry = onRetry, onBackPressed = onBackPressed)
         }
         PersonDetailsUiState.Loading -> PersonDetailsPlaceholder()
         is PersonDetailsUiState.Success -> with(uiState.person) {
