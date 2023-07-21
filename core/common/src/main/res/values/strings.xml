@@ -54,4 +54,9 @@
 
     <string name="recommendations">Recommendations</string>
     <string name="similar">Similar</string>
+
+    <string name="search_shows">"Search for a Movie or Tv Show"</string>
+    
+    <string name="retry">Retry</string>
+    <string name="error_occurred">An error occurred</string>
 </resources>

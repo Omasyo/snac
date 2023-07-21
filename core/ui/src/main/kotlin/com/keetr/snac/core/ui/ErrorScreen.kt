@@ -19,10 +19,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keetr.snac.core.ui.theme.SnacIcons
 import com.keetr.snac.core.ui.theme.SnacTheme
+import com.keetr.snac.core.common.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,10 +59,10 @@ fun ErrorScreen(
                     .size(200f.dp)
             )
             Spacer(Modifier.height(16f.dp))
-            Text("An error occured", style = MaterialTheme.typography.headlineSmall)
+            Text(stringResource(R.string.error_occurred), style = MaterialTheme.typography.headlineSmall)
             Spacer(Modifier.height(8f.dp))
             FilledTonalButton(onClick = onRetry) {
-                Text(text = "Retry", modifier = Modifier.padding(horizontal = 16f.dp))
+                Text(stringResource(R.string.retry), modifier = Modifier.padding(horizontal = 16f.dp))
             }
             Spacer(Modifier.height(64f.dp))
         }
