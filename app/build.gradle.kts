@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("snac.android.hilt")
+    alias(libs.plugins.androidx.baselineprofile)
 }
 
 android {
@@ -84,6 +85,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
 
     implementation(libs.accompanist.navigation.animation)
+    implementation(libs.profileinstaller)
 
     testImplementation(libs.junit)
 
@@ -91,4 +93,5 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    "baselineProfile"(project(":baselineprofile"))
 }
