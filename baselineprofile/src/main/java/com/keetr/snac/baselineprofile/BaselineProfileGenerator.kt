@@ -51,9 +51,9 @@ class BaselineProfileGenerator {
 
             waitForHomeContent()
 
-            scrollDiscoverScreen()
-            seekTvShowJourney()
-            searchJourney()
+//            scrollDiscoverScreen()
+//            seekTvShowJourney()
+//            searchJourney()
         }
     }
 }
@@ -64,19 +64,24 @@ fun MacrobenchmarkScope.waitForHomeContent() {
     val sectionList = device.findObject(By.res("section_list"))
 //    contentList.wait(Until.hasObject(By.res("snack_collection")), 10_000)
 
-    sectionList.run {
-        for (section in SectionType.values()) {
-            wait(Until.hasObject(By.res("${section}_carousel")), 10_000)
-        }
-    }
+//    sectionList.run {
+//        for (section in SectionType.values()) {
+//            wait(Until.hasObject(By.res("${section}_carousel")), 10_000)
+//        }
+//    }
 }
 
 fun MacrobenchmarkScope.scrollDiscoverScreen() {
-    val sectionList = device.findObject(By.res("section_list"))
+    var sectionList = device.findObject(By.res("section_list"))
     // Set gesture margin to avoid triggering gesture navigation
     sectionList.setGestureMargin(device.displayWidth / 5)
-    sectionList.fling(Direction.DOWN)
-    sectionList.fling(Direction.UP)
+    sectionList.scrollUntil(Direction.DOWN, Until.scrollFinished(Direction.DOWN))
+
+    //TODO: possible recomposition making section list stale?
+    sectionList = device.findObject(By.res("section_list"))
+    // Set gesture margin to avoid triggering gesture navigation
+    sectionList.setGestureMargin(device.displayWidth / 5)
+    sectionList.scrollUntil(Direction.UP, Until.scrollFinished(Direction.UP))
 
     device.waitForIdle()
 }
@@ -93,10 +98,10 @@ fun MacrobenchmarkScope.seekTvShowJourney() {
 
     val tv = topRatedTvList.findObject(By.clickable(true))
     tv.click()
-    device.wait(Until.gone(By.res("section_list")), 5_000)
+    device.wait(Until.gone(By.res("section_list")), 10_000)
 
     device.pressBack()
-    device.wait(Until.hasObject(By.res("section_list")), 5_000)
+    device.wait(Until.hasObject(By.res("section_list")), 10_000)
 }
 
 fun MacrobenchmarkScope.searchJourney() {
@@ -104,7 +109,7 @@ fun MacrobenchmarkScope.searchJourney() {
     searchBar.click()
     device.waitForIdle()
 
-    searchBar.legacySetText("spider")
+    searchBar.text = "spider"
     searchBar.wait(Until.hasObject(By.res("search_results")), 10_000)
     val searchResults = searchBar.findObject(By.res("search_results"))
 
@@ -113,7 +118,7 @@ fun MacrobenchmarkScope.searchJourney() {
 
     val result = searchResults.findObject(By.clickable(true))
     result.click()
-    device.wait(Until.gone(By.res("search_bar")), 5_000)
+    device.wait(Until.gone(By.res("search_bar")), 10_000)
 
 //    device.pressBack()
 //    device.pressBack()

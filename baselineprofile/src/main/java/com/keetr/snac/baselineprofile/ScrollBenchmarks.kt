@@ -2,6 +2,7 @@ package com.keetr.snac.baselineprofile
 
 import androidx.benchmark.macro.BaselineProfileMode
 import androidx.benchmark.macro.CompilationMode
+import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
@@ -29,9 +30,9 @@ class ScrollBenchmarks {
     private fun benchmark(compilationMode: CompilationMode) {
         rule.measureRepeated(
             packageName = "com.keetr.snac",
-            metrics = listOf(StartupTimingMetric()),
+            metrics = listOf(FrameTimingMetric()),
             compilationMode = compilationMode,
-            startupMode = StartupMode.COLD,
+            startupMode = StartupMode.WARM,
             iterations = 10,
             setupBlock = {
                 pressHome()

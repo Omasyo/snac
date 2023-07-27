@@ -1,7 +1,10 @@
 package com.keetr.snac.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -36,9 +39,12 @@ import com.keetr.snac.feature.tv.tvCrewRoute
 import com.keetr.snac.feature.tv.tvRoute
 import com.keetr.snac.feature.tv.tvSeasonRoute
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SnacNavHost(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.semantics {
+        testTagsAsResourceId = true
+    },
     navController: NavHostController = rememberNavController(),
     navBarController: NavHostController = rememberNavController(),
 ) {
@@ -53,9 +59,11 @@ fun SnacNavHost(
             HomeNavHost(rootNavController = navController, navBarController = navBarController)
 
         }
-        sectionRoute(onMovieCardTap = onMovieCardTap,
+        sectionRoute(
+            onMovieCardTap = onMovieCardTap,
             onTvCardTap = onTvCardTap,
-            onBackPressed = navController::popBackStack)
+            onBackPressed = navController::popBackStack
+        )
 
         movieDetailsRoute(
             onMovieCardTap = onMovieCardTap,
@@ -82,7 +90,12 @@ fun SnacNavHost(
             onEpisodeCardTap = { tvId, seasonNumber, episodeNumber ->
                 navController.navigateToEpisodeDetails(tvId, seasonNumber, episodeNumber)
             },
-            onSeasonCardTap = { tvId, seasonNumber -> navController.navigateToTvEpisodes(tvId, seasonNumber) },
+            onSeasonCardTap = { tvId, seasonNumber ->
+                navController.navigateToTvEpisodes(
+                    tvId,
+                    seasonNumber
+                )
+            },
             onSeasonsExpand = { tvId -> navController.navigateToTvSeasons(tvId) },
             onCastExpand = { tvId -> navController.navigateToTvCast(tvId) },
             onCrewExpand = { tvId -> navController.navigateToTvCrew(tvId) },
@@ -97,13 +110,18 @@ fun SnacNavHost(
             onBackPressed = navController::popBackStack
         )
         tvSeasonRoute(
-            onSeasonCardTap = { tvId, seasonNumber -> navController.navigateToTvEpisodes(tvId, seasonNumber) },
+            onSeasonCardTap = { tvId, seasonNumber ->
+                navController.navigateToTvEpisodes(
+                    tvId,
+                    seasonNumber
+                )
+            },
             onBackPressed = navController::popBackStack
         )
 
         episodeRoute(
             onEpisodeTap = { tvId, seasonNumber, episodeNumber ->
-                           navController.navigateToEpisodeDetails(tvId,seasonNumber, episodeNumber)
+                navController.navigateToEpisodeDetails(tvId, seasonNumber, episodeNumber)
             },
             onBackPressed = navController::popBackStack
         )
@@ -125,7 +143,7 @@ fun SnacNavHost(
             onPersonCardTap = onPersonCardTap,
             onBackPressed = navController::popBackStack
         )
-        
+
         personDetailsRoute(
             onMovieCardTap = onMovieCardTap,
             onTvCardTap = onTvCardTap,
@@ -139,13 +157,17 @@ fun SnacNavHost(
         )
 
 
-        personCastRoute(onMovieCardTap = onMovieCardTap,
+        personCastRoute(
+            onMovieCardTap = onMovieCardTap,
             onTvCardTap = onTvCardTap,
-            onBackPressed = navController::popBackStack)
+            onBackPressed = navController::popBackStack
+        )
 
-        personCrewRoute(onMovieCardTap = onMovieCardTap,
+        personCrewRoute(
+            onMovieCardTap = onMovieCardTap,
             onTvCardTap = onTvCardTap,
-            onBackPressed = navController::popBackStack)
+            onBackPressed = navController::popBackStack
+        )
 
     }
 }
