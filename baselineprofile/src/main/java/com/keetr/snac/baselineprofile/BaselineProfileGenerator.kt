@@ -1,7 +1,11 @@
 package com.keetr.snac.baselineprofile
 
+import android.view.KeyEvent
+import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.MacrobenchmarkScope
+import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.BaselineProfileRule
+import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.uiautomator.By
@@ -11,6 +15,7 @@ import com.keetr.snac.core.model.SectionType
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.regex.Pattern
 
 /**
  * This test class generates a basic startup baseline profile for the target package.
@@ -51,9 +56,9 @@ class BaselineProfileGenerator {
 
             waitForHomeContent()
 
-//            scrollDiscoverScreen()
+            scrollDiscoverScreen()
 //            seekTvShowJourney()
-//            searchJourney()
+            searchJourney()
         }
     }
 }
@@ -75,26 +80,32 @@ fun MacrobenchmarkScope.scrollDiscoverScreen() {
     var sectionList = device.findObject(By.res("section_list"))
     // Set gesture margin to avoid triggering gesture navigation
     sectionList.setGestureMargin(device.displayWidth / 5)
-    sectionList.scrollUntil(Direction.DOWN, Until.scrollFinished(Direction.DOWN))
+//    sectionList.scrollUntil(Direction.DOWN, Until.scrollFinished(Direction.DOWN))
+    sectionList.fling(Direction.DOWN)
 
     //TODO: possible recomposition making section list stale?
     sectionList = device.findObject(By.res("section_list"))
     // Set gesture margin to avoid triggering gesture navigation
     sectionList.setGestureMargin(device.displayWidth / 5)
-    sectionList.scrollUntil(Direction.UP, Until.scrollFinished(Direction.UP))
+//    sectionList.scrollUntil(Direction.UP, Until.scrollFinished(Direction.UP))
+    sectionList.fling(Direction.UP)
 
     device.waitForIdle()
 }
 
 fun MacrobenchmarkScope.seekTvShowJourney() {
     val sectionList = device.findObject(By.res("section_list"))
+    //TODO: sectionlist doesn't scroll to the end possible recompositon
+//    sectionList.scrollUntil(Direction.DOWN, Until.findObject(By.res("${SectionType.TvTopRated}_carousel")))
     sectionList.fling(Direction.DOWN)
     device.waitForIdle()
 
-    val topRatedTvList = sectionList.findObject(By.res("${SectionType.TvTopRated}_carousel"))
-    topRatedTvList.setGestureMargin(device.displayWidth/5)
+    //TODO: to make GMDs work properly
+    val topRatedTvList = sectionList.findObject(By.res(Pattern.compile(".+_carousel")))
+//    val topRatedTvList = sectionList.findObject(By.res("${SectionType.TvTopRated}_carousel"))
+    topRatedTvList.setGestureMargin(device.displayWidth / 5)
     topRatedTvList.fling(Direction.RIGHT)
-//    device.waitForIdle()
+    device.waitForIdle()
 
     val tv = topRatedTvList.findObject(By.clickable(true))
     tv.click()
@@ -109,10 +120,20 @@ fun MacrobenchmarkScope.searchJourney() {
     searchBar.click()
     device.waitForIdle()
 
-    searchBar.text = "spider"
-    searchBar.wait(Until.hasObject(By.res("search_results")), 10_000)
-    val searchResults = searchBar.findObject(By.res("search_results"))
+//    searchBar.text = "spider"
+    device.pressKeyCodes(
+        intArrayOf(
+            KeyEvent.KEYCODE_A,
+            KeyEvent.KEYCODE_S,
+//            KeyEvent.KEYCODE_P,
+//            KeyEvent.KEYCODE_I,
+//            KeyEvent.KEYCODE_D
+        )
+    )
+    searchBar.wait(Until.gone(By.res("loader")), 10_000)
+    device.pressBack()
 
+    val searchResults = searchBar.findObject(By.res("search_results"))
     searchResults.fling(Direction.DOWN)
 //    device.waitForIdle()
 

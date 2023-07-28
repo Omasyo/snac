@@ -58,6 +58,7 @@ fun SnacSearch(
 
     SnacSearchBar(
         modifier = modifier
+            .testTag("loader")
             .fillMaxWidth()
             .padding(bottom = 8f.dp)
             .zIndex(1f),
