@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,6 +37,7 @@ internal fun DiscoverScreen(
 ) {
     Surface(modifier) {
         LazyColumn(
+            modifier = Modifier.testTag("section_list"),
             contentPadding = PaddingValues(bottom = 16f.dp),
             verticalArrangement = Arrangement.spacedBy(16f.dp)
         ) {
@@ -53,6 +55,7 @@ internal fun DiscoverScreen(
                         ShowCarouselUiState.Loading -> SectionPlaceholder()
                         is ShowCarouselUiState.Success -> {
                             ShowCarousel(
+                                modifier = Modifier.testTag("${sectionType}_carousel"),
                                 name = sectionType.title,
                                 type = sectionType.showType,
                                 shows = uiState.shows,

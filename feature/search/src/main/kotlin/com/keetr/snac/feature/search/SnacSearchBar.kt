@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -105,7 +106,7 @@ fun SnacSearchBar(
                     transitionSpec = {
                         fadeIn(animationSpec = tween(150, 150)) with
                                 fadeOut(animationSpec = tween(150))
-                    }
+                    }, label = ""
                 ) { active ->
                     when {
                         active -> IconButton(onClick = { onActiveChange(false) }) {
@@ -144,7 +145,7 @@ fun SnacSearchBar(
 
                 is LoadState.NotLoading -> {
                     LazyVerticalGrid(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier.testTag("search_results").fillMaxSize(),
                         columns = GridCells.Adaptive(96f.dp),
                         contentPadding = PaddingValues(16f.dp),
                         horizontalArrangement = Arrangement.spacedBy(8f.dp),

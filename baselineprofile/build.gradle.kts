@@ -12,12 +12,12 @@ android {
     compileSdk = 34
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 
     defaultConfig {
@@ -30,10 +30,10 @@ android {
     targetProjectPath = ":app"
 
     testOptions.managedDevices.devices {
-        create<ManagedVirtualDevice>("pixel6Api34") {
+        create<ManagedVirtualDevice>("pixel6Api31") {
             device = "Pixel 6"
-            apiLevel = 34
-            systemImageSource = "google"
+            apiLevel = 31
+            systemImageSource = "aosp"
         }
     }
 }
@@ -41,11 +41,13 @@ android {
 // This is the configuration block for the Baseline Profile plugin.
 // You can specify to run the generators on a managed devices or connected devices.
 baselineProfile {
-    managedDevices += "pixel6Api34"
+    managedDevices += "pixel6Api31"
     useConnectedDevices = false
 }
 
 dependencies {
+    implementation(project(":core:model"))
+
     implementation(libs.androidx.test.ext.junit)
     implementation(libs.androidx.test.espresso.core)
     implementation(libs.uiautomator)

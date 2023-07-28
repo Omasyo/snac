@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -37,6 +38,7 @@ fun HomeNavHost(
         modifier,
         topBar = {
             SnacSearch(
+                modifier = Modifier.testTag("search_bar"),
                 onMovieCardTap = { id -> rootNavController.navigateToMovieDetails(id) },
                 onTvCardTap = { id -> rootNavController.navigateToTvRoute(id) },
                 onPersonCardTap = { id -> rootNavController.navigateToPersonDetails(id) }

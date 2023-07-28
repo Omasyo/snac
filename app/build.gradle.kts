@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.keetr.snac"
-    compileSdk = 33
+    compileSdk = 34
 
     signingConfigs {
         create("release") {
