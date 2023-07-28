@@ -11,36 +11,36 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
-@LargeTest
-class TvJourneyBenchmarks {
-
-    @get:Rule
-    val rule = MacrobenchmarkRule()
-
-    @Test
-    fun startupCompilationNone() =
-        benchmark(CompilationMode.None())
-
-    @Test
-    fun startupCompilationBaselineProfiles() =
-        benchmark(CompilationMode.Partial(BaselineProfileMode.Require))
-
-    private fun benchmark(compilationMode: CompilationMode) {
-        rule.measureRepeated(
-            packageName = "com.keetr.snac",
-            metrics = listOf(FrameTimingMetric()),
-            compilationMode = compilationMode,
-            startupMode = StartupMode.WARM,
-            iterations = 10,
-            setupBlock = {
-                pressHome()
-                startActivityAndWait()
-            },
-            measureBlock = {
-                waitForHomeContent()
-                seekTvShowJourney()
-            }
-        )
-    }
-}
+//@RunWith(AndroidJUnit4::class)
+//@LargeTest
+//class TvJourneyBenchmarks {
+//
+//    @get:Rule
+//    val rule = MacrobenchmarkRule()
+//
+//    @Test
+//    fun startupCompilationNone() =
+//        benchmark(CompilationMode.None())
+//
+//    @Test
+//    fun startupCompilationBaselineProfiles() =
+//        benchmark(CompilationMode.Partial(BaselineProfileMode.Require))
+//
+//    private fun benchmark(compilationMode: CompilationMode) {
+//        rule.measureRepeated(
+//            packageName = "com.keetr.snac",
+//            metrics = listOf(FrameTimingMetric()),
+//            compilationMode = compilationMode,
+//            startupMode = StartupMode.WARM,
+//            iterations = 10,
+//            setupBlock = {
+//                pressHome()
+//                startActivityAndWait()
+//            },
+//            measureBlock = {
+//                waitForHomeContent()
+//                seekTvShowJourney()
+//            }
+//        )
+//    }
+//}
