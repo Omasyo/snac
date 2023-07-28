@@ -11,7 +11,7 @@ class StartupProfileGenerator {
     @Test
     fun startup() =
         baselineProfileRule.collect(
-            packageName = "com.example.app",
+            packageName = "com.keetr.snac",
             includeInStartupProfile = true
         ) {
             // This scenario just starts the activity and waits for it to draw
