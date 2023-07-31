@@ -7,5 +7,10 @@
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
-
+    <style name="Theme.Snac.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+<!--        <item name="windowSplashScreenAnimationDuration">1100</item>-->
+        <item name="postSplashScreenTheme">@style/Theme.Snac</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/branding_image</item>
+    </style>
 </resources>

@@ -76,6 +76,7 @@ dependencies {
     implementation(project(":feature:tv"))
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
     implementation(platform(libs.kotlin.bom))
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 

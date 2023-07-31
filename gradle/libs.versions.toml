@@ -10,6 +10,7 @@ androidxJunitExt = "1.1.5"
 androidxRoom = "2.5.2"
 androidxPaging = "3.2.0"
 androidxTestRunner = "1.5.2"
+androidXSplashScreen = "1.0.0-beta02"
 autonomouseappsDependencyAnalysis = "1.20.0"
 coil = "2.4.0"
 composeBom = "2023.06.01"
@@ -60,6 +61,7 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "u
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHilt" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "androidxPaging" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "andriodxCore" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidXSplashScreen" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidxRoom" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunitExt" }
