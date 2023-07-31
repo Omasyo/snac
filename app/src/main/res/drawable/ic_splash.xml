@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="192dp"
+    android:height="192dp"
+    android:viewportWidth="192"
+    android:viewportHeight="192">
+
+    <group
+        android:pivotX="54"
+        android:pivotY="96"
+        android:rotation="-6"
+        android:translateX="-8">
+        <group android:name="bottom">
+            <path android:pathData="M50.0001 100C48.8956 100 48.0001 100.895 48.0001 102V146C48.0001 147.105 48.8956 148 50.0001 148H142C143.105 148 144 147.105 144 146V102C144 100.895 143.105 100 142 100H50.0001ZM56.0001 108H136V126.842H56.0001V108Z">
+                <aapt:attr name="android:fillColor">
+                    <gradient
+                        android:endX="106"
+                        android:endY="185"
+                        android:startX="48"
+                        android:startY="80"
+                        android:type="linear">
+                        <item
+                            android:color="#FF4DD9E6"
+                            android:offset="0" />
+                        <item
+                            android:color="#FF006971"
+                            android:offset="1" />
+                    </gradient>
+                </aapt:attr>
+            </path>
+        </group>
+        <group
+            android:name="top"
+            android:pivotX="54"
+            android:pivotY="104"
+            android:rotation="-20">
+            <path android:pathData="M50.0001 80C48.8956 80 48.0001 80.8954 48.0001 82V106C48.0001 107.105 48.8956 108 50.0001 108H142C143.105 108 144 107.105 144 106V82C144 80.8955 143.105 80 142 80H50.0001ZM56.0001 88H61.4708L56.0001 95.75V88ZM71.2618 88H78.2716L69.8009 100H62.7911L71.2618 88ZM88.0626 88H95.0704L86.5997 100H79.5919L88.0626 88ZM104.861 88H111.871L103.401 100H96.3907L104.861 88ZM121.662 88H128.67L120.199 100H113.192L121.662 88ZM136 91.4902V100H129.992L136 91.4902Z">
+                <aapt:attr name="android:fillColor">
+                    <gradient
+                        android:endX="68"
+                        android:endY="167"
+                        android:startX="46"
+                        android:startY="89"
+                        android:type="linear">
+                        <item
+                            android:color="#FF4DD9E6"
+                            android:offset="0" />
+                        <item
+                            android:color="#FF006971"
+                            android:offset="1" />
+                    </gradient>
+                </aapt:attr>
+            </path>
+        </group>
+    </group>
+</vector>
