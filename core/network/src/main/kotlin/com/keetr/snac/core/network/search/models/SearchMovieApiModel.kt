@@ -22,4 +22,4 @@ data class SearchMovieApiModel(
 //    @SerialName("video") val video: Boolean,
     @SerialName("vote_average") val voteAverage: Double,
     @SerialName("vote_count") val voteCount: Int
-): SearchResultApiModel()
+): SearchResultApiModel

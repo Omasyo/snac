@@ -5,4 +5,4 @@ import kotlinx.serialization.json.JsonClassDiscriminator
 
 @Serializable
 @JsonClassDiscriminator("media_type")
-sealed class SearchResultApiModel
+sealed interface SearchResultApiModel

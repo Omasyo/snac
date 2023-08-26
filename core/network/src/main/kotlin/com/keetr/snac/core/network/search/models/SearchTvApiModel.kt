@@ -22,4 +22,4 @@ data class SearchTvApiModel(
     @SerialName("poster_path") val posterPath: String?,
     @SerialName("vote_average") val voteAverage: Double,
     @SerialName("vote_count") val voteCount: Int
-) : SearchResultApiModel()
+) : SearchResultApiModel

@@ -17,4 +17,4 @@ data class SearchPersonApiModel(
 //    @SerialName("original_name") val originalName: String,
     @SerialName("popularity") val popularity: Double,
     @SerialName("profile_path") val profilePath: String?
-): SearchResultApiModel()
+): SearchResultApiModel
