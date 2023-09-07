@@ -41,7 +41,7 @@ internal fun DiscoverScreen(
             contentPadding = PaddingValues(bottom = 16f.dp),
             verticalArrangement = Arrangement.spacedBy(16f.dp)
         ) {
-            items(SectionType.values(), { it.name }) { sectionType ->
+            items(SectionType.entries, { it.name }) { sectionType ->
                 AnimatedContent(
                     targetState = showCarouselUiStates[sectionType] ?: ShowCarouselUiState.Error,
                     label = "$sectionType show carousel"
