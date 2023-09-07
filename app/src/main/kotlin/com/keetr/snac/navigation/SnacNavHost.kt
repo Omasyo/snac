@@ -42,9 +42,7 @@ import com.keetr.snac.feature.tv.tvSeasonRoute
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SnacNavHost(
-    modifier: Modifier = Modifier.semantics {
-        testTagsAsResourceId = true
-    },
+    modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     navBarController: NavHostController = rememberNavController(),
 ) {
@@ -53,7 +51,11 @@ fun SnacNavHost(
     val onPersonCardTap = { id: Int -> navController.navigateToPersonDetails(id) }
 
     NavHost(
-        navController = navController, startDestination = SnacRoutes.Root.route, modifier = modifier
+        navController = navController,
+        startDestination = SnacRoutes.Root.route,
+        modifier = modifier.semantics {
+            testTagsAsResourceId = true
+        }
     ) {
         composable(SnacRoutes.Root.route) {
             HomeNavHost(rootNavController = navController, navBarController = navBarController)

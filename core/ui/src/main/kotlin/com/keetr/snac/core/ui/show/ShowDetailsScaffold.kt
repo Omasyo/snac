@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -192,15 +193,15 @@ fun Tagline(tagline: String, modifier: Modifier) {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun Tags(keywords: List<Keyword>, modifier: Modifier) {
+fun Tags(keywords: List<Keyword>, modifier: Modifier = Modifier) {
     ShowSection(
         stringResource(R.string.tags),
-        Modifier.padding(horizontal = 16f.dp)
+        modifier = modifier
     ) {
         FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(
-                8f.dp
-            )
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8f.dp),
+            verticalArrangement = Arrangement.spacedBy(4f.dp)
         ) {
             for (keyword in keywords) {
                 Box(

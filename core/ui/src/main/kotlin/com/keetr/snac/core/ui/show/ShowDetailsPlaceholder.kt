@@ -20,14 +20,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keetr.snac.core.ui.ResizableHeaderScaffold
 import com.keetr.snac.core.ui.utils.fadePlaceholder
 
+@Preview
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ShowDetailsPlaceholder(
-    modifier: Modifier = Modifier, onBackPressed: () -> Unit
+    modifier: Modifier = Modifier, onBackPressed: () -> Unit = {}
 ) {
     ResizableHeaderScaffold(
         modifier,
@@ -105,7 +107,8 @@ fun ShowDetailsPlaceholder(
                 Spacer(Modifier.height(4f.dp))
                 FlowRow(
                     Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(16f.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8f.dp, Alignment.CenterHorizontally),
+                    verticalArrangement = Arrangement.spacedBy(4f.dp)
                 ) {
                     repeat(12) {
                         Box(

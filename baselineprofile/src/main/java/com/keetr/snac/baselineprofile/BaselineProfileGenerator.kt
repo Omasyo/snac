@@ -87,7 +87,7 @@ fun MacrobenchmarkScope.scrollDiscoverScreen() {
     sectionList = device.findObject(By.res("section_list"))
     // Set gesture margin to avoid triggering gesture navigation
     sectionList.setGestureMargin(device.displayWidth / 5)
-//    sectionList.scrollUntil(Direction.UP, Until.scrollFinished(Direction.UP))
+    sectionList.scrollUntil(Direction.UP, Until.scrollFinished(Direction.UP))
     sectionList.fling(Direction.UP)
 
     device.waitForIdle()

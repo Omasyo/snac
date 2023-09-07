@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -254,7 +255,9 @@ private fun SeasonCarousel(
     tvId: Int,
     onExpand: () -> Unit,
     onSeasonCardTap: (id: Int, seasonNumber: Int) -> Unit,
-    pagerState: PagerState = rememberPagerState(initialPage = seasons.lastIndex)
+    pagerState: PagerState = rememberPagerState(initialPage = seasons.lastIndex) {
+        seasons.size
+    }
 ) {
     Column(modifier) {
         Row(
@@ -274,7 +277,6 @@ private fun SeasonCarousel(
         }
         HorizontalPager(
             state = pagerState,
-            pageCount = seasons.size,
             contentPadding = PaddingValues(horizontal = 16f.dp),
             pageSpacing = 32f.dp,
             modifier = Modifier.height(176f.dp),
